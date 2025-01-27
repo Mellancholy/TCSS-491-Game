@@ -1,4 +1,4 @@
-class OrderStation {
+class OrderStationBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 
@@ -14,7 +14,7 @@ class OrderStation {
     };
 }
 
-class RiceStation {
+class RiceStationBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 
@@ -30,7 +30,7 @@ class RiceStation {
     };
 }
 
-class RollStation {
+class RollStationBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 
@@ -46,7 +46,7 @@ class RollStation {
     };
 }
 
-class SidesStation {
+class SidesStationBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 

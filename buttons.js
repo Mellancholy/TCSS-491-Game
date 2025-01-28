@@ -13,9 +13,9 @@ class Buttons {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.orderButton, 102, 500);
-        ctx.drawImage(this.riceButton, 318, 500);
-        ctx.drawImage(this.rollButton, 534, 500);
-        ctx.drawImage(this.sidesButton, 750, 500);
+        ctx.drawImage(this.orderButton, 102, 636);
+        ctx.drawImage(this.riceButton, 318, 636);
+        ctx.drawImage(this.rollButton, 534, 636);
+        ctx.drawImage(this.sidesButton, 750, 636);
     }
 }

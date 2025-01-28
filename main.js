@@ -22,7 +22,7 @@ ASSET_MANAGER.downloadAll(() => {
 
 	gameEngine.init(ctx);
 
-	//new SceneManager(gameEngine);
+	new SceneManager(gameEngine);
 
 	gameEngine.start();
 

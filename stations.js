@@ -1,15 +1,19 @@
 var orderStation = {
-    stationType: "order"
-}
+    stationType: "order",
+    buttons: true
+};
 
 var riceStation = {
-    stationType: "rice"
-}
+    stationType: "rice",
+    buttons: true
+};
 
 var rollStation = {
-    stationType: "roll"
-}
+    stationType: "roll",
+    buttons: true
+};
 
 var sideStation = {
-    stationType: "side"
-}
+    stationType: "side",
+    buttons: true
+};

@@ -2,7 +2,7 @@ class SceneManager {
     constructor(game){
         this.game = game;
 
-        //this.loadStation(orderStation, false)
+        this.loadStation(orderStation, false)
     };
 
     loadStation(station, transition) {
@@ -18,6 +18,10 @@ class SceneManager {
             } else if (station.stationType == "side") {
                 this.game.addEntity(new SidesStationBg(this.game, 0, 0));
             }
+
+            if (station.buttons) {
+                this.game.addEntity(new Buttons(this.game, 0, 0))
+            }
             
         }
     };
@@ -27,8 +31,7 @@ class SceneManager {
     };
 
     draw(ctx) {
-        ctx.fillStyle = "White";
-        ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/buttons/Order_Button.JPG", 0, 0));
+        
     };
 
 }

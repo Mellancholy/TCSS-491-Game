@@ -1,11 +1,11 @@
 class SceneManager {
     constructor(game){
         this.game = game;
-
-        this.loadStation(orderStation, false);
+        this.title = true;
     };
 
-    loadStation(station, transition) {
+    loadStation(station, transition, title) {
+        this.title = title;
         if (transition) {
             
         } else {
@@ -45,7 +45,9 @@ class SceneManager {
     };
 
     draw(ctx) {
-        
+        if (this.title) {
+            ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/title/Title.png"), 0, 0);
+        }
     };
 
 }

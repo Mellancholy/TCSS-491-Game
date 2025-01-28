@@ -16,6 +16,10 @@ ASSET_MANAGER.queueDownload("./sprites/button/Roll_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Side_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Order_Button.JPG");
 
+// title assets
+ASSET_MANAGER.queueDownload("./sprites/title/Title.png");
+ASSET_MANAGER.queueDownload("./sprites/title/TitleTransitionIn.mp4");
+
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");

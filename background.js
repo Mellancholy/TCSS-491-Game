@@ -10,7 +10,6 @@ class OrderStationBg {
     };
 
     draw(ctx) {
-        console.log("bg drawn");
         ctx.drawImage(this.spritesheet, 0, 0);
     };
 }

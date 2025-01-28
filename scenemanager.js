@@ -27,7 +27,21 @@ class SceneManager {
     };
 
     update() {
-
+        console.log("SceneManager Update");
+        if (this.game.click) {
+            if (this.game.click.x >= 102 && this.game.click.x <= 274 && this.game.click.y >= 500 && this.game.click.y <= 564) {
+                this.loadStation(orderStation);
+            }
+            if (this.game.click.x >= 318 && this.game.click.x <= 490 && this.game.click.y >= 500 && this.game.click.y <= 564) {
+                this.loadStation(riceStation);
+            }
+            if (this.game.click.x >= 534 && this.game.click.x <= 706 && this.game.click.y >= 500 && this.game.click.y <= 564) {
+                this.loadStation(rollStation);
+            }
+            if (this.game.click.x >= 750 && this.game.click.x <= 922 && this.game.click.y >= 500 && this.game.click.y <= 564) {
+                this.loadStation(sideStation);
+            }
+        }
     };
 
     draw(ctx) {

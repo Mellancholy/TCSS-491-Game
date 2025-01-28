@@ -16,6 +16,15 @@ ASSET_MANAGER.queueDownload("./sprites/button/Roll_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Side_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Order_Button.JPG");
 
+//Wash that rice
+ASSET_MANAGER.queueDownload('./assets/hand.png');
+ASSET_MANAGER.queueDownload('./assets/pot_top.png');
+ASSET_MANAGER.queueDownload('./assets/pot_top_outside.png');
+ASSET_MANAGER.queueDownload('./assets/rotate.png');
+ASSET_MANAGER.queueDownload('./assets/checkmark.png');
+
+ASSET_MANAGER.queueDownload('./assets/jingle.mp3');
+
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");

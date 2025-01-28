@@ -12,6 +12,10 @@ class GameEngine {
         // Information on the input
         this.click = null;
         this.mouse = null;
+        this.previousMousePositionsDelay = 3;
+        this.previousMousePositionsDelayCounter = 0;
+        this.previousMousePositions = [];
+        this.previousMousePositionsLatest = 0;
         this.wheel = null;
         this.keys = {};
 
@@ -51,6 +55,16 @@ class GameEngine {
                 console.log("MOUSE_MOVE", getXandY(e));
             }
             this.mouse = getXandY(e);
+            this.previousMousePositionsDelayCounter++;
+
+            if(this.previousMousePositionsDelayCounter >= this.previousMousePositionsDelay) {
+                if (this.previousMousePositions.length >= 15) {
+                    this.previousMousePositions.shift();
+                }
+                this.previousMousePositions.push(this.mouse);
+                this.previousMousePositionsDelayCounter = 0;
+                this.previousMousePositionsLatest = this.timer.gameTime
+            }
         });
 
         // function mouseClickListener (e) {

@@ -17,5 +17,7 @@ class Buttons {
         ctx.drawImage(this.riceButton, 318, 636);
         ctx.drawImage(this.rollButton, 534, 636);
         ctx.drawImage(this.sidesButton, 750, 636);
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(950, 636, 50, 50);
     }
 }

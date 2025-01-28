@@ -8,6 +8,12 @@ const params = { };
 const randomInt = n => Math.floor(Math.random() * n);
 
 /**
+ * @param {Number} n
+ * @returns Random Number Between start and end
+ */
+const randomIntRange = (start, end) => Math.random() * (end - start) + start;
+
+/**
  * @param {Number} r Red Value
  * @param {Number} g Green Value
  * @param {Number} b Blue Value

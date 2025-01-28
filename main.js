@@ -11,10 +11,10 @@ ASSET_MANAGER.queueDownload("./sprites/backgrounds/Sides_Background.JPG");
 ASSET_MANAGER.queueDownload("./sprites/backgrounds/Order_Background.JPG");
 
 // buttons
-ASSET_MANAGER.queueDownload("./sprites/buttons/Rice_Button.JPG");
-ASSET_MANAGER.queueDownload("./sprites/buttons/Roll_Button.JPG");
-ASSET_MANAGER.queueDownload("./sprites/buttons/Sides_Button.JPG");
-ASSET_MANAGER.queueDownload("./sprites/buttons/Order_Button.JPG");
+ASSET_MANAGER.queueDownload("./sprites/button/Rice_Button.JPG");
+ASSET_MANAGER.queueDownload("./sprites/button/Roll_Button.JPG");
+ASSET_MANAGER.queueDownload("./sprites/button/Side_Button.JPG");
+ASSET_MANAGER.queueDownload("./sprites/button/Order_Button.JPG");
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");

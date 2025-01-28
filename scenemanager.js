@@ -2,7 +2,7 @@ class SceneManager {
     constructor(game){
         this.game = game;
 
-        this.loadStation(orderStation, false)
+        this.loadStation(orderStation, false);
     };
 
     loadStation(station, transition) {

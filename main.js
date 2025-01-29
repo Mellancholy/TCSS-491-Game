@@ -15,6 +15,11 @@ ASSET_MANAGER.queueDownload("./sprites/button/Rice_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Roll_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Side_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Order_Button.JPG");
+ASSET_MANAGER.queueDownload("./sprites/button/Start_Button.JPG");
+
+// title
+ASSET_MANAGER.queueDownload("./sprites/title/Title.png");
+ASSET_MANAGER.queueDownload("./sprites/title/TitleTransitionIn.mp4");
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");

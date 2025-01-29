@@ -1,8 +1,7 @@
 class SceneManager {
     constructor(game){
         this.game = game;
-
-        this.loadStation(orderStation, false);
+        this.title = true;
     };
 
     loadStation(station, transition) {
@@ -28,24 +27,36 @@ class SceneManager {
 
     update() {
         console.log("SceneManager Update");
+        if (!this.title) {
+            if (this.game.click) {
+                if (this.game.click.x >= 102 && this.game.click.x <= 274 && this.game.click.y >= 636 && this.game.click.y <= 700) {
+                    this.loadStation(orderStation);
+                }
+                if (this.game.click.x >= 318 && this.game.click.x <= 490 && this.game.click.y >= 636 && this.game.click.y <= 700) {
+                    this.loadStation(riceStation);
+                }
+                if (this.game.click.x >= 534 && this.game.click.x <= 706 && this.game.click.y >= 636 && this.game.click.y <= 700) {
+                    this.loadStation(rollStation);
+                }
+                if (this.game.click.x >= 750 && this.game.click.x <= 922 && this.game.click.y >= 636 && this.game.click.y <= 700) {
+                    this.loadStation(sideStation);
+                }
+            }
+        }
+
         if (this.game.click) {
-            if (this.game.click.x >= 102 && this.game.click.x <= 274 && this.game.click.y >= 636 && this.game.click.y <= 700) {
+            if (this.game.click.x >= 426 && this.game.click.x <= 598 && this.game.click.y >= 412 && this.game.click.y <= 476) {
                 this.loadStation(orderStation);
-            }
-            if (this.game.click.x >= 318 && this.game.click.x <= 490 && this.game.click.y >= 636 && this.game.click.y <= 700) {
-                this.loadStation(riceStation);
-            }
-            if (this.game.click.x >= 534 && this.game.click.x <= 706 && this.game.click.y >= 636 && this.game.click.y <= 700) {
-                this.loadStation(rollStation);
-            }
-            if (this.game.click.x >= 750 && this.game.click.x <= 922 && this.game.click.y >= 636 && this.game.click.y <= 700) {
-                this.loadStation(sideStation);
+                this.title = false;
             }
         }
     };
 
     draw(ctx) {
-        
+        if (this.title) {
+            ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/title/Title.png"), 0, 0);
+            ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/button/Start_Button.JPG"), 426, 412);
+        }
     };
 
 }

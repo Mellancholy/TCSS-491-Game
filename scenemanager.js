@@ -28,7 +28,13 @@ class SceneManager {
 
     update() {
         console.log("SceneManager Update");
-        if (this.game.click) {
+        if (this.title) {
+            if (this.game.click) {
+                if (this.game.click.x >= 426 && this.game.click.x <= 598 && this.game.click.y >= 500 && this.game.click.y <= 564) {
+                    this.loadStation(orderStation, false, false);
+                }
+            }
+        } else if (this.game.click) {
             if (this.game.click.x >= 102 && this.game.click.x <= 274 && this.game.click.y >= 636 && this.game.click.y <= 700) {
                 this.loadStation(orderStation);
             }

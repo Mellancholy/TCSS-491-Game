@@ -15,6 +15,7 @@ ASSET_MANAGER.queueDownload("./sprites/button/Rice_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Roll_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Side_Button.JPG");
 ASSET_MANAGER.queueDownload("./sprites/button/Order_Button.JPG");
+ASSET_MANAGER.queueDownload("./sprites/button/Start_Button.JPG");
 
 // title assets
 ASSET_MANAGER.queueDownload("./sprites/title/Title.png");

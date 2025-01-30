@@ -47,6 +47,7 @@ class SceneManager {
     draw(ctx) {
         if (this.title) {
             ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/title/Title.png"), 0, 0);
+            ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/button/Start_Button.JPG"),  426, 500);
         }
     };
 

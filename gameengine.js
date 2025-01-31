@@ -21,6 +21,13 @@ class GameEngine {
         };
     };
 
+    // Add a method to add videos
+    addVideo(src, x, y, width, height, autoplay = true, loop = false) {
+        const videoEntity = new VideoEntity(src, x, y, width, height, autoplay, loop);
+        videoEntity.load();
+        this.addEntity(videoEntity);
+    }
+
     init(ctx) {
         this.ctx = ctx;
         this.startInput();
@@ -53,10 +60,16 @@ class GameEngine {
             this.mouse = getXandY(e);
         });
 
-        // function mouseClickListener (e) {
-        //     that.click = getXandY(e);
-        //     console.log(that.click);
-        // }
+        // Event listener to play video
+        this.ctx.canvas.addEventListener ("ended", e  => {    
+            console.log("Video Has Ended");
+        });
+
+        // Event listener to play video
+        this.ctx.canvas.addEventListener ("play", e  => {    
+            console.log("Video Has Started");
+        });
+
 
         this.ctx.canvas.addEventListener("click", e => {
             if (this.options.debugging) {

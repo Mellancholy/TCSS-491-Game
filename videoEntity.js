@@ -18,10 +18,10 @@ class VideoEntity {
         this.video.loop = this.loop;
         this.video.muted = true; // Mute the video to allow autoplay in most browsers
         this.video.style.position = 'absolute';
-        this.video.style.left = `${this.x}px`;
-        this.video.style.top = `${this.y}px`;
-        this.video.style.width = `${this.width}px`;
-        this.video.style.height = `${this.height}px`;
+        this.video.style.left = `${0}px`;
+        this.video.style.top = `${0}px`;
+        this.video.style.width = `${0}px`;
+        this.video.style.height = `${0}px`;
 
         // Add the video to the DOM
         document.body.appendChild(this.video);

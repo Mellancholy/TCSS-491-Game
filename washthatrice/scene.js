@@ -3,8 +3,6 @@ const HEIGHT = 768
 
 const POT_RADIUS = 250
 
-
-
 class WashThatRiceBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
@@ -44,6 +42,48 @@ class WashThatRiceBg {
         this.addEntity(new Hand(this.game, 0, 0));
         
         this.addEntity(new Checkmark(this.game, ASSET_MANAGER, (WIDTH / 2), (HEIGHT / 2)));
+    }
+
+    deload() {
+        console.log("deleting entities")
+        this.entities.forEach(entity => {
+            //instance.game.removeEntity(entity);
+            entity.removeFromWorld = true;
+        })
+        this.removeFromWorld = true;
+        this.entities = []
+    }
+
+    update() {
+
+    };
+
+    draw(ctx) {
+
+    };
+}
+
+class FillThePot {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y})
+
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/backgrounds/Order_Background.JPG");
+
+        this.entities = []
+
+        this.addEntities()
+    };
+
+    addEntity(entity) {
+        this.entities.push(entity);
+        this.game.addEntity(entity);
+        console.log("added entity", entity)
+    }
+
+    addEntities() {
+        let cup = new Cup(this.game);
+        this.addEntity(cup);
+        this.addEntity(new WaterPitcher(this.game, cup));
     }
 
     deload() {

@@ -12,6 +12,7 @@ class GameEngine {
         // Information on the input
         this.click = null;
         this.mouse = null;
+        this.down = null;
         this.previousMousePositionsDelay = 3;
         this.previousMousePositionsDelayCounter = 0;
         this.previousMousePositions = [];
@@ -71,6 +72,27 @@ class GameEngine {
         //     that.click = getXandY(e);
         //     console.log(that.click);
         // }
+
+        this.ctx.canvas.addEventListener("mouseup", e => {
+            that.down = false;
+            // Stop dragging
+            that.entities.forEach(entity => {
+                if (entity instanceof WaterPitcher) {
+                    entity.stopDragging();
+                }
+            });
+            console.log("Mouse Up");  // Check if this is firing
+        }, false);
+
+        this.ctx.canvas.addEventListener("mousedown", (e) => {
+            that.down = true;
+            that.entities.forEach(entity => {
+                if (entity instanceof WaterPitcher) {
+                    entity.startDragging(e.clientX, e.clientY);
+                }
+            });
+            console.log("Mouse Down");  // Check if this is firing
+        }, false);
 
         this.ctx.canvas.addEventListener("click", e => {
             if (this.options.debugging) {

@@ -19,6 +19,8 @@ class SceneManager {
 
             if (station.stationType == "order") {
                 this.game.addEntity(new OrderStationBg(this.game, 0, 0));
+                let fillThePot = new FillThePot(this.game, 0, 0);
+                this.onDeload = fillThePot.deload.bind(fillThePot);
             } else if (station.stationType == "rice") {
                 this.game.addEntity(new RiceStationBg(this.game, 0,0));
             } else if (station.stationType == "roll") {

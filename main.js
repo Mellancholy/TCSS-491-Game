@@ -23,6 +23,10 @@ ASSET_MANAGER.queueDownload('./assets/pot_top_outside.png');
 ASSET_MANAGER.queueDownload('./assets/rotate.png');
 ASSET_MANAGER.queueDownload('./assets/checkmark.png');
 
+// fill the pot
+ASSET_MANAGER.queueDownload('./assets/Cup.png');
+ASSET_MANAGER.queueDownload('./assets/WaterPitcher.png');
+
 ASSET_MANAGER.queueDownload('./assets/jingle.mp3');
 
 ASSET_MANAGER.downloadAll(() => {

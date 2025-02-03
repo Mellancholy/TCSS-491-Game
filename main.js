@@ -32,6 +32,11 @@ ASSET_MANAGER.queueDownload('./assets/ricecooker2.png');
 
 ASSET_MANAGER.queueDownload('./assets/jingle.mp3');
 
+// Swat the flies
+ASSET_MANAGER.queueDownload("./assets/flies.png");
+ASSET_MANAGER.queueDownload("./assets/swatter.png");
+
+
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");

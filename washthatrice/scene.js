@@ -105,6 +105,47 @@ class FillThePot {
     };
 }
 
+class SwatTheFliesBg {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y})
+
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/backgrounds/Order_Background.JPG");
+
+        this.entities = []
+
+        this.addEntities()
+    };
+
+    addEntity(entity) {
+        this.entities.push(entity);
+        this.game.addEntity(entity);
+        console.log("added entity", entity)
+    }
+
+    addEntities() {
+        this.addEntity(new FlySpawner(this.game, 20, 1500));
+        this.addEntity(new Swatter(this.game));
+    }
+
+    deload() {
+        console.log("deleting entities")
+        this.entities.forEach(entity => {
+            //instance.game.removeEntity(entity);
+            entity.removeFromWorld = true;
+        })
+        this.removeFromWorld = true;
+        this.entities = []
+    }
+
+    update() {
+
+    };
+
+    draw(ctx) {
+
+    };
+}
+
 class DontBurnRice {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})

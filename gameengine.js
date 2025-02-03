@@ -87,6 +87,7 @@ class GameEngine {
                     entity.handleClick();
                 }
             });
+
             console.log("Mouse Up");  // Check if this is firing
         }, false);
 
@@ -99,6 +100,8 @@ class GameEngine {
                 if (entity instanceof RiceCooker && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
                     entity.handleClick(); // Trigger the click handler
                 }
+
+
             });
             console.log("Mouse Down");  // Check if this is firing
         }, false);
@@ -129,6 +132,9 @@ class GameEngine {
 
         this.ctx.canvas.addEventListener("keydown", event => this.keys[event.key] = true);
         this.ctx.canvas.addEventListener("keyup", event => this.keys[event.key] = false);
+
+
+
 
         // that.leftclick = mouseClickListener;
         // this.ctx.canvas.addEventListener("click", that.leftclick, false);
@@ -162,6 +168,20 @@ class GameEngine {
             if (!entity.removeFromWorld) {
                 entity.update();
             }
+        }
+
+        // Check for swatting
+        let swatter = this.entities.find(e=> e instanceof Swatter);
+        if (swatter && this.keys[" "]) {
+            let swatCircle = swatter.getBoundingCircle();
+
+            this.entities = this.entities.filter(entity => {
+                if (entity instanceof Fly && isColliding(swatCircle, entity.getBoundingCircle())) {
+                    console.log("Fly Swatted!");
+                    return false;
+                }
+                return true;
+            })
         }
 
         for (let i = this.entities.length - 1; i >= 0; --i) {

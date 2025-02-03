@@ -63,3 +63,14 @@ window.requestAnimFrame = (() => {
 const getDistance = (p1, p2) => {
     return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 };
+
+/**
+ * Checks if two circles are colliding
+ * @param {Object} circle1 First circle { x, y, radius }
+ * @param {Object} circle2 Second circle { x, y, radius }
+ * @returns {Boolean} True if the circles are colliding, otherwise false
+ */
+const isColliding = (circle1, circle2) => {
+    let distance = getDistance(circle1, circle2);
+    return distance < (circle1.radius + circle2.radius);
+};

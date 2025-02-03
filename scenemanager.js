@@ -27,6 +27,9 @@ class SceneManager {
                 this.onDeload = dontBurnRice.deload.bind(dontBurnRice);
             } else if (station.stationType == "roll") {
                 this.game.addEntity(new RollStationBg(this.game, 0, 0));
+                let swatTheFliesScene = new SwatTheFliesBg(this.game, 0, 0);
+                this.game.addEntity(swatTheFliesScene);
+                this.onDeload = swatTheFliesScene.deload.bind(swatTheFliesScene);
             } else if (station.stationType == "side") {
                 this.game.addEntity(new SidesStationBg(this.game, 0, 0));
                 let washThatRiceScene = new WashThatRiceBg(this.game, 0, 0);

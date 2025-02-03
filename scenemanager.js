@@ -23,6 +23,8 @@ class SceneManager {
                 this.onDeload = fillThePot.deload.bind(fillThePot);
             } else if (station.stationType == "rice") {
                 this.game.addEntity(new RiceStationBg(this.game, 0,0));
+                let dontBurnRice = new DontBurnRice(this.game, 10);
+                this.onDeload = dontBurnRice.deload.bind(dontBurnRice);
             } else if (station.stationType == "roll") {
                 this.game.addEntity(new RollStationBg(this.game, 0, 0));
             } else if (station.stationType == "side") {

@@ -27,6 +27,9 @@ ASSET_MANAGER.queueDownload('./assets/checkmark.png');
 ASSET_MANAGER.queueDownload('./assets/Cup.png');
 ASSET_MANAGER.queueDownload('./assets/WaterPitcher.png');
 
+// Don't burn the rice.
+ASSET_MANAGER.queueDownload('./assets/ricecooker2.png');
+
 ASSET_MANAGER.queueDownload('./assets/jingle.mp3');
 
 ASSET_MANAGER.downloadAll(() => {

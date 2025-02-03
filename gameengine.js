@@ -80,6 +80,12 @@ class GameEngine {
                 if (entity instanceof WaterPitcher) {
                     entity.stopDragging();
                 }
+                if (entity instanceof RiceCooker && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
+                    entity.handleClick(); // Trigger the click handler
+                }
+                if (entity instanceof TimerBar && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
+                    entity.handleClick();
+                }
             });
             console.log("Mouse Up");  // Check if this is firing
         }, false);
@@ -89,6 +95,9 @@ class GameEngine {
             that.entities.forEach(entity => {
                 if (entity instanceof WaterPitcher) {
                     entity.startDragging(e.clientX, e.clientY);
+                }
+                if (entity instanceof RiceCooker && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
+                    entity.handleClick(); // Trigger the click handler
                 }
             });
             console.log("Mouse Down");  // Check if this is firing

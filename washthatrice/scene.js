@@ -104,3 +104,47 @@ class FillThePot {
 
     };
 }
+
+class DontBurnRice {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y})
+
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/backgrounds/Rice_Background.JPG");
+
+        this.entities = []
+
+        this.addEntities()
+    };
+
+    addEntity(entity) {
+        this.entities.push(entity);
+        this.game.addEntity(entity);
+        console.log("added entity", entity)
+    }
+
+    addEntities() {
+        let timeBar = new TimerBar(this.game, 10);
+        let riceCooker = new RiceCooker(this.game)
+        this.addEntity(riceCooker);
+        this.addEntity(timeBar);
+        
+    }
+
+    deload() {
+        console.log("deleting entities")
+        this.entities.forEach(entity => {
+            //instance.game.removeEntity(entity);
+            entity.removeFromWorld = true;
+        })
+        this.removeFromWorld = true;
+        this.entities = []
+    }
+
+    update() {
+
+    };
+
+    draw(ctx) {
+
+    };
+}

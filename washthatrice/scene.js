@@ -52,6 +52,7 @@ class WashThatRiceBg {
             //instance.game.removeEntity(entity);
             entity.removeFromWorld = true;
         })
+        this.removeFromWorld = true;
         this.entities = []
     }
 

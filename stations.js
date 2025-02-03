@@ -17,8 +17,3 @@ var sideStation = {
     stationType: "side",
     buttons: true
 };
-
-var washThatRice = {
-    stationType: "washThatRice",
-    buttons: true
-};

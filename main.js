@@ -34,6 +34,8 @@ ASSET_MANAGER.downloadAll(() => {
 	const sceneManage = new SceneManager(gameEngine);
 	gameEngine.addEntity(sceneManage);
 
+	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadStation.bind(sceneManage)));
+
 	gameEngine.start();
 
 });

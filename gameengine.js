@@ -52,6 +52,7 @@ class GameEngine {
         }
         
         this.ctx.canvas.addEventListener("mousemove", e => {
+            that.move = getXandY(e);
             if (this.options.debugging) {
                 console.log("MOUSE_MOVE", getXandY(e));
             }
@@ -86,6 +87,9 @@ class GameEngine {
                 if (entity instanceof TimerBar && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
                     entity.handleClick();
                 }
+                if (entity instanceof Swatter) {
+                    entity.stopDragging();
+                }
             });
 
             console.log("Mouse Up");  // Check if this is firing
@@ -99,6 +103,9 @@ class GameEngine {
                 }
                 if (entity instanceof RiceCooker && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
                     entity.handleClick(); // Trigger the click handler
+                }
+                if (entity instanceof Swatter) {
+                    entity.startDragging(e.clientX, e.clientY);
                 }
 
 

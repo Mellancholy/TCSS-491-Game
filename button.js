@@ -1,4 +1,6 @@
-class Button {
+import { ASSET_MANAGER } from "./main.js";
+
+export default class Button {
     constructor(game, x, y, image, onClick) {
         Object.assign(this, { game, x, y, onClick });
         this.image = ASSET_MANAGER.getAsset(image);

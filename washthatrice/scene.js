@@ -1,9 +1,23 @@
+import { ASSET_MANAGER } from "../main.js";
+import Cup from "../fillthepot/cup.js";
+import WaterPitcher from "../fillthepot/waterPitcher.js";
+import TimerBar from "../dontBurnRice/timerBar.js";
+import RiceCooker from "../dontBurnRice/ricecooker.js";
+import FlySpawner from "../swatTheFlies/flySpawner.js";
+import Swatter from "../swatTheFlies/swatter.js";
+import ProgressBar from "./progressBar.js";
+import { PotTop, PotTopOutside } from "./pot.js";
+import RiceGrain from "./riceGrain.js";
+import RotateIcon from "./rotate.js";
+import Hand from "./hand.js";
+import Checkmark from "./checkmark.js";
+
 const WIDTH = 1024
 const HEIGHT = 768
 
 const POT_RADIUS = 250
 
-class WashThatRiceBg {
+export class WashThatRiceBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 
@@ -63,7 +77,7 @@ class WashThatRiceBg {
     };
 }
 
-class FillThePot {
+export class FillThePot {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 
@@ -105,7 +119,7 @@ class FillThePot {
     };
 }
 
-class SwatTheFliesBg {
+export class SwatTheFliesBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 
@@ -146,7 +160,7 @@ class SwatTheFliesBg {
     };
 }
 
-class DontBurnRice {
+export class DontBurnRice {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 

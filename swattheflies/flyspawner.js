@@ -1,4 +1,6 @@
-class FlySpawner {
+import Fly from './fly.js';
+
+export default class FlySpawner {
     constructor(game, numFlies, spawnInterval) {
         this.game = game;
         this.numFlies = numFlies;

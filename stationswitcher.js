@@ -1,4 +1,7 @@
-class StationSwitcher {
+import Button from "./button.js";
+import { orderStation, riceStation, rollStation, sideStation } from "./stations.js";
+
+export default class StationSwitcher {
     constructor(game, loadStation) {
         Object.assign(this, { game });
 

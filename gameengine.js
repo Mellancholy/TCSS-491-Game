@@ -1,6 +1,12 @@
+import Timer from "./timer.js";
+import Swatter from "./swatTheFlies/swatter.js";
+import WaterPitcher from "./fillthepot/waterPitcher.js";
+import RiceCooker from "./dontBurnRice/ricecooker.js";
+import TimerBar from "./dontBurnRice/timerBar.js";
+
 // This game shell was happily modified from Googler Seth Ladd's "Bad Aliens" game and his Google IO talk in 2011
 
-class GameEngine {
+export default class GameEngine {
     constructor(options) {
         // What you will use to draw
         // Documentation: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
@@ -83,9 +89,6 @@ class GameEngine {
                 }
                 if (entity instanceof RiceCooker && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
                     entity.handleClick(); // Trigger the click handler
-                }
-                if (entity instanceof TimerBar && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
-                    entity.handleClick();
                 }
                 if (entity instanceof Swatter) {
                     entity.stopDragging();

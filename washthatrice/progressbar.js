@@ -1,4 +1,4 @@
-class ProgressBar {
+export default class ProgressBar {
 
     constructor(game, x, y, width, height) {
         this.game = game

@@ -1,4 +1,6 @@
-class Swatter {
+import { ASSET_MANAGER } from "../main.js";
+
+export default class Swatter {
     constructor(game) {
         this.game = game;
         this.x = 500; // Initial x position

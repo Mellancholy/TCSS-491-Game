@@ -1,4 +1,6 @@
-class Cup {
+import { ASSET_MANAGER } from "../main.js";
+
+export default class Cup {
     constructor(game) {
         this.game = game;
         this.liters = 0;

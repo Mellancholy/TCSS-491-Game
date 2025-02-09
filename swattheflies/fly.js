@@ -1,4 +1,7 @@
-class Fly {
+import { ASSET_MANAGER } from "../main.js";
+import Animator from "./animator.js";
+
+export default class Fly {
     constructor(game) {
         this.game = game;
         this.animator = new Animator(ASSET_MANAGER.getAsset("./assets/flies.png"), 0, 0,

@@ -1,4 +1,8 @@
-class SceneManager {
+import { OrderStationBg, RiceStationBg, RollStationBg, SidesStationBg } from "./background.js";
+import { FillThePot, DontBurnRice, SwatTheFliesBg, WashThatRiceBg } from "./washThatRice/scene.js";
+import { orderStation } from "./stations.js";
+
+export default class SceneManager {
     constructor(game){
         this.game = game;
         this.currentStation = null;

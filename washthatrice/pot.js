@@ -1,4 +1,7 @@
-class PotTop {
+import { ASSET_MANAGER } from "../main.js"
+import { getDistance } from "../util.js"
+
+export class PotTop {
 
     constructor(game, x, y) {
         this.game = game
@@ -50,7 +53,7 @@ class PotTop {
     }
 }
 
-class PotTopOutside {
+export class PotTopOutside {
 
     constructor(game, x, y) {
         this.game = game

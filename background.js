@@ -1,4 +1,6 @@
-class OrderStationBg {
+import { ASSET_MANAGER } from "./main.js";
+
+export class OrderStationBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 
@@ -14,7 +16,7 @@ class OrderStationBg {
     };
 }
 
-class RiceStationBg {
+export class RiceStationBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 
@@ -30,7 +32,7 @@ class RiceStationBg {
     };
 }
 
-class RollStationBg {
+export class RollStationBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 
@@ -46,7 +48,7 @@ class RollStationBg {
     };
 }
 
-class SidesStationBg {
+export class SidesStationBg {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y})
 

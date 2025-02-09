@@ -1,19 +1,20 @@
-var orderStation = {
+export const orderStation = {
     stationType: "order",
     buttons: true
 };
 
-var riceStation = {
+export const riceStation = {
     stationType: "rice",
     buttons: true
 };
 
-var rollStation = {
+export const rollStation = {
     stationType: "roll",
     buttons: true
 };
 
-var sideStation = {
+export const sideStation = {
     stationType: "side",
     buttons: true
 };
+

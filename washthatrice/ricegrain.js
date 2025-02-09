@@ -1,3 +1,5 @@
+import { randomIntRange } from '../util.js'
+
 const COLORS = [
     '#f5f5f5',
     '#f8f8f8',
@@ -11,7 +13,7 @@ const COLORS = [
     '#f4f4f4'
 ]
 
-class RiceGrain {
+export default class RiceGrain {
 
     constructor(game, angle, distance, centerX, centerY) {
         this.game = game

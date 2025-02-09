@@ -1,4 +1,6 @@
-class WaterPitcher {
+import { ASSET_MANAGER } from "../main.js";
+
+export default class WaterPitcher {
     constructor(game, cup) {
         this.game = game;
         this.cup = cup;

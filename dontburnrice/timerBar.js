@@ -1,4 +1,4 @@
-class TimerBar {
+export default class TimerBar {
     constructor(gameEngine, totalTime) {
         this.gameEngine = gameEngine;
         this.totalTime = totalTime; 

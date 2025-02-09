@@ -1,4 +1,7 @@
-class RiceCooker {
+import { ASSET_MANAGER } from "../main.js";
+import TimerBar from "./timerBar.js";
+
+export default class RiceCooker {
   constructor(game) {
       this.game = game;
       this.x = 100; 

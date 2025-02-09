@@ -1,4 +1,6 @@
-class Hand {
+import { ASSET_MANAGER } from "../main.js"
+
+export default class Hand {
 
     constructor(game, x, y) {
         this.game = game

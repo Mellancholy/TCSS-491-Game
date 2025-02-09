@@ -1,4 +1,4 @@
-class Checkmark {
+export default class Checkmark {
 
     constructor(game, ASSET_MANAGER, x, y) {
         this.game = game

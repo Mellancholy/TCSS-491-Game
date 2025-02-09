@@ -1,6 +1,6 @@
+import { ASSET_MANAGER } from "../main.js"
 
-
-class RotateIcon {
+export default class RotateIcon {
 
     constructor(game, x, y) {
         this.game = game

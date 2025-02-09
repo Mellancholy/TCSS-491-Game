@@ -14,6 +14,7 @@ ASSET_MANAGER.queueDownload("./assets/backgrounds/Rice_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Roll_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Sides_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Background.JPG");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Counter_Background.png");
 
 // buttons
 ASSET_MANAGER.queueDownload("./assets/button/Rice_Button.JPG");
@@ -40,6 +41,9 @@ ASSET_MANAGER.queueDownload('./assets/sounds/jingle.mp3');
 // Swat the flies
 ASSET_MANAGER.queueDownload("./assets/flies.png");
 ASSET_MANAGER.queueDownload("./assets/swatter.png");
+
+//Counter
+ASSET_MANAGER.queueDownload("./assets/characters/dummy.png");
 
 
 ASSET_MANAGER.downloadAll(() => {

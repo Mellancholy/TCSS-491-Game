@@ -2,6 +2,7 @@ import { WashThatRiceScene } from "./washThatRice/scene.js";
 import { DontBurnRiceScene } from "./dontBurnRice/scene.js";
 import { FillThePotScene } from "./fillthepot/scene.js";
 import SwatTheFliesScene from "./swatTheFlies/scene.js";
+import { CounterScene } from "./counter/scene.js";
 
 export default class SceneManager {
     constructor(game){
@@ -13,8 +14,9 @@ export default class SceneManager {
         this.registerScene("rice", new DontBurnRiceScene(this.game, 0, 0));
         this.registerScene("roll", new SwatTheFliesScene(this.game, 0, 0));
         this.registerScene("sides", new WashThatRiceScene(this.game, 0, 0));
+        this.registerScene("counter", new CounterScene(this.game, 0, 0));
 
-        this.loadStation("order");
+        this.loadStation("counter");
         //this.onDeload = null;
     };
 

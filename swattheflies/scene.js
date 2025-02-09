@@ -8,7 +8,7 @@ export default class SwatTheFliesScene extends Scene {
     constructor(game, x, y) {
         super(game);
         Object.assign(this, { game, x, y})
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/backgrounds/Order_Background.JPG");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Order_Background.JPG");
     };
 
     initalizeScene() {
@@ -23,7 +23,7 @@ class Background extends GameObject{
         super(game);
         Object.assign(this, { game, x, y });
 
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/backgrounds/Roll_Background.JPG");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Roll_Background.JPG");
     };
 
     update() {

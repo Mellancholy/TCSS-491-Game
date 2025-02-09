@@ -16,7 +16,7 @@ const POT_RADIUS = 250
 export class WashThatRiceScene extends Scene {
     constructor(game, x, y) {
         super(game);
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/backgrounds/Order_Background.JPG");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Order_Background.JPG");
         Object.assign(this, { game, x, y})
     };
 
@@ -52,7 +52,7 @@ class Background extends GameObject {
         super(game);
         Object.assign(this, { game, x, y });
 
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/backgrounds/Sides_Background.JPG");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Sides_Background.JPG");
     };
 
     update() {

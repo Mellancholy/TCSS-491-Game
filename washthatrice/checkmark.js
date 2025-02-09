@@ -19,7 +19,7 @@ export default class Checkmark extends GameObject{
         if(this.game.win) {
             this.start = true
             if(!this.audioPlayed) {
-                this.ASSET_MANAGER.playAsset('./assets/jingle.mp3')
+                this.ASSET_MANAGER.playAsset('./assets/sounds/jingle.mp3')
                 this.audioPlayed = true
             }
         }

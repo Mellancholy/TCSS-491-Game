@@ -10,16 +10,16 @@ export const ASSET_MANAGER = new AssetManager();
 // sprites
 
 // backgrounds
-ASSET_MANAGER.queueDownload("./sprites/backgrounds/Rice_Background.JPG");
-ASSET_MANAGER.queueDownload("./sprites/backgrounds/Roll_Background.JPG");
-ASSET_MANAGER.queueDownload("./sprites/backgrounds/Sides_Background.JPG");
-ASSET_MANAGER.queueDownload("./sprites/backgrounds/Order_Background.JPG");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Rice_Background.JPG");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Roll_Background.JPG");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Sides_Background.JPG");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Background.JPG");
 
 // buttons
-ASSET_MANAGER.queueDownload("./sprites/button/Rice_Button.JPG");
-ASSET_MANAGER.queueDownload("./sprites/button/Roll_Button.JPG");
-ASSET_MANAGER.queueDownload("./sprites/button/Side_Button.JPG");
-ASSET_MANAGER.queueDownload("./sprites/button/Order_Button.JPG");
+ASSET_MANAGER.queueDownload("./assets/button/Rice_Button.JPG");
+ASSET_MANAGER.queueDownload("./assets/button/Roll_Button.JPG");
+ASSET_MANAGER.queueDownload("./assets/button/Side_Button.JPG");
+ASSET_MANAGER.queueDownload("./assets/button/Order_Button.JPG");
 
 //Wash that rice
 ASSET_MANAGER.queueDownload('./assets/hand.png');
@@ -35,7 +35,7 @@ ASSET_MANAGER.queueDownload('./assets/WaterPitcher.png');
 // Don't burn the rice.
 ASSET_MANAGER.queueDownload('./assets/ricecooker2.png');
 
-ASSET_MANAGER.queueDownload('./assets/jingle.mp3');
+ASSET_MANAGER.queueDownload('./assets/sounds/jingle.mp3');
 
 // Swat the flies
 ASSET_MANAGER.queueDownload("./assets/flies.png");

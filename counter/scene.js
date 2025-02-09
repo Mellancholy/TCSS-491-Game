@@ -15,7 +15,7 @@ export class CounterScene extends Scene {
     }
 }
 
-class Background extends GameObject{
+class Background extends GameObject {
     constructor(game, x, y) {
         super(game);
         Object.assign(this, { game, x, y });

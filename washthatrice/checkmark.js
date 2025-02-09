@@ -1,3 +1,4 @@
+import { ASSET_MANAGER } from "../main.js"
 import GameObject from "../gameObject.js"
 
 export default class Checkmark extends GameObject{

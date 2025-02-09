@@ -1,6 +1,9 @@
-export default class ProgressBar {
+import GameObject from "../gameObject.js"
+
+export default class ProgressBar extends GameObject{
 
     constructor(game, x, y, width, height) {
+        super(game);
         this.game = game
         this.x = x
         this.y = y

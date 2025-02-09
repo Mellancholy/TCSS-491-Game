@@ -1,7 +1,9 @@
+import GameObject from "../gameObject.js";
 import { ASSET_MANAGER } from "../main.js";
 
-export default class Swatter {
+export default class Swatter extends GameObject {
     constructor(game) {
+        super(game);
         this.game = game;
         this.x = 500; // Initial x position
         this.y = 175; // Initial y position

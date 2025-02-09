@@ -1,56 +1,46 @@
-import { OrderStationBg, RiceStationBg, RollStationBg, SidesStationBg } from "./background.js";
-import { FillThePot, DontBurnRice, SwatTheFliesBg, WashThatRiceBg } from "./washThatRice/scene.js";
-import { orderStation } from "./stations.js";
+import { WashThatRiceScene } from "./washThatRice/scene.js";
+import { DontBurnRiceScene } from "./dontBurnRice/scene.js";
+import { FillThePotScene } from "./fillthepot/scene.js";
+import SwatTheFliesScene from "./swatTheFlies/scene.js";
 
 export default class SceneManager {
     constructor(game){
         this.game = game;
-        this.currentStation = null;
+        this.scenes = {};
+        this.currentScene = null;
 
-        this.loadStation(orderStation, false);
-        this.onDeload = null;
+        this.registerScene("order", new FillThePotScene(this.game, 0, 0));
+        this.registerScene("rice", new DontBurnRiceScene(this.game, 0, 0));
+        this.registerScene("roll", new SwatTheFliesScene(this.game, 0, 0));
+        this.registerScene("sides", new WashThatRiceScene(this.game, 0, 0));
+
+        this.loadStation("order");
+        //this.onDeload = null;
     };
 
-    loadStation(station, transition) {
-        if(this.currentStation === station) return;
-        if (transition) {
-            
-        } else {
-            if (this.onDeload) {
-                this.onDeload();
-                this.onDeload = null;
-            }
+    registerScene(id, scene) {
+        console.log("registering scene: " + id);
+        this.scenes[id] = scene;
+    }
 
-            if (station.stationType == "order") {
-                this.game.addEntity(new OrderStationBg(this.game, 0, 0));
-                let fillThePot = new FillThePot(this.game, 0, 0);
-                this.onDeload = fillThePot.deload.bind(fillThePot);
-            } else if (station.stationType == "rice") {
-                this.game.addEntity(new RiceStationBg(this.game, 0,0));
-                let dontBurnRice = new DontBurnRice(this.game, 10);
-                this.onDeload = dontBurnRice.deload.bind(dontBurnRice);
-            } else if (station.stationType == "roll") {
-                this.game.addEntity(new RollStationBg(this.game, 0, 0));
-                let swatTheFliesScene = new SwatTheFliesBg(this.game, 0, 0);
-                this.game.addEntity(swatTheFliesScene);
-                this.onDeload = swatTheFliesScene.deload.bind(swatTheFliesScene);
-            } else if (station.stationType == "side") {
-                this.game.addEntity(new SidesStationBg(this.game, 0, 0));
-                let washThatRiceScene = new WashThatRiceBg(this.game, 0, 0);
-                this.game.addEntity(washThatRiceScene);
-                this.onDeload = washThatRiceScene.deload.bind(washThatRiceScene);
-            }
-            
-            this.currentStation = station;
+    loadStation(station) {
+        if(this.currentScene === station) return;
+        if(!this.scenes[station]) {
+            console.log("error: scene not found: " + station);
+            return;
         }
+
+        if(this.currentScene) {
+            console.log("deloading scene: " + this.currentScene);
+            this.scenes[this.currentScene].deload();
+        }
+
+        console.log("loading scene: " + station);
+        this.scenes[station].initalizeScene();
+        this.currentScene = station;
     };
 
-    update() {
-
-    };
-
-    draw(ctx) {
-        
-    };
+    update() {};
+    draw(ctx) {};
 
 }

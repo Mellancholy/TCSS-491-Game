@@ -1,6 +1,9 @@
-export default class Checkmark {
+import GameObject from "../gameObject.js"
+
+export default class Checkmark extends GameObject{
 
     constructor(game, ASSET_MANAGER, x, y) {
+        super(game);
         this.game = game
         this.ASSET_MANAGER = ASSET_MANAGER
         this.x = x

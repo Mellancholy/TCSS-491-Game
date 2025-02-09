@@ -1,7 +1,9 @@
+import GameObject from "./gameObject.js";
 import { ASSET_MANAGER } from "./main.js";
 
-export default class Button {
+export default class Button extends GameObject{
     constructor(game, x, y, image, onClick) {
+        super(game);
         Object.assign(this, { game, x, y, onClick });
         this.image = ASSET_MANAGER.getAsset(image);
     }

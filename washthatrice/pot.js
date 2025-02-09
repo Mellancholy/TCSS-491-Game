@@ -1,9 +1,11 @@
+import GameObject from "../gameObject.js"
 import { ASSET_MANAGER } from "../main.js"
 import { getDistance } from "../util.js"
 
-export class PotTop {
+export class PotTop extends GameObject {
 
     constructor(game, x, y) {
+        super(game);
         this.game = game
         this.x = x
         this.y = y
@@ -53,9 +55,10 @@ export class PotTop {
     }
 }
 
-export class PotTopOutside {
+export class PotTopOutside extends GameObject {
 
     constructor(game, x, y) {
+        super(game)
         this.game = game
         this.x = x
         this.y = y

@@ -1,7 +1,9 @@
+import GameObject from "../gameObject.js";
 import { ASSET_MANAGER } from "../main.js";
 
-export default class WaterPitcher {
+export default class WaterPitcher extends GameObject {
     constructor(game, cup) {
+        super(game);
         this.game = game;
         this.cup = cup;
         this.flow = 0;

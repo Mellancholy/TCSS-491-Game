@@ -1,5 +1,8 @@
-export default class TimerBar {
+import GameObject from "../gameObject.js";
+
+export default class TimerBar extends GameObject {
     constructor(gameEngine, totalTime) {
+        super(gameEngine);
         this.gameEngine = gameEngine;
         this.totalTime = totalTime; 
         this.elapsedTime = 0; 

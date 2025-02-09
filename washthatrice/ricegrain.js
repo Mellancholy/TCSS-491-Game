@@ -1,4 +1,5 @@
-import { randomIntRange } from '../util.js'
+import GameObject from "../gameObject.js"
+import { randomIntRange } from "../util.js"
 
 const COLORS = [
     '#f5f5f5',
@@ -13,9 +14,10 @@ const COLORS = [
     '#f4f4f4'
 ]
 
-export default class RiceGrain {
+export default class RiceGrain extends GameObject{
 
     constructor(game, angle, distance, centerX, centerY) {
+        super(game);
         this.game = game
         this.angle = angle
         this.distance = distance

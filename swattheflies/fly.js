@@ -1,8 +1,10 @@
+import GameObject from "../gameObject.js";
 import { ASSET_MANAGER } from "../main.js";
 import Animator from "./animator.js";
 
-export default class Fly {
+export default class Fly extends GameObject {
     constructor(game) {
+        super(game);
         this.game = game;
         this.animator = new Animator(ASSET_MANAGER.getAsset("./assets/flies.png"), 0, 0,
             65, 80, 9, .2);

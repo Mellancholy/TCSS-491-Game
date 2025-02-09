@@ -1,8 +1,10 @@
+import GameObject from "../gameObject.js"
 import { ASSET_MANAGER } from "../main.js"
 
-export default class Hand {
+export default class Hand extends GameObject {
 
     constructor(game, x, y) {
+        super(game);
         this.game = game
         this.x = x
         this.y = y

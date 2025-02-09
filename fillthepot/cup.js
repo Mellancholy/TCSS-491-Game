@@ -1,7 +1,9 @@
+import GameObject from "../gameObject.js";
 import { ASSET_MANAGER } from "../main.js";
 
-export default class Cup {
+export default class Cup extends GameObject {
     constructor(game) {
+        super(game);
         this.game = game;
         this.liters = 0;
     };
@@ -12,6 +14,7 @@ export default class Cup {
     };
 
     draw(ctx) {
+        //TODO refactor this to be shorter
         if (this.liters == 0) {
             ctx.drawImage(ASSET_MANAGER.getAsset("./assets/Cup.png"), 0, 0, 325, 325, 300, 275, 325, 325);
         } else if (this.liters > 0 && this.liters <= 40) {

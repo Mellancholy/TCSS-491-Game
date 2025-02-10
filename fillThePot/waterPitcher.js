@@ -39,7 +39,7 @@ export default class WaterPitcher extends GameObject {
                 this.cup.liters = 500;
             }
 
-            console.log(this.cup.liters);  // Log the current liters for debugging
+            //console.log(this.cup.liters);  // Log the current liters for debugging
         }
     };
 

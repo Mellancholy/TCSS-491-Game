@@ -26,7 +26,7 @@ export default class TimerBar extends GameObject {
             this.isCooking = true;
             this.elapsedTime = 0;
             this.result = null;
-            console.log("TimerBar started!"); 
+            //console.log("TimerBar started!"); 
         }
     }
 
@@ -45,7 +45,7 @@ export default class TimerBar extends GameObject {
                 this.result = "overcooked";
             }
 
-            console.log(`Cooking stopped! Result: ${this.result}`); 
+            //console.log(`Cooking stopped! Result: ${this.result}`); 
         }
     }
 

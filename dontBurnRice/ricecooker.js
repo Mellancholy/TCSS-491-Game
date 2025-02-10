@@ -30,11 +30,11 @@ export default class RiceCooker extends GameObject {
             if (!this.clicked) {
                 this.clicked = true;
                 timerBar.start();
-                console.log("RiceCooker clicked! Timer started.");
+                //console.log("RiceCooker clicked! Timer started.");
             } else {
                 this.clicked = false;
                 timerBar.stop();
-                console.log("RiceCooker clicked again! Timer stopped.");
+                //console.log("RiceCooker clicked again! Timer stopped.");
             }
         }
     }
@@ -50,7 +50,7 @@ export default class RiceCooker extends GameObject {
     }
 
     draw(ctx) {
-        console.log("RiceCooker draw method called");
+        //console.log("RiceCooker draw method called");
         const image = ASSET_MANAGER.getAsset("./assets/ricecooker2.png");
 
         ctx.drawImage(image, this.x, this.y, this.w, this.h);

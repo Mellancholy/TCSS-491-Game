@@ -24,7 +24,7 @@ export class PotTop extends GameObject {
             avgPos.y /= 15
 
             if(getDistance(avgPos, {x: this.x, y: this.y}) > 250) {
-                console.log("too far")
+                //console.log("too far")
                 this.game.spinning = false
                 return
             }

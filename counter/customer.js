@@ -21,7 +21,7 @@ export default class Customer extends GameObject {
     draw(ctx) {
         ctx.drawImage(this.spritesheet, this.x, this.y, this.width, this.height);
         if(this.showOrder) {
-            console.log(this.order);
+            //console.log(this.order);
             ctx.fillStyle = "white";
             ctx.fillRect(this.x, this.y - 200, 200, 200);
             ctx.fillStyle = "black";

@@ -1,6 +1,6 @@
 import { WashThatRiceScene } from "./washThatRice/scene.js";
 import { DontBurnRiceScene } from "./dontBurnRice/scene.js";
-import { FillThePotScene } from "./fillthepot/scene.js";
+import { FillThePotScene } from "./fillThePot/scene.js";
 import SwatTheFliesScene from "./swatTheFlies/scene.js";
 import { CounterScene } from "./counter/scene.js";
 

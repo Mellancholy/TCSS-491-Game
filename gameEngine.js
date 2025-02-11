@@ -2,6 +2,7 @@ import Timer from "./timer.js";
 import Swatter from "./swatTheFlies/swatter.js";
 import WaterPitcher from "./fillThePot/waterPitcher.js";
 import RiceCooker from "./dontBurnRice/ricecooker.js";
+import Fly from "./swatTheFlies/fly.js";
 
 // This game shell was happily modified from Googler Seth Ladd's "Bad Aliens" game and his Google IO talk in 2011
 

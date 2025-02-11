@@ -39,6 +39,7 @@ export default class FlySpawner extends GameObject {
     };
 
     deload() {
+        super.deload();
         clearInterval(this.intervalID);
     };
 }

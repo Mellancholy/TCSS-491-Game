@@ -1,22 +1,16 @@
-import Cup from "./cup.js";
-import WaterPitcher from "./waterPitcher.js";
 import { ASSET_MANAGER } from "../main.js";
 import Scene from "../scene.js";
 import GameObject from "../gameObject.js";
 
-
-export class FillThePotScene extends Scene {
+export class RiceStationScene extends Scene {
     constructor(game, x, y) {
-        super(game)
-        Object.assign(this, { game, x, y });
-    };
+            super(game)
+            Object.assign(this, { game, x, y });
+        };
 
     initalizeScene() {
-        this.addGameObject(new Background(this.game, 0, 0));
-        let cup = new Cup(this.game);
-        this.addGameObject(cup);
-        this.addGameObject(new WaterPitcher(this.game, cup));
-    }
+            this.addGameObject(new Background(this.game, 0, 0));
+        }
 }
 
 class Background extends GameObject {

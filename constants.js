@@ -1,2 +1,2 @@
 const WIDTH = 1024
-const HEIGHT = 576
+const HEIGHT = 768

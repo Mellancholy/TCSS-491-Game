@@ -24,7 +24,7 @@ class Background extends GameObject {
         super(game);
         Object.assign(this, { game, x, y });
 
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Order_Background.JPG");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png");
     };
 
     update() {

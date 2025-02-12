@@ -14,6 +14,7 @@ ASSET_MANAGER.queueDownload("./assets/backgrounds/Rice_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Roll_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Sides_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Background.JPG");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Background.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Counter_Background.png");
 
 // buttons

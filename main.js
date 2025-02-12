@@ -17,6 +17,9 @@ ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Background.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Counter_Background.png");
 
+// rice station
+ASSET_MANAGER.queueDownload("./assets/objects/Rice_Opened.png");
+
 // buttons
 ASSET_MANAGER.queueDownload("./assets/button/Rice_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Roll_Button.JPG");

@@ -12,7 +12,7 @@ export class RiceStationScene extends Scene {
 
     initalizeScene() {
             this.addGameObject(new Background(this.game, 0, 0));
-            this.addGameObject(new RiceCooker(this.game, 50, 50))
+            this.addGameObject(new RiceCooker(this.game, 0, 20))
         }
 }
 
@@ -22,6 +22,7 @@ class Background extends GameObject {
         Object.assign(this, { game, x, y });
 
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png");
+        this.mat = ASSET_MANAGER.getAsset("./assets/objects/BambooMat_Empty.png");
     };
 
     update() {
@@ -29,5 +30,6 @@ class Background extends GameObject {
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 0, 0);
+        ctx.drawImage(this.mat, 450, 300);
     };
 }

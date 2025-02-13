@@ -3,6 +3,7 @@ import Swatter from "./swatTheFlies/swatter.js";
 import WaterPitcher from "./fillThePot/waterPitcher.js";
 import RiceCooker from "./dontBurnRice/ricecooker.js";
 import Fly from "./swatTheFlies/fly.js";
+import StationRiceCooker from "./riceStation/stationRiceCooker.js";
 
 // This game shell was happily modified from Googler Seth Ladd's "Bad Aliens" game and his Google IO talk in 2011
 
@@ -75,11 +76,6 @@ export default class GameEngine {
             }
         });
 
-        // function mouseClickListener (e) {
-        //     that.click = getXandY(e);
-        //     console.log(that.click);
-        // }
-
         this.ctx.canvas.addEventListener("mouseup", e => {
             that.down = false;
             // Stop dragging
@@ -91,6 +87,9 @@ export default class GameEngine {
                     entity.handleClick(); // Trigger the click handler
                 }
                 if (entity instanceof Swatter) {
+                    entity.stopDragging();
+                }
+                if (entity instanceof StationRiceCooker) {
                     entity.stopDragging();
                 }
             });
@@ -110,7 +109,9 @@ export default class GameEngine {
                 if (entity instanceof Swatter) {
                     entity.startDragging(e.clientX, e.clientY);
                 }
-
+                if (entity instanceof StationRiceCooker) {
+                    entity.createRiceAndDrag(e.clientX, e.clientY);
+                }
 
             });
             console.log("Mouse Down");  // Check if this is firing

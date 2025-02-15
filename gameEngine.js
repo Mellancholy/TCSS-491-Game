@@ -84,15 +84,7 @@ export default class GameEngine {
             that.down = false;
             // Stop dragging
             that.entities.forEach(entity => {
-                if (entity instanceof WaterPitcher) {
-                    entity.stopDragging();
-                }
-                if (entity instanceof RiceCooker && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
-                    entity.handleClick(); // Trigger the click handler
-                }
-                if (entity instanceof Swatter) {
-                    entity.stopDragging();
-                }
+                if(entity.onMouseUp) entity.onMouseUp(e);
             });
 
             console.log("Mouse Up");  // Check if this is firing
@@ -101,19 +93,8 @@ export default class GameEngine {
         this.ctx.canvas.addEventListener("mousedown", (e) => {
             that.down = true;
             that.entities.forEach(entity => {
-                if (entity instanceof WaterPitcher) {
-                    entity.startDragging(e.clientX, e.clientY);
-                }
-                if (entity instanceof RiceCooker && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
-                    entity.handleClick(); // Trigger the click handler
-                }
-                if (entity instanceof Swatter) {
-                    entity.startDragging(e.clientX, e.clientY);
-                }
-
-
+                if(entity.onMouseDown) entity.onMouseDown(e);
             });
-            console.log("Mouse Down");  // Check if this is firing
         }, false);
 
         this.ctx.canvas.addEventListener("click", e => {
@@ -157,11 +138,6 @@ export default class GameEngine {
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-
-        // Draw latest things first
-        // for (let i = this.entities.length - 1; i >= 0; i--) {
-        //     this.entities[i].draw(this.ctx, this);
-        // }
 
         // Draw the entities in order
         for (let i = 0; i < this.entities.length; i++) {

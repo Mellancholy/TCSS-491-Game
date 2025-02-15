@@ -15,12 +15,17 @@ ASSET_MANAGER.queueDownload("./assets/backgrounds/Roll_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Sides_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Counter_Background.png");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Backgrounds.png");
 
 // buttons
 ASSET_MANAGER.queueDownload("./assets/button/Rice_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Roll_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Side_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Order_Button.JPG");
+
+//sushi assembly
+ASSET_MANAGER.queueDownload("./assets/assembly/case.jpg");
+ASSET_MANAGER.queueDownload("./assets/assembly/tray.jpg");
 
 //Wash that rice
 ASSET_MANAGER.queueDownload('./assets/hand.png');

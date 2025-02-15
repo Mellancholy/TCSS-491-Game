@@ -41,6 +41,14 @@ export default class Swatter extends GameObject {
         // ctx.stroke();
     };
 
+    onMouseDown(e) {
+        this.startDragging(e.clientX, e.clientY);
+    };
+
+    onMouseUp(e) {
+        this.stopDragging();
+    }
+
     startDragging(mouseX, mouseY) {
         if (mouseX >= this.x && mouseX <= this.x + 325 && mouseY >= this.y && mouseY <= this.y + 350) {
             this.isDragging = true;

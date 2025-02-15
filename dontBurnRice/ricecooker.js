@@ -14,6 +14,18 @@ export default class RiceCooker extends GameObject {
         this.clicked = false;
     }
 
+    onMouseDown(e) {
+        if (this.isClicked(e.clientX, e.clientY)) {
+            this.handleClick();
+        }
+    }
+
+    onMouseUp(e) {
+        if(this.isClicked(e.clientX, e.clientY)) {
+            this.handleClick();
+        }
+    }
+
     isClicked(mouseX, mouseY) {
         return (
             mouseX >= this.x &&

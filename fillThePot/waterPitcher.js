@@ -47,6 +47,14 @@ export default class WaterPitcher extends GameObject {
         ctx.drawImage(ASSET_MANAGER.getAsset("./assets/WaterPitcher.png"), this.x, this.y);
     };
 
+    onMouseDown(e) {
+        this.startDragging(e.clientX, e.clientY);
+    }
+
+    onMouseUp(e) {
+        this.stopDragging();
+    }
+
     // Start dragging when mouse is down inside the pitcher
     startDragging(mouseX, mouseY) {
         if (mouseX >= this.x && mouseX <= this.x + 325 && mouseY >= this.y && mouseY <= this.y + 325) {

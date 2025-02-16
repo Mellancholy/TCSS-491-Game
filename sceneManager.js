@@ -11,12 +11,15 @@ export default class SceneManager {
         this.scenes = {};
         this.currentScene = null;
 
+        // stations
         this.registerScene("rice", new RiceStationScene(this.game, 0, 0));
-        this.registerScene("order", new FillThePotScene(this.game, 0, 0));
-        this.registerScene("burn", new DontBurnRiceScene(this.game, 0, 0));
-        this.registerScene("roll", new SwatTheFliesScene(this.game, 0, 0));
-        this.registerScene("sides", new WashThatRiceScene(this.game, 0, 0));
         this.registerScene("counter", new CounterScene(this.game, 0, 0));
+
+        // rice minigames
+        this.registerScene("fill", new FillThePotScene(this.game, 0, 0));
+        this.registerScene("burn", new DontBurnRiceScene(this.game, 0, 0));
+        this.registerScene("wash", new WashThatRiceScene(this.game, 0, 0));
+        this.registerScene("roll", new SwatTheFliesScene(this.game, 0, 0));
 
         this.loadStation("rice");
         //this.onDeload = null;

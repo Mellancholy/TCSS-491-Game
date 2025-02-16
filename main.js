@@ -60,7 +60,6 @@ ASSET_MANAGER.downloadAll(() => {
 
 	gameEngine.init(ctx);
 
-	const sceneManage = new SceneManager(gameEngine);
 	gameEngine.addEntity(sceneManage);
 
 	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadStation.bind(sceneManage)));
@@ -85,3 +84,6 @@ window.requestAnimFrame = (() => {
             window.setTimeout(callback, 1000 / 60);
         });
 })();
+
+const sceneManage = new SceneManager(gameEngine);
+export default sceneManage;

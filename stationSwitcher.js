@@ -5,7 +5,7 @@ export default class StationSwitcher {
         Object.assign(this, { game });
 
         this.orderButton = new Button(game, 102, 694, "./assets/button/Order_Button.JPG", () => loadStation("order"));
-        this.riceButton = new Button(game, 318, 694, "./assets/button/Rice_Button.JPG", () => loadStation("burn"));
+        this.riceButton = new Button(game, 318, 694, "./assets/button/Rice_Button.JPG", () => loadStation("rice"));
         this.rollButton = new Button(game, 534, 694, "./assets/button/Roll_Button.JPG", () => loadStation("roll"));
         this.sidesButton = new Button(game, 750, 694, "./assets/button/Side_Button.JPG", () => loadStation("sides"));
 

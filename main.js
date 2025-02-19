@@ -38,8 +38,9 @@ ASSET_MANAGER.queueDownload('./assets/rotate.png');
 ASSET_MANAGER.queueDownload('./assets/checkmark.png');
 
 // fill the pot
-ASSET_MANAGER.queueDownload('./assets/Cup.png');
-ASSET_MANAGER.queueDownload('./assets/WaterPitcher.png');
+ASSET_MANAGER.queueDownload('./assets/objects/Faucet_Off.png');
+ASSET_MANAGER.queueDownload('./assets/objects/Faucet_On.png');
+ASSET_MANAGER.queueDownload('./assets/backgrounds/FillThePot_Background.png');
 
 // Don't burn the rice.
 ASSET_MANAGER.queueDownload('./assets/ricecooker2.png');

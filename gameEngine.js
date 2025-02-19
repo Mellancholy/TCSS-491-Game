@@ -1,6 +1,6 @@
 import Timer from "./timer.js";
 import Swatter from "./swatTheFlies/swatter.js";
-import WaterPitcher from "./fillThePot/waterPitcher.js";
+import Faucet from "./fillThePot/faucet.js";
 import RiceCooker from "./dontBurnRice/ricecooker.js";
 import Fly from "./swatTheFlies/fly.js";
 import StationRiceCooker from "./riceStation/stationRiceCooker.js";
@@ -78,11 +78,9 @@ export default class GameEngine {
 
         this.ctx.canvas.addEventListener("mouseup", e => {
             that.down = false;
+            this.click = false;
             // Stop dragging
             that.entities.forEach(entity => {
-                if (entity instanceof WaterPitcher) {
-                    entity.stopDragging();
-                }
                 if (entity instanceof RiceCooker && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
                     entity.handleClick(); // Trigger the click handler
                 }
@@ -100,9 +98,6 @@ export default class GameEngine {
         this.ctx.canvas.addEventListener("mousedown", (e) => {
             that.down = true;
             that.entities.forEach(entity => {
-                if (entity instanceof WaterPitcher) {
-                    entity.startDragging(e.clientX, e.clientY);
-                }
                 if (entity instanceof RiceCooker && entity.isClicked(getXandY(e).x, getXandY(e).y)) {
                     entity.handleClick(); // Trigger the click handler
                 }
@@ -118,6 +113,12 @@ export default class GameEngine {
         }, false);
 
         this.ctx.canvas.addEventListener("click", e => {
+            this.click = true;
+            that.entities.forEach(entity => {
+                if (entity instanceof Faucet) {
+                    entity.faucetManager(getXandY(e).x, getXandY(e).y);
+                }
+            });
             if (this.options.debugging) {
                 console.log("CLICK", getXandY(e));
             }

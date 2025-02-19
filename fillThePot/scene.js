@@ -1,5 +1,5 @@
-import Cup from "./cup.js";
-import WaterPitcher from "./waterPitcher.js";
+import Pot from "./pot.js";
+import Faucet from "./faucet.js";
 import { ASSET_MANAGER } from "../main.js";
 import Scene from "../scene.js";
 import GameObject from "../gameObject.js";
@@ -13,9 +13,9 @@ export class FillThePotScene extends Scene {
 
     initalizeScene() {
         this.addGameObject(new Background(this.game, 0, 0));
-        let cup = new Cup(this.game);
-        this.addGameObject(cup);
-        this.addGameObject(new WaterPitcher(this.game, cup));
+        let pot = new Pot(this.game);
+        this.addGameObject(pot);
+        this.addGameObject(new Faucet(this.game, pot));
     }
 }
 
@@ -24,7 +24,7 @@ class Background extends GameObject {
         super(game);
         Object.assign(this, { game, x, y });
 
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/FillThePot_Background.png");
     };
 
     update() {

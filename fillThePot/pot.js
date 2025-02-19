@@ -6,6 +6,7 @@ export default class Pot extends GameObject {
         super(game);
         this.game = game;
         this.liters = 0;
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/Pot_Animation.png");
     };
 
     update() {
@@ -14,8 +15,8 @@ export default class Pot extends GameObject {
     };
 
     draw(ctx) {
-        if (liters == 0) {
-            
-        } 
+        if (this.liters == 0) {
+            ctx.drawImage(this.spritesheet, 0, 0, 380, 300, 322, 386, 380, 300);
+        }
     };
 }

@@ -1,4 +1,4 @@
-import GameObject from '../gameObject.js';
+import GameObject from '../../gameObject.js';
 import Fly from './fly.js';
 
 export default class FlySpawner extends GameObject {

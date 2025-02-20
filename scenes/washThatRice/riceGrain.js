@@ -1,5 +1,5 @@
-import GameObject from "../gameObject.js"
-import { randomIntRange } from "../util.js"
+import GameObject from "../../gameObject.js"
+import { randomIntRange } from "../../util.js"
 
 const COLORS = [
     '#f5f5f5',

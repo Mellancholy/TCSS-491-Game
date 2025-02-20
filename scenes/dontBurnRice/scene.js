@@ -1,8 +1,8 @@
 import RiceCooker from "./ricecooker.js";
 import TimerBar from "./timerBar.js";
-import { ASSET_MANAGER } from "../main.js";
-import Scene from "../scene.js";
-import GameObject from "../gameObject.js";
+import { ASSET_MANAGER } from "../../main.js";
+import Scene from "../../scene.js";
+import GameObject from "../../gameObject.js";
 
 
 export class DontBurnRiceScene extends Scene {

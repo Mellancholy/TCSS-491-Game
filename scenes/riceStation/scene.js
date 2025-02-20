@@ -1,6 +1,6 @@
-import { ASSET_MANAGER } from "../main.js";
-import Scene from "../scene.js";
-import GameObject from "../gameObject.js";
+import { ASSET_MANAGER } from "../../main.js";
+import Scene from "../../scene.js";
+import GameObject from "../../gameObject.js";
 
 import RiceCooker from "./stationRiceCooker.js";
 

@@ -1,7 +1,7 @@
-import Scene from '../scene.js';
-import GameObject from '../gameObject.js';
-import { ASSET_MANAGER } from "../main.js";
-import { DnDButton } from "../button.js";
+import Scene from '../../scene.js';
+import GameObject from '../../gameObject.js';
+import { ASSET_MANAGER } from "../../main.js";
+import { DnDButton } from "../../button.js";
 
 export class RiceAssemblyScene extends Scene {
     constructor(game) {

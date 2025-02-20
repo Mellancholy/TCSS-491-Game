@@ -1,4 +1,4 @@
-import GameObject from "../gameObject.js"
+import GameObject from "../../gameObject.js"
 
 export default class ProgressBar extends GameObject{
 

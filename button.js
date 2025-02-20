@@ -29,8 +29,8 @@ export class Button extends GameObject {
                     this.onClick();
             }
         } else {
-            if (e.offsetX > this.x && e.offsetX < this.x + this.w &&
-                e.offsetY > this.y && e.offsetY < this.y + this.h) {
+            if (e.offsetX > this.x && e.offsetX < this.x + this.width &&
+                e.offsetY > this.y && e.offsetY < this.y + this.height) {
                     this.onClick();
             }
         }
@@ -62,9 +62,15 @@ export class DnDButton extends GameObject {
         return dnd;
     }
 
-    static rectButton(game, x, y, w, h, color, onClick) {
+    static transparentImageButton(game, x, y, width, height, image, onClick) {
         let dnd = new DnDButton(game, x, y, onClick);
-        Object.assign(dnd, { w, h, bgColor: color });
+        Object.assign(dnd, { width, height, image: ASSET_MANAGER.getAsset(image), transparent: true });
+        return dnd;
+    }
+
+    static rectButton(game, x, y, width, height, color, onClick) {
+        let dnd = new DnDButton(game, x, y, onClick);
+        Object.assign(dnd, { width, height, bgColor: color });
         return dnd;
     }
 
@@ -74,6 +80,7 @@ export class DnDButton extends GameObject {
     }
 
     draw(ctx) {
+        if(this.transparent && !this.dragging) return;
         if(this.image) {
             if(this.dragging) {
                 ctx.drawImage(this.image, this.game.mouse.x - this.image.width / 2, this.game.mouse.y - this.image.height / 2);
@@ -85,13 +92,13 @@ export class DnDButton extends GameObject {
         } else {
             if(this.dragging) {
                 ctx.fillStyle = this.bgColor;
-                ctx.fillRect(this.game.mouse.x - this.w / 2, this.game.mouse.y - this.h / 2, this.w, this.h);
+                ctx.fillRect(this.game.mouse.x - this.width / 2, this.game.mouse.y - this.height / 2, this.width, this.height);
             } else {
                 ctx.fillStyle = this.bgColor;
-                ctx.fillRect(this.x, this.y, this.w, this.h);
+                ctx.fillRect(this.x, this.y, this.width, this.height);
                 ctx.lineWidth = 2;
                 ctx.strokeStyle = "black";
-                ctx.strokeRect(this.x, this.y, this.w, this.h);
+                ctx.strokeRect(this.x, this.y, this.width, this.height);
             }
             
         }
@@ -99,15 +106,15 @@ export class DnDButton extends GameObject {
 
     onMouseDown(e) {
         console.log("mouse down dnd button");
-        if(this.image) {
+        if(this.image && !this.transparent) {
             if (e.offsetX > this.x && e.offsetX < this.x + this.image.width &&
                 e.offsetY > this.y && e.offsetY < this.y + this.image.height) {
                     this.dragging = true;
                     this.onClick();
             }
         } else {
-            if (e.offsetX > this.x && e.offsetX < this.x + this.w &&
-                e.offsetY > this.y && e.offsetY < this.y + this.h) {
+            if (e.offsetX > this.x && e.offsetX < this.x + this.width &&
+                e.offsetY > this.y && e.offsetY < this.y + this.height) {
                     this.dragging = true;
                     this.onClick();
             }

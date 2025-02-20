@@ -96,12 +96,11 @@ class FoodBin extends GameObject {
     };
 
     addButton() {
-        this.dnd = DnDButton.imageButton(this.game, this.x, this.y, this.width, this.height, this.food.img, () => {
-            console.log("clicked");
+        this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, this.food.img, () => {
+            console.log("clicked on food bin", this.food);
         });
         this.dnd.width = this.width;
         this.dnd.height = this.height;
-        
         if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
 

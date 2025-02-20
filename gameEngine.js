@@ -159,27 +159,18 @@ export default class GameEngine {
 
     update() {
         let entitiesCount = this.entities.length;
-
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
 
             if (!entity.removeFromWorld) {
                 entity.update();
             }
-        }
-
-        // Check for swatting
-        let swatter = this.entities.find(e=> e instanceof Swatter);
-        if (swatter && this.keys[" "]) {
-            let swatCircle = swatter.getBoundingCircle();
-
-            this.entities = this.entities.filter(entity => {
-                if (entity instanceof Fly && isColliding(swatCircle, entity.getBoundingCircle())) {
-                    console.log("Fly Swatted!");
-                    return false;
-                }
-                return true;
-            })
+            //If the size of the entity list has changed, update i
+            if(entitiesCount !== this.entities.length) {
+                let diff = entitiesCount - this.entities.length;
+                entitiesCount = this.entities.length;
+                i -= diff;
+            }
         }
 
         for (let i = this.entities.length - 1; i >= 0; --i) {

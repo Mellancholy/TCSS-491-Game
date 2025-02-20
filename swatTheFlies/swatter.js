@@ -1,5 +1,7 @@
 import GameObject from "../gameObject.js";
 import { ASSET_MANAGER } from "../main.js";
+import Fly from "./fly.js";
+import { isColliding } from "../util.js";
 
 export default class Swatter extends GameObject {
     constructor(game) {
@@ -19,6 +21,17 @@ export default class Swatter extends GameObject {
         if (this.isDragging) {
             this.x = this.game.move.x - this.offsetX;
             this.y = this.game.move.y - this.offsetY;
+        }
+        if (this.game.keys[" "]) {
+            let swatCircle = this.getBoundingCircle();
+
+            this.game.entities = this.game.entities.filter(entity => {
+                if (entity instanceof Fly && isColliding(swatCircle, entity.getBoundingCircle())) {
+                    console.log("Fly Swatted!");
+                    return false;
+                }
+                return true;
+            })
         }
     };
 

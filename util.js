@@ -54,3 +54,7 @@ export const isColliding = (circle1, circle2) => {
     let distance = getDistance(circle1, circle2);
     return distance < (circle1.radius + circle2.radius);
 };
+
+export const pointInBoxCollision = (bx, by, bw, bh, px, py) => {
+    return px > bx && px < bx + bw && py > by && py < by + bh;
+}

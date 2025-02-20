@@ -50,6 +50,11 @@ ASSET_MANAGER.queueDownload("./assets/swatter.png");
 //Counter
 ASSET_MANAGER.queueDownload("./assets/characters/dummy.png");
 
+// Food bits
+ASSET_MANAGER.queueDownload("./assets/assembly/crab.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/cucumber.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/tuna.png");
+
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
@@ -60,7 +65,7 @@ ASSET_MANAGER.downloadAll(() => {
 	const sceneManage = new SceneManager(gameEngine);
 	gameEngine.addEntity(sceneManage);
 
-	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadStation.bind(sceneManage)));
+	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadScene.bind(sceneManage)));
 
 	gameEngine.start();
 

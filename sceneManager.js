@@ -18,7 +18,7 @@ export default class SceneManager {
         this.registerScene("counter", new CounterScene(this.game, 0, 0));
         this.registerScene("riceAssembly", new RiceAssemblyScene(this.game, 0, 0));
 
-        this.loadStation("riceAssembly");
+        this.loadScene("riceAssembly");
         //this.onDeload = null;
     };
 
@@ -27,10 +27,10 @@ export default class SceneManager {
         this.scenes[id] = scene;
     }
 
-    loadStation(station) {
-        if(this.currentScene === station) return;
-        if(!this.scenes[station]) {
-            console.log("error: scene not found: " + station);
+    loadScene(scene) {
+        if(this.currentScene === scene) return;
+        if(!this.scenes[scene]) {
+            console.log("error: scene not found: " + scene);
             return;
         }
 
@@ -39,9 +39,10 @@ export default class SceneManager {
             this.scenes[this.currentScene].deload();
         }
 
-        console.log("loading scene: " + station);
-        this.scenes[station].initalizeScene();
-        this.currentScene = station;
+        console.log("loading scene: " + scene);
+        this.currentScene = scene;
+        this.game.currentScene = this.scenes[scene];
+        this.scenes[scene].initalizeScene();
     };
 
     update() {};

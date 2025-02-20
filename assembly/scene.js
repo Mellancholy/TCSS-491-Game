@@ -1,6 +1,7 @@
 import Scene from '../scene.js';
 import GameObject from '../gameObject.js';
 import { ASSET_MANAGER } from "../main.js";
+import { DnDButton } from "../button.js";
 
 export class RiceAssemblyScene extends Scene {
     constructor(game) {
@@ -10,62 +11,65 @@ export class RiceAssemblyScene extends Scene {
 
     initalizeScene() {
         this.addGameObject(new Background(this.game));
+        this.addGameObject(new FoodBottom(this.game, 1024 / 2, 300, 1, 1));
         const binWidth = 80;
         const binHeight = 80;
         const foods = [
             {
                 name: "rice",
-                color: "white",
+                img: "./assets/assembly/crab.png",
             },
             {
                 name: "avocado",
-                color: "green",
+                img: "./assets/assembly/tuna.png",
             },
             {
                 name: "crab",
-                color: "red",
+                img: "./assets/assembly/cucumber.png",
             },
             {
                 name: "cucumber",
-                color: "green",
+                img: "./assets/assembly/crab.png",
             },
             {
                 name: "salmon",
-                color: "pink",
+                img: "./assets/assembly/tuna.png",
             },
             {
                 name: "tuna",
-                color: "red",
+                img: "./assets/assembly/cucumber.png",
             },
             {
                 name: "shrimp",
-                color: "pink",
+                img: "./assets/assembly/crab.png",
             },
             {
                 name: "eel",
-                color: "brown",
+                img: "./assets/assembly/tuna.png",
             },
             {
                 name: "uni",
-                color: "orange",
+                img: "./assets/assembly/cucumber.png",
             },
             {
                 name: "tamago",
-                color: "yellow",
+                img: "./assets/assembly/crab.png",
             },
             {
                 name: "idk",
-                color: "gray",
+                img: "./assets/assembly/tuna.png",
             },
             {
                 name: "idk",
-                color: "gray",
+                img: "./assets/assembly/cucumber.png",
             }
         ]
         let curFood = 0;
         let y = 510;
         for(let x = 0; x < 12; x++) {
-            this.addGameObject(new FoodBin(this.game, foods[curFood], 10 + x * (binWidth + 4), y, binWidth, binHeight));
+            const foodBin = new FoodBin(this.game, foods[curFood], 10 + x * (binWidth + 4), y, binWidth, binHeight);
+            this.addGameObject(foodBin);
+            foodBin.addButton(); // add the button to the scene after the bin is added
             curFood++;
         }
     }
@@ -91,17 +95,55 @@ class FoodBin extends GameObject {
         Object.assign(this, { game, food, x, y, width, height });
     };
 
-    update() {
+    addButton() {
+        this.dnd = DnDButton.imageButton(this.game, this.x, this.y, this.width, this.height, this.food.img, () => {
+            console.log("clicked");
+        });
+        this.dnd.width = this.width;
+        this.dnd.height = this.height;
+        
+        if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
+    }
 
+    update() {
+        
     };
 
     draw(ctx) {
         ctx.drawImage(ASSET_MANAGER.getAsset("./assets/assembly/tray.jpg"), this.x, this.y, this.width, this.height);
-        let offset = 24;
-        ctx.fillStyle = this.food.color;
-        ctx.fillRect(this.x + offset, this.y + offset, this.width - (offset * 2), this.height - (offset * 2));
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 2;
-        ctx.strokeRect(this.x + offset, this.y + offset, this.width - (offset * 2), this.height - (offset * 2));
+        
+        const bottomWidth = 80
+        const bottomHeight = 35
+        const xOffset = this.width - bottomWidth
+        const yOffset = this.height - (bottomHeight)
+        const xCount = 3
+        const xSpace = bottomWidth / xCount
+        const yCount = 3
+        const ySpace = bottomHeight / yCount;
+        for(let row = 0; row < yCount; row++) {
+            for(let col = 0; col < xCount; col++) {
+                ctx.drawImage(ASSET_MANAGER.getAsset(this.food.img), this.x + xOffset + (xSpace * col), this.y + (yOffset / 2) - 5 + (ySpace * row))
+            }
+        }
     };
+}
+
+class FoodBottom extends GameObject {
+    constructor(game, x, y, width, height) {
+        super(game);
+        Object.assign(this, { game, x, y, width, height });
+    };
+
+    update() {
+        
+    };
+
+    draw(ctx) {
+
+    };
+
+    onDnDDrop(e) {
+        console.log("dropped");
+        console.log(e);
+    }
 }

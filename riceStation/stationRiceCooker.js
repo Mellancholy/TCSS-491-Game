@@ -76,13 +76,13 @@ export default class StationRiceCooker extends GameObject {
         const minigame = Math.floor(Math.random() * 3);
         console.log(minigame);
         if (minigame == 0) {
-            sceneManage.loadStation("fill");
+            sceneManage.loadScene("fill");
             console.log("minigame 1")
         } else if (minigame == 1) {
-            sceneManage.loadStation("burn");
+            sceneManage.loadScene("burn");
             console.log("minigame 2")
         } else if (minigame == 2) {
-            sceneManage.loadStation("wash");
+            sceneManage.loadScene("wash");
             console.log("minigame 3")
         }
     }   

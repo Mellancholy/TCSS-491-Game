@@ -11,7 +11,7 @@ export class RiceAssemblyScene extends Scene {
 
     initalizeScene() {
         this.addGameObject(new Background(this.game));
-        this.addGameObject(new FoodBottom(this.game, 1024 / 2, 300, 1, 1));
+        this.addGameObject(new FoodBottom(this.game, 1024 / 2, 290, 120, 120));
         const binWidth = 80;
         const binHeight = 80;
         const foods = [
@@ -101,6 +101,7 @@ class FoodBin extends GameObject {
         });
         this.dnd.width = this.width;
         this.dnd.height = this.height;
+        this.dnd.food = this.food;
         if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
 
@@ -130,7 +131,7 @@ class FoodBin extends GameObject {
 class FoodBottom extends GameObject {
     constructor(game, x, y, width, height) {
         super(game);
-        Object.assign(this, { game, x, y, width, height });
+        Object.assign(this, { game, x, y, width, height, foods: [] });
     };
 
     update() {
@@ -138,11 +139,23 @@ class FoodBottom extends GameObject {
     };
 
     draw(ctx) {
-
+        ctx.fillStyle = "green";
+        ctx.fillRect(this.x - (this.width / 2), this.y, this.width, this.height);
+        ctx.fillStyle = "white";
+        ctx.fillRect(this.x + 10 - (this.width / 2), this.y + 10, this.width - 20, this.height - 20);
+        this.foods.forEach(element => {
+            const img = ASSET_MANAGER.getAsset(element.img)
+            ctx.drawImage(img, this.x - (img.width / 2), this.y + (this.height / 2) - (img.height / 2), img.width, img.height);
+        });
     };
 
     onDnDDrop(e) {
         console.log("dropped");
         console.log(e);
+        console.log(e.detail)
+        if(e.detail.x > this.x - (this.width / 2) && e.detail.x < this.x + (this.width / 2) && e.detail.y > this.y && e.detail.y < this.y + this.height) {
+            console.log("dropped in food bottom");
+            this.foods.push(e.detail.button.food);
+        }
     }
 }

@@ -26,25 +26,26 @@ export default class SceneManager {
     };
 
     registerScene(id, scene) {
-        console.log("registering scene: " + id);
+        //console.log("registering scene: " + id);
         this.scenes[id] = scene;
     }
 
     loadScene(scene) {
         if(this.currentScene === scene) return;
         if(!this.scenes[scene]) {
-            console.log("error: scene not found: " + scene);
+            //console.log("error: scene not found: " + scene);
             return;
         }
 
         if(this.currentScene) {
-            console.log("deloading scene: " + this.currentScene);
+            //console.log("deloading scene: " + this.currentScene);
             this.scenes[this.currentScene].deload();
         }
 
-        console.log("loading scene: " + scene);
+        //console.log("loading scene: " + scene);
         this.currentScene = scene;
         this.game.currentScene = this.scenes[scene];
+        
         this.scenes[scene].initalizeScene();
     };
 
@@ -52,3 +53,4 @@ export default class SceneManager {
     draw(ctx) {};
 
 }
+

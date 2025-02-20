@@ -1,7 +1,9 @@
 import AssetManager from "./assetManager.js";
 import GameEngine from "./gameEngine.js";
+import OrderManager from "./orderManager.js";
 import SceneManager from "./sceneManager.js";
 import StationSwitcher from "./stationSwitcher.js";
+import RollManager from "./rollManager.js";
 
 const gameEngine = new GameEngine();
 
@@ -72,10 +74,12 @@ ASSET_MANAGER.queueDownload("./assets/assembly/tuna.png");
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
-
+    
 	gameEngine.init(ctx);
 
 	gameEngine.addEntity(sceneManage);
+    gameEngine.addEntity(orderManage);
+    gameEngine.addEntity(rollManage)
 
 	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadScene.bind(sceneManage)));
 
@@ -99,6 +103,7 @@ window.requestAnimFrame = (() => {
             window.setTimeout(callback, 1000 / 60);
         });
 })();
-
 const sceneManage = new SceneManager(gameEngine);
-export default sceneManage;
+const orderManage = new OrderManager(gameEngine);
+const rollManage = new RollManager(gameEngine);
+export { sceneManage, orderManage, rollManage };

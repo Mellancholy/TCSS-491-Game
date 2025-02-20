@@ -1,6 +1,6 @@
 import GameObject from "../gameObject.js";
 import { ASSET_MANAGER } from "../main.js";
-import sceneManage from "../main.js";
+import { sceneManage, orderManage } from '../main.js';
 
 
 export default class StationRiceCooker extends GameObject {
@@ -15,6 +15,10 @@ export default class StationRiceCooker extends GameObject {
         this.cookerClicked = false;
         this.offsetX = 0;
         this.offsetY = 0;
+        this.order = orderManage.getOrders()[0];
+        for(let i = 0; i < this.order.ingredients.length; i++) {
+            console.log(this.order.ingredients[i].type);
+        }
     }
 
     update() {

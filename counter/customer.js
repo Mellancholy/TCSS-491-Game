@@ -1,4 +1,5 @@
 import GameObject from "../gameObject.js";
+import { sceneManage, orderManage } from "../main.js";
 import { ASSET_MANAGER } from "../main.js";
 import { Order, CALIFORNIA_ROLL, SPICY_TUNA_ROLL, ALASKAN_ROLL, WASABI, GINGER } from "./food.js";
 
@@ -63,8 +64,8 @@ export default class Customer extends GameObject {
     }
 
     displayOrder() {
-        const order = this.randomOrder();
-        this.order = order
+        this.order = this.randomOrder();
+        orderManage.addOrder(this.order);
         this.showOrder = true;
     }
 

@@ -4,6 +4,7 @@ import { FillThePotScene } from "./fillThePot/scene.js";
 import SwatTheFliesScene from "./swatTheFlies/scene.js";
 import { CounterScene } from "./counter/scene.js";
 import { RiceStationScene } from "./riceStation/scene.js";
+import { RiceAssemblyScene } from "./assembly/scene.js";
 
 export default class SceneManager {
     constructor(game){
@@ -11,17 +12,14 @@ export default class SceneManager {
         this.scenes = {};
         this.currentScene = null;
 
-        // stations
-        this.registerScene("rice", new RiceStationScene(this.game, 0, 0));
-        this.registerScene("counter", new CounterScene(this.game, 0, 0));
-
-        // rice minigames
-        this.registerScene("fill", new FillThePotScene(this.game, 0, 0));
-        this.registerScene("burn", new DontBurnRiceScene(this.game, 0, 0));
-        this.registerScene("wash", new WashThatRiceScene(this.game, 0, 0));
+        this.registerScene("order", new FillThePotScene(this.game, 0, 0));
+        this.registerScene("rice", new DontBurnRiceScene(this.game, 0, 0));
         this.registerScene("roll", new SwatTheFliesScene(this.game, 0, 0));
+        this.registerScene("sides", new WashThatRiceScene(this.game, 0, 0));
+        this.registerScene("counter", new CounterScene(this.game, 0, 0));
+        this.registerScene("riceAssembly", new RiceAssemblyScene(this.game, 0, 0));
 
-        this.loadStation("burn"); //change this later
+        this.loadScene("riceAssembly");
         //this.onDeload = null;
     };
 
@@ -30,10 +28,10 @@ export default class SceneManager {
         this.scenes[id] = scene;
     }
 
-    loadStation(station) {
-        if(this.currentScene === station) return;
-        if(!this.scenes[station]) {
-            console.log("error: scene not found: " + station);
+    loadScene(scene) {
+        if(this.currentScene === scene) return;
+        if(!this.scenes[scene]) {
+            console.log("error: scene not found: " + scene);
             return;
         }
 
@@ -42,9 +40,10 @@ export default class SceneManager {
             this.scenes[this.currentScene].deload();
         }
 
-        console.log("loading scene: " + station);
-        this.scenes[station].initalizeScene();
-        this.currentScene = station;
+        console.log("loading scene: " + scene);
+        this.currentScene = scene;
+        this.game.currentScene = this.scenes[scene];
+        this.scenes[scene].initalizeScene();
     };
 
     update() {};

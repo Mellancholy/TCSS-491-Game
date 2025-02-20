@@ -16,6 +16,7 @@ ASSET_MANAGER.queueDownload("./assets/backgrounds/Sides_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Background.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Counter_Background.png");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Backgrounds.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Minigame_Background.png");
 
 // rice station
@@ -30,6 +31,10 @@ ASSET_MANAGER.queueDownload("./assets/button/Rice_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Roll_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Side_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Order_Button.JPG");
+
+//sushi assembly
+ASSET_MANAGER.queueDownload("./assets/assembly/case.jpg");
+ASSET_MANAGER.queueDownload("./assets/assembly/tray.jpg");
 
 //Wash that rice
 ASSET_MANAGER.queueDownload('./assets/hand.png');
@@ -58,6 +63,11 @@ ASSET_MANAGER.queueDownload("./assets/swatter.png");
 //Counter
 ASSET_MANAGER.queueDownload("./assets/characters/dummy.png");
 
+// Food bits
+ASSET_MANAGER.queueDownload("./assets/assembly/crab.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/cucumber.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/tuna.png");
+
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
@@ -67,7 +77,7 @@ ASSET_MANAGER.downloadAll(() => {
 
 	gameEngine.addEntity(sceneManage);
 
-	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadStation.bind(sceneManage)));
+	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadScene.bind(sceneManage)));
 
 	gameEngine.start();
 

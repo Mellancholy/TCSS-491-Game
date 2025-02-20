@@ -18,4 +18,12 @@ export default class GameObject {
     deload() {
         this.removeFromWorld = true;
     }
+
+    onMouseDown(e) {
+
+    }
+
+    onMouseUp(e) {
+
+    }
 }

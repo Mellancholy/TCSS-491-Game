@@ -13,7 +13,7 @@ export class FillThePotScene extends Scene {
 
     initalizeScene() {
         this.addGameObject(new Background(this.game, 0, 0));
-        let pot = new Pot(this.game);
+        const pot = new Pot(this.game)
         this.addGameObject(pot);
         this.addGameObject(new Faucet(this.game, pot));
     }

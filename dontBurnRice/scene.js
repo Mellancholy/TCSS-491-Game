@@ -8,7 +8,6 @@ import GameObject from "../gameObject.js";
 export class DontBurnRiceScene extends Scene {
     constructor(game, x, y) {
         super(game);
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png");
         Object.assign(this, { game, x, y });
     };
 
@@ -27,7 +26,7 @@ class Background extends GameObject{
         super(game);
         Object.assign(this, { game, x, y });
 
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Minigame_Background.png");
     };
 
     update() {

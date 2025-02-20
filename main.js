@@ -16,6 +16,7 @@ ASSET_MANAGER.queueDownload("./assets/backgrounds/Sides_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Background.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Counter_Background.png");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Minigame_Background.png");
 
 // rice station
 ASSET_MANAGER.queueDownload("./assets/objects/RiceCooker_Full.png");
@@ -44,7 +45,9 @@ ASSET_MANAGER.queueDownload('./assets/objects/Pot_Animation.png');
 ASSET_MANAGER.queueDownload('./assets/backgrounds/FillThePot_Background.png');
 
 // Don't burn the rice.
-ASSET_MANAGER.queueDownload('./assets/ricecooker2.png');
+ASSET_MANAGER.queueDownload('./assets/objects/RiceCooker_On.png');
+ASSET_MANAGER.queueDownload('./assets/objects/RiceCooker_Off.png');
+
 
 ASSET_MANAGER.queueDownload('./assets/sounds/jingle.mp3');
 

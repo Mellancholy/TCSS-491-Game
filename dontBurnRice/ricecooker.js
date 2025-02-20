@@ -6,10 +6,10 @@ export default class RiceCooker extends GameObject {
     constructor(game) {
         super(game);
         this.game = game;
-        this.x = 100;
+        this.x = 237;
         this.y = 100;
-        this.w = 100;
-        this.h = 100;
+        this.w = 550;
+        this.h = 525;
 
         this.clicked = false;
     }
@@ -40,22 +40,18 @@ export default class RiceCooker extends GameObject {
     }
 
     update() {
-        if (this.clicked) {
-            this.w = 120;
-            this.h = 120;
-        } else {
-            this.w = 100;
-            this.h = 100;
-        }
+        
     }
 
     draw(ctx) {
         //console.log("RiceCooker draw method called");
-        const image = ASSET_MANAGER.getAsset("./assets/ricecooker2.png");
+        const off = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker_Off.png");
+        const on = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker_On.png");
 
-        ctx.drawImage(image, this.x, this.y, this.w, this.h);
+        ctx.drawImage(off, this.x, this.y, this.w, this.h);
 
         if (this.clicked) {
+            ctx.drawImage(on, this.x, this.y, this.w, this.h);
             ctx.strokeStyle = "red";
             ctx.lineWidth = 3;
             ctx.strokeRect(this.x, this.y, this.w, this.h);

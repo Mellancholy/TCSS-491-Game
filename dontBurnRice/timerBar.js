@@ -14,9 +14,9 @@ export default class TimerBar extends GameObject {
         this.perfectStart = this.totalTime * 0.8;
         this.perfectEnd = this.totalTime;
 
-        this.x = 100; // X 
-        this.y = 300; // Y 
-        this.width = 200; // Width 
+        this.x = 237; // X 
+        this.y = 650; // Y 
+        this.width = 550; // Width 
         this.height = 20; // Height
     }
 

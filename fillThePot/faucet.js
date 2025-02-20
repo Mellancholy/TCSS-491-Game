@@ -5,8 +5,9 @@ export default class Faucet extends GameObject {
     constructor(game, pot) {
         super(game);
         this.game = game;
-        this.pot = pot;
         this.isOn = false;
+        this.pot = pot
+        this.gameWon = false;
         this.gameOver = false;
     };
 
@@ -16,6 +17,18 @@ export default class Faucet extends GameObject {
             this.pot.liters++;
             console.log(this.pot.liters);
         }
+
+        if (!this.isOn && this.pot.liters > 0) {
+            if (this.pot.liters >= 700 && this.pot.liters < 800) {
+                this.gameWon = true; 
+                console.log(this.gameWon); // debugging
+            } else {
+                this.gameWon = false;
+            }
+            this.gameOver = true;
+        }
+
+        
     };
 
     draw(ctx) {

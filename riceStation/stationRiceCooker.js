@@ -47,6 +47,14 @@ export default class StationRiceCooker extends GameObject {
         }
     }
 
+    onMouseDown(e) {
+        this.stopDragging();
+    }
+    
+    onMouseUp(e) {
+        this.createRiceAndDrag(this.game.mouse.x, this.game.mouse.y);
+    }
+
     
     // Spawn in rice and 
     createRiceAndDrag(mouseX, mouseY) {

@@ -27,6 +27,8 @@ ASSET_MANAGER.queueDownload("./assets/objects/RiceCooker_Low.png");
 ASSET_MANAGER.queueDownload("./assets/objects/RiceCooker_Empty.png");
 ASSET_MANAGER.queueDownload("./assets/objects/BambooMat_Empty.png");
 ASSET_MANAGER.queueDownload("./assets/objects/Rice_Cooked.png");
+ASSET_MANAGER.queueDownload("./assets/objects/Nori.png");
+ASSET_MANAGER.queueDownload("./assets/objects/Nori_Source.png");
 
 // buttons
 ASSET_MANAGER.queueDownload("./assets/button/Rice_Button.JPG");

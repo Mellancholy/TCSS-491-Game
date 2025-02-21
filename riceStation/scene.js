@@ -1,8 +1,8 @@
 import { ASSET_MANAGER } from "../main.js";
 import Scene from "../scene.js";
 import GameObject from "../gameObject.js";
-
 import RiceCooker from "./stationRiceCooker.js";
+import Nori from "./nori.js";
 
 export class RiceStationScene extends Scene {
     constructor(game, x, y) {
@@ -13,6 +13,7 @@ export class RiceStationScene extends Scene {
     initalizeScene() {
             this.addGameObject(new Background(this.game, 0, 0));
             this.addGameObject(new RiceCooker(this.game, 0, 20))
+            this.addGameObject(new Nori(this.game, 550, 50));
         }
 }
 

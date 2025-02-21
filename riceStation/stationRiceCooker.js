@@ -1,6 +1,6 @@
 import GameObject from "../gameObject.js";
 import { ASSET_MANAGER } from "../main.js";
-import { sceneManage, orderManage } from '../main.js';
+import { sceneManage, orderManage, rollManage } from '../main.js';
 
 
 export default class StationRiceCooker extends GameObject {
@@ -9,23 +9,26 @@ export default class StationRiceCooker extends GameObject {
         this.game = game;
         this.x = x;
         this.y = y;
-        this.riceX = x;
-        this.riceY = y;
-        this.amount = 2;
+
+        this.riceX = 10;
+        this.riceY = 10;
+        this.amount = 5;
+
         this.cookerClicked = false;
         this.offsetX = 0;
         this.offsetY = 0;
         this.order = orderManage.getOrders()[0];
-        for(let i = 0; i < this.order.ingredients.length; i++) {
-            console.log(this.order.ingredients[i].type);
-        }
+        this.roll = null;
+        // for(let i = 0; i < this.order.ingredients.length; i++) {
+        //     console.log(this.order.ingredients[i].type);s
+        // }
     }
 
     update() {
         if (this.cookerClicked) {
             if (this.amount == 0) {
                 this.beginMinigame();
-                this.amount = 10;
+                this.amount = 5;
             } else {
                 this.riceX = this.game.mouse.x - this.offsetX;
                 this.riceY = this.game.mouse.y - this.offsetY;
@@ -52,11 +55,11 @@ export default class StationRiceCooker extends GameObject {
     }
 
     onMouseDown(e) {
-        this.stopDragging();
+        this.createRiceAndDrag(this.game.mouse.x, this.game.mouse.y);
     }
     
     onMouseUp(e) {
-        this.createRiceAndDrag(this.game.mouse.x, this.game.mouse.y);
+        this.stopDragging();
     }
 
     

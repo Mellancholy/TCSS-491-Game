@@ -1,7 +1,7 @@
 import Scene from '../../scene.js';
 import GameObject from '../../gameObject.js';
 import { ASSET_MANAGER } from "../../main.js";
-import { DnDButton } from "../../button.js";
+import { Button, DnDButton } from "../../button.js";
 
 export class RiceAssemblyScene extends Scene {
     constructor(game) {
@@ -11,7 +11,8 @@ export class RiceAssemblyScene extends Scene {
 
     initalizeScene() {
         this.addGameObject(new Background(this.game));
-        this.addGameObject(new FoodBottom(this.game, 1024 / 2, 290, 120, 120));
+        this.foodBottom = new FoodBottom(this.game, 1024 / 2, 290, 120, 120);
+        this.addGameObject(this.foodBottom);
         const binWidth = 80;
         const binHeight = 80;
         const foods = [
@@ -72,6 +73,19 @@ export class RiceAssemblyScene extends Scene {
             foodBin.addButton(); // add the button to the scene after the bin is added
             curFood++;
         }
+
+        this.rollButton = Button.rectButton(this.game, 600, 320, 100, 50, () => {
+            console.log("Clicked roll button");
+            this.roll()
+        }, "Roll")
+        this.rollButton.hidden = true;
+        this.addGameObject(this.rollButton)
+    }
+
+    roll() {
+        console.log("rolling");
+        this.rollButton.removeFromWorld = true;
+        this.foodBottom.rolled = true;
     }
 }
 
@@ -131,21 +145,53 @@ class FoodBin extends GameObject {
 class FoodBottom extends GameObject {
     constructor(game, x, y, width, height) {
         super(game);
-        Object.assign(this, { game, x, y, width, height, foods: [] });
+        Object.assign(this, { game, x, y, width, height, foods: [], chops: [] });
     };
 
     update() {
+        if(!this.rolled) return;
+        console.log(this.game.down)
+        if(this.game.down) {
+            if(this.game.timer.gameTime - this.game.previousMousePositionsLatest > 0.1) {
+                this.game.previousMousePositions = []
+            }
+            if(this.game.previousMousePositions.length === 15) {
+                
+            }
+        } else {
+            this.game.previousMousePositions = []
+        }
         
     };
 
     draw(ctx) {
+        if(this.rolled) {
+            ctx.fillStyle = "green";
+            ctx.fillRect(this.x - (this.width / 2), this.y, this.width, 30);
+            if(this.game.down) {
+                ctx.beginPath()
+                this.game.previousMousePositions.forEach((pos, index) => {
+                    if(index === 0) {
+                        ctx.moveTo(pos.x, pos.y);
+                    } else {
+                        ctx.lineTo(pos.x, pos.y);
+                    }
+                })
+                ctx.stroke()
+            }
+            return;
+        }
         ctx.fillStyle = "green";
         ctx.fillRect(this.x - (this.width / 2), this.y, this.width, this.height);
         ctx.fillStyle = "white";
         ctx.fillRect(this.x + 10 - (this.width / 2), this.y + 10, this.width - 20, this.height - 20);
         this.foods.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img)
-            ctx.drawImage(img, this.x - (img.width / 2), this.y + (this.height / 2) - (img.height / 2), img.width, img.height);
+            const xOffset = 10
+            const spacing = (this.width - xOffset) / 3
+            for(let i = 0; i < 3; i++) {
+                ctx.drawImage(img, this.x + (i * spacing) - (this.width / 2) + xOffset, this.y + (this.height / 2) - (img.height / 2), img.width, img.height);
+            } 
         });
     };
 
@@ -156,6 +202,7 @@ class FoodBottom extends GameObject {
         if(e.detail.x > this.x - (this.width / 2) && e.detail.x < this.x + (this.width / 2) && e.detail.y > this.y && e.detail.y < this.y + this.height) {
             console.log("dropped in food bottom");
             this.foods.push(e.detail.button.food);
+            e.detail.button.game.currentScene.rollButton.hidden = false;
         }
     }
 }

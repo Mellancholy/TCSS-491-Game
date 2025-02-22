@@ -3,6 +3,7 @@ import Scene from "../scene.js";
 import GameObject from "../gameObject.js";
 import { sceneManage, rollManage } from '../main.js';
 import { DnDButton } from "../button.js";
+import Ingredient from "../counter/food.js";
 
 export class RiceStationScene extends Scene {
     constructor(game) {
@@ -54,12 +55,13 @@ class Background extends GameObject {
 class RiceCooker extends GameObject {
     constructor(game, food, x, y, width, height) {
         super(game);
-        Object.assign(this, { game, food, x, y, width, height, amount: 5 });
+        Object.assign(this, { game, food, x, y, width, height, amount: 5, cookerClicked : false});
     };
 
     addButton() {
         this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, this.food.img, () => {
             console.log("clicked on food bin", this.food);
+            this.cookerClicked = true;
             this.amount--;
         });
         this.dnd.width = this.width;
@@ -163,6 +165,7 @@ class BambooMat extends GameObject {
             console.log("dropped in food bottom");
             this.foods.push(e.detail.button.food);
             console.log(e.detail.button.food);
+            rollManage.addIngredient(new Ingredient(e.detail.button.food.name));
         }
     }
 }

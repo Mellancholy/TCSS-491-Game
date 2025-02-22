@@ -18,13 +18,8 @@ export default class Nori extends GameObject {
 
     update() {
         if (this.noriClicked) {
-            if (this.amount == 0) {
-                //this.beginMinigame();
-                this.amount = 5;
-            } else {
-                this.noriX = this.game.mouse.x - this.offsetX;
-                this.noriY = this.game.mouse.y - this.offsetY;
-            }
+            this.noriX = this.game.mouse.x - this.offsetX;
+            this.noriY = this.game.mouse.y - this.offsetY;
         }
     }
 
@@ -45,12 +40,14 @@ export default class Nori extends GameObject {
             this.noriClicked = true;
             this.offsetX = mouseX - this.x;
             this.offsetY = mouseY - this.y;
+            this.game.currentDraggedItem = this;
         }
     }
 
     // Stop dragging when mouse is released
     stopDragging() {
         this.noriClicked = false;
+        this.game.currentDraggedItem = null;
     };
 
     onMouseDown(e) {

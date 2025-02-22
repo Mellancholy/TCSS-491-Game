@@ -26,6 +26,7 @@ export default class GameEngine {
         this.previousMousePositionsLatest = 0;
         this.wheel = null;
         this.keys = {};
+        this.currentDraggedItem = null;
 
 
 
@@ -88,7 +89,7 @@ export default class GameEngine {
                 if(entity.onMouseUp) entity.onMouseUp(e);
             });
 
-            console.log("Mouse Up");  // Check if this is firing
+             console.log("Mouse Up");  // Check if this is firing
         }, false);
 
         this.ctx.canvas.addEventListener("mousedown", (e) => {
@@ -109,7 +110,7 @@ export default class GameEngine {
                 console.log("CLICK", getXandY(e));
             }
             this.click = getXandY(e);
-            console.log("Mouse Clicked");
+            // console.log("Mouse Clicked");
         });
 
         this.ctx.canvas.addEventListener("wheel", e => {

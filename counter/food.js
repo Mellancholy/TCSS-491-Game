@@ -6,7 +6,7 @@ export class Order {
     }
 }
 
-class Ingredient {
+export default class Ingredient {
     constructor(type) {
         this.type = type
     }

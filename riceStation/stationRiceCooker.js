@@ -14,14 +14,16 @@ export default class StationRiceCooker extends GameObject {
         this.riceY = 10;
         this.amount = 5;
 
+        this.noriX = 10;
+        this.noriY = 10;
+
         this.cookerClicked = false;
         this.offsetX = 0;
         this.offsetY = 0;
         this.order = orderManage.getOrders()[0];
         this.roll = null;
-        // for(let i = 0; i < this.order.ingredients.length; i++) {
-        //     console.log(this.order.ingredients[i].type);s
-        // }
+
+        this.noriClicked = false;
     }
 
     update() {
@@ -71,12 +73,14 @@ export default class StationRiceCooker extends GameObject {
             this.offsetY = mouseY - this.y;
             this.amount--;
             console.log(this.amount);
+            this.game.currentDraggedItem = this;
         }
     };
 
     // Stop dragging when mouse is released
     stopDragging() {
         this.cookerClicked = false;
+        this.game.currentDraggedItem = null;
     };
     
     beginMinigame() {

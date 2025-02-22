@@ -1,19 +1,16 @@
 export default class RollManager {
     constructor(game) {
         this.game = game;
-        this.activeRolls = [];
+        this.activeIngredients = [];
     }
 
-    addRoll(roll) {
-        this.activeRolls.push(roll);
-    }
-
-    removeRoll(roll) {
-        this.activeRolls = this.activeRolls.filter(r => r !== roll);
+    addIngredient(ingredient) {
+        this.activeIngredients.push(ingredient);
+        console.log(ingredient);
     }
 
     getRolls() {
-        return this.activeRolls;
+        return this.activeIngredients;
     }
 
     update() {};

@@ -74,7 +74,7 @@ export class RiceAssemblyScene extends Scene {
         }
     }
 }
-
+ 
 class Background extends GameObject {
     constructor(game) {
         super(game);

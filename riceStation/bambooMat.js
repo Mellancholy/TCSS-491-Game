@@ -6,7 +6,7 @@ import Ingredient from "../counter/food.js";
 import Wrap from "../counter/food.js";
 import { sceneManage, orderManage, rollManage } from '../main.js';
 
-export default class BambooMat extends GameObject {
+export default class BambooRat extends GameObject {
     constructor(game, x, y) {
         super(game);
         this.x = x;

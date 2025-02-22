@@ -2,6 +2,8 @@ import Scene from '../scene.js';
 import GameObject from '../gameObject.js';
 import { ASSET_MANAGER } from "../main.js";
 import { DnDButton } from "../button.js";
+import { rollManage } from '../main.js';
+import Ingredient from "../counter/food.js";
 
 export class RiceAssemblyScene extends Scene {
     constructor(game) {
@@ -156,6 +158,7 @@ class FoodBottom extends GameObject {
         if(e.detail.x > this.x - (this.width / 2) && e.detail.x < this.x + (this.width / 2) && e.detail.y > this.y && e.detail.y < this.y + this.height) {
             console.log("dropped in food bottom");
             this.foods.push(e.detail.button.food);
+            rollManage.addIngredient(new Ingredient(e.detail.button.food.name));
         }
     }
 }

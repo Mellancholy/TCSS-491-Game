@@ -142,21 +142,32 @@ class FoodBin extends GameObject {
     };
 }
 
+const UNROLLED_HEIGHT = 120
+const ROLLED_HEIGHT = 30
+
 class FoodBottom extends GameObject {
     constructor(game, x, y, width, height) {
         super(game);
-        Object.assign(this, { game, x, y, width, height, foods: [], chops: [] });
+        Object.assign(this, { game, x, y, width, height, foods: [], rolled: false, chops: 0, cut: false});
+
     };
 
     update() {
         if(!this.rolled) return;
-        console.log(this.game.down)
+        if(this.chops >= 15) {
+            this.cut = true
+            console.log("Cut sushi");
+        }
         if(this.game.down) {
             if(this.game.timer.gameTime - this.game.previousMousePositionsLatest > 0.1) {
                 this.game.previousMousePositions = []
             }
             if(this.game.previousMousePositions.length === 15) {
-                
+                this.game.previousMousePositions.forEach((pos, index) => {
+                    if(pos.x > this.x - (this.width / 2) && pos.x < this.x + (this.width / 2) && pos.y > this.y && pos.y < this.y + ROLLED_HEIGHT) {
+                        this.chops += 1
+                    }
+               })
             }
         } else {
             this.game.previousMousePositions = []
@@ -165,9 +176,27 @@ class FoodBottom extends GameObject {
     };
 
     draw(ctx) {
+        if(this.cut) {
+            ctx.fillStyle = "green";
+            const cutWidth = this.width / 6
+            for(let i = 0; i < 6; i++) {
+                ctx.fillRect(this.x - (this.width / 2) + ((cutWidth + 5) * i), this.y, cutWidth, ROLLED_HEIGHT); 
+            }
+            if(this.game.sliding) return;
+            setTimeout(() => {
+                setInterval(() => {
+                    this.x += 10
+                    if(this.x > 1024) {
+                        this.removeFromWorld = true
+                    }
+                }, 10)
+            }, 1000)
+            this.game.sliding = true
+            return;    
+        }
         if(this.rolled) {
             ctx.fillStyle = "green";
-            ctx.fillRect(this.x - (this.width / 2), this.y, this.width, 30);
+            ctx.fillRect(this.x - (this.width / 2), this.y, this.width, ROLLED_HEIGHT);
             if(this.game.down) {
                 ctx.beginPath()
                 this.game.previousMousePositions.forEach((pos, index) => {

@@ -22,43 +22,43 @@ export class RiceAssemblyScene extends Scene {
             },
             {
                 name: "avocado",
-                img: "./assets/assembly/tuna.png",
+                img: "./assets/assembly/avocado.png",
             },
             {
                 name: "crab",
-                img: "./assets/assembly/cucumber.png",
+                img: "./assets/assembly/crab.png",
             },
             {
                 name: "cucumber",
-                img: "./assets/assembly/crab.png",
+                img: "./assets/assembly/cucumber.png",
             },
             {
                 name: "salmon",
-                img: "./assets/assembly/tuna.png",
+                img: "./assets/assembly/salmon.png",
             },
             {
                 name: "tuna",
-                img: "./assets/assembly/cucumber.png",
+                img: "./assets/assembly/tuna.png",
             },
             {
                 name: "shrimp",
-                img: "./assets/assembly/crab.png",
-            },
-            {
-                name: "eel",
-                img: "./assets/assembly/tuna.png",
-            },
-            {
-                name: "uni",
                 img: "./assets/assembly/cucumber.png",
             },
             {
+                name: "eel",
+                img: "./assets/assembly/cucumber.png",
+            },
+            {
+                name: "uni",
+                img: "./assets/assembly/uni.png",
+            },
+            {
                 name: "tamago",
-                img: "./assets/assembly/crab.png",
+                img: "./assets/assembly/tamago.png",
             },
             {
                 name: "idk",
-                img: "./assets/assembly/tuna.png",
+                img: "./assets/assembly/cucumber.png",
             },
             {
                 name: "idk",

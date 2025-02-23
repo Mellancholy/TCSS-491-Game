@@ -67,6 +67,10 @@ ASSET_MANAGER.queueDownload("./assets/characters/dummy.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/crab.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/cucumber.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/tuna.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/avocado.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/salmon.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/uni.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/tamago.png");
 
 
 ASSET_MANAGER.downloadAll(() => {

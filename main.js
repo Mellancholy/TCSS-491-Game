@@ -22,9 +22,7 @@ ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Backgrounds.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Minigame_Background.png");
 
 // rice station
-ASSET_MANAGER.queueDownload("./assets/objects/RiceCooker_Full.png");
-ASSET_MANAGER.queueDownload("./assets/objects/RiceCooker_Low.png");
-ASSET_MANAGER.queueDownload("./assets/objects/RiceCooker_Empty.png");
+ASSET_MANAGER.queueDownload("./assets/objects/RiceCooker.png");
 ASSET_MANAGER.queueDownload("./assets/objects/BambooMat.png");
 ASSET_MANAGER.queueDownload("./assets/objects/Rice_Cooked.png");
 ASSET_MANAGER.queueDownload("./assets/objects/Nori.png");

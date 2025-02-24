@@ -13,7 +13,7 @@ export class RiceStationScene extends Scene {
 
     initalizeScene() {
             this.addGameObject(new Background(this.game, 0, 0));
-            this.addGameObject(new BambooMat(this.game, 450, 300));
+            this.addGameObject(new BambooMat(this.game, 450, 375));
 
             const foods = [
                 {
@@ -29,7 +29,7 @@ export class RiceStationScene extends Scene {
             this.addGameObject(riceCooker);
             riceCooker.addButton();
 
-            const nori = new Nori(this.game, foods[1], 650, 80, 512, 512)
+            const nori = new Nori(this.game, foods[1], 500, 80, 450, 300)
             this.addGameObject(nori);
             nori.addButton();
 
@@ -81,13 +81,13 @@ class RiceCooker extends GameObject {
 
     draw(ctx) {
         if (this.amount <= 10 && this.amount > 5) {
-            const sprite = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker_Full.png");
+            const sprite = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker.png");
             ctx.drawImage(sprite, this.x, this.y);
         } else if (this.amount <= 5 && this.amount > 1) {
-            const sprite = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker_Low.png");
+            const sprite = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker.png");
             ctx.drawImage(sprite, this.x, this.y);
         } else {
-            const sprite = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker_Empty.png");
+            const sprite = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker.png");
             ctx.drawImage(sprite, this.x, this.y);
         }
 
@@ -132,7 +132,7 @@ class Nori extends GameObject {
 
     draw(ctx) {
         const sprite = ASSET_MANAGER.getAsset("./assets/objects/Nori_Source.png");
-        ctx.drawImage(sprite, this.x, this.y, sprite.width / 2, sprite.height / 2);
+        ctx.drawImage(sprite, this.x, this.y, sprite.width, sprite.height);
 
     };
 }

@@ -1,8 +1,8 @@
-import Scene from '../scene.js';
-import GameObject from '../gameObject.js';
-import { ASSET_MANAGER } from "../main.js";
-import { Button, DnDButton } from "../button.js";
-import { rollManage } from '../main.js';
+import Scene from '../../scene.js';
+import GameObject from '../../gameObject.js';
+import { ASSET_MANAGER } from "../../main.js";
+import { Button, DnDButton } from "../../button.js";
+import { rollManage } from '../../main.js';
 import Ingredient from "../counter/food.js";
 
 export class RiceAssemblyScene extends Scene {

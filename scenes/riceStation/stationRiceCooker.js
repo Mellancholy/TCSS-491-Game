@@ -1,6 +1,6 @@
-import GameObject from "../gameObject.js";
-import { ASSET_MANAGER } from "../main.js";
-import { sceneManage, orderManage, rollManage } from '../main.js';
+import GameObject from "../../gameObject.js";
+import { ASSET_MANAGER } from "../../main.js";
+import { sceneManage, orderManage, rollManage } from '../../main.js';
 
 
 export default class StationRiceCooker extends GameObject {

@@ -1,8 +1,8 @@
-import { ASSET_MANAGER } from "../main.js";
-import Scene from "../scene.js";
-import GameObject from "../gameObject.js";
-import { sceneManage, rollManage } from '../main.js';
-import { DnDButton } from "../button.js";
+import { ASSET_MANAGER } from "../../main.js";
+import Scene from "../../scene.js";
+import GameObject from "../../gameObject.js";
+import { sceneManage, rollManage } from '../../main.js';
+import { DnDButton } from "../../button.js";
 import Ingredient from "../counter/food.js";
 
 export class RiceStationScene extends Scene {

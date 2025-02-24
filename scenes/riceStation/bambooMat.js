@@ -1,10 +1,10 @@
 import StationRiceCooker from "../riceStation/stationRiceCooker.js";
-import GameObject from "../gameObject.js";
-import { ASSET_MANAGER } from "../main.js";
+import GameObject from "../../gameObject.js";
+import { ASSET_MANAGER } from "../../main.js";
 import Nori from "../riceStation/nori.js";
 import Ingredient from "../counter/food.js";
 import Wrap from "../counter/food.js";
-import { sceneManage, orderManage, rollManage } from '../main.js';
+import { sceneManage, orderManage, rollManage } from '../../main.js';
 
 export default class BambooRat extends GameObject {
     constructor(game, x, y) {

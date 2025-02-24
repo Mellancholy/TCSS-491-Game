@@ -1,7 +1,7 @@
-import GameObject from "../gameObject.js";
-import { ASSET_MANAGER } from "../main.js";
+import GameObject from "../../gameObject.js";
+import { ASSET_MANAGER } from "../../main.js";
 import Fly from "./fly.js";
-import { isColliding } from "../util.js";
+import { isColliding } from "../../util.js";
 
 export default class Swatter extends GameObject {
     constructor(game) {

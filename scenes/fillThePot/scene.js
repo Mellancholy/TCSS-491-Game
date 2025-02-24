@@ -1,8 +1,8 @@
 import Pot from "./pot.js";
 import Faucet from "./faucet.js";
-import { ASSET_MANAGER } from "../main.js";
-import Scene from "../scene.js";
-import GameObject from "../gameObject.js";
+import { ASSET_MANAGER } from "../../main.js";
+import Scene from "../../scene.js";
+import GameObject from "../../gameObject.js";
 
 
 export class FillThePotScene extends Scene {

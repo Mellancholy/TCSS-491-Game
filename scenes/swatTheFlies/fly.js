@@ -1,5 +1,5 @@
-import GameObject from "../gameObject.js";
-import { ASSET_MANAGER } from "../main.js";
+import GameObject from "../../gameObject.js";
+import { ASSET_MANAGER } from "../../main.js";
 import Animator from "./animator.js";
 
 export default class Fly extends GameObject {

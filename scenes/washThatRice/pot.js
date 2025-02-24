@@ -1,6 +1,6 @@
-import GameObject from "../gameObject.js"
-import { ASSET_MANAGER } from "../main.js"
-import { getDistance } from "../util.js"
+import GameObject from "../../gameObject.js"
+import { ASSET_MANAGER } from "../../main.js"
+import { getDistance } from "../../util.js"
 
 export class PotTop extends GameObject {
 

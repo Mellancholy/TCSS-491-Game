@@ -1,12 +1,12 @@
-import { ASSET_MANAGER } from "../main.js";
+import { ASSET_MANAGER } from "../../main.js";
 import ProgressBar from "./progressBar.js";
 import { PotTop, PotTopOutside } from "./pot.js";
 import RiceGrain from "./riceGrain.js";
 import RotateIcon from "./rotate.js";
 import Hand from "./hand.js";
 import Checkmark from "./checkmark.js";
-import Scene from "../scene.js";
-import GameObject from "../gameObject.js";
+import Scene from "../../scene.js";
+import GameObject from "../../gameObject.js";
 
 const WIDTH = 1024
 const HEIGHT = 768

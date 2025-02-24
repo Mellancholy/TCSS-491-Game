@@ -1,6 +1,6 @@
-import GameObject from "../gameObject.js";
-import { ASSET_MANAGER } from "../main.js";
-import Scene from "../scene.js";
+import GameObject from "../../gameObject.js";
+import { ASSET_MANAGER } from "../../main.js";
+import Scene from "../../scene.js";
 import FlySpawner from "./flySpawner.js";
 import Swatter from "./swatter.js";
 

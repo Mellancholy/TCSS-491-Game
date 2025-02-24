@@ -4,7 +4,7 @@ import { ASSET_MANAGER } from "./main.js";
 export class Button extends GameObject {
     constructor(game, x, y, onClick) {
         super(game);
-        Object.assign(this, { game, x, y, onClick });
+        Object.assign(this, { game, x, y, onClick, hidden: false });
     }
 
     static imageButton(game, x, y, image, onClick) {
@@ -13,9 +13,9 @@ export class Button extends GameObject {
         return button;
     }
 
-    static rectButton(game, x, y, w, h, onClick) {
+    static rectButton(game, x, y, width, height, onClick, text="") {
         let button = new Button(game, x, y, onClick);
-        Object.assign(button, { w, h, bgColor: "gray" });
+        Object.assign(button, { width, height, bgColor: "gray", text });
         return button;
     }
 
@@ -23,6 +23,7 @@ export class Button extends GameObject {
     }
 
     onMouseDown(e) {
+        if(this.hidden) return;
         if(this.image) {
             if (e.offsetX > this.x && e.offsetX < this.x + this.image.width &&
                 e.offsetY > this.y && e.offsetY < this.y + this.image.height) {
@@ -37,14 +38,20 @@ export class Button extends GameObject {
     }
 
     draw(ctx) {
+        if(this.hidden) return;
         if(this.image) {
             ctx.drawImage(this.image, this.x, this.y);
         } else {
             ctx.fillStyle = this.bgColor;
-            ctx.fillRect(this.x, this.y, this.w, this.h);
+            ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.lineWidth = 2;
             ctx.strokeStyle = "black";
-            ctx.strokeRect(this.x, this.y, this.w, this.h);
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = "black"
+            ctx.font = "36px serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2) + 5)
         }
     }
 }

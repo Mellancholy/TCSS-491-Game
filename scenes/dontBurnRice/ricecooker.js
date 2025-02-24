@@ -1,5 +1,5 @@
-import GameObject from "../gameObject.js";
-import { ASSET_MANAGER } from "../main.js";
+import GameObject from "../../gameObject.js";
+import { ASSET_MANAGER } from "../../main.js";
 import TimerBar from "./timerBar.js";
 
 export default class RiceCooker extends GameObject {

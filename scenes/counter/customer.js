@@ -1,6 +1,6 @@
 import GameObject from "../gameObject.js";
 import { sceneManage, orderManage } from "../main.js";
-import { ASSET_MANAGER } from "../main.js";
+import { ASSET_MANAGER } from "../../main.js";
 import { Order, CALIFORNIA_ROLL, SPICY_TUNA_ROLL, ALASKAN_ROLL, WASABI, GINGER } from "./food.js";
 
 export default class Customer extends GameObject {

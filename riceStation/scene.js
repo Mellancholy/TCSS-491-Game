@@ -148,7 +148,7 @@ class BambooMat extends GameObject {
     };
 
     draw(ctx) {
-        const matSprite = ASSET_MANAGER.getAsset("./assets/objects/BambooMat_Empty.png");
+        const matSprite = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
         ctx.drawImage(matSprite, this.x, this.y);
         this.foods.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img)

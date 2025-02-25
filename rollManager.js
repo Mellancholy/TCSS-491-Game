@@ -14,5 +14,5 @@ export default class RollManager {
     }
 
     update() {};
-    draw(ctx) {};
+    draw(ctx) {}; 
 }

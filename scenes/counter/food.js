@@ -7,14 +7,15 @@ export class Order {
 }
 
 export default class Ingredient {
-    constructor(type) {
-        this.type = type
+    constructor(type, img) {
+        this.type = type;
+        this.img = this.img;
     }
 }
 
 class Wrap extends Ingredient {
-    constructor(type) {
-        super(type);
+    constructor(type, img) {
+        super(type, img);
     }
 }
 

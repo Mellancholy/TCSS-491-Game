@@ -165,7 +165,7 @@ class BambooMat extends GameObject {
             console.log("dropped in food bottom");
             this.foods.push(e.detail.button.food);
             console.log(e.detail.button.food);
-            rollManage.addIngredient(new Ingredient(e.detail.button.food.name));
+            rollManage.addIngredient(new Ingredient(e.detail.button.food.name, e.detail.button.food.img));
         }
     }
 }

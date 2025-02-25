@@ -13,7 +13,7 @@ export class RiceAssemblyScene extends Scene {
 
     initalizeScene() {
         this.addGameObject(new Background(this.game, 0, 0));
-        this.foodBottom = new FoodBottom(this.game, 1024 / 2, 290, 120, 120);
+        this.foodBottom = new FoodBottom(this.game, 227, 375, 570, 300);
         this.addGameObject(this.foodBottom);
         const binWidth = 80;
         const binHeight = 80;
@@ -68,7 +68,7 @@ export class RiceAssemblyScene extends Scene {
             }
         ]
         let curFood = 0;
-        let y = 510;
+        let y = 240;
         for(let x = 0; x < 12; x++) {
             const foodBin = new FoodBin(this.game, foods[curFood], 10 + x * (binWidth + 4), y, binWidth, binHeight);
             this.addGameObject(foodBin);
@@ -101,7 +101,7 @@ class Background extends GameObject {
 
     draw(ctx) {
         ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png"), 0, 0);
-        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/assembly/case.jpg"), 0, 420, 1024, 197);
+        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/assembly/case.jpg"), 0, 150, 1024, 197);
     }
 }
 
@@ -212,25 +212,30 @@ class FoodBottom extends GameObject {
             }
             return;
         }
-        ctx.fillStyle = "green";
-        ctx.fillRect(this.x - (this.width / 2), this.y, this.width, this.height);
-        ctx.fillStyle = "white";
-        ctx.fillRect(this.x + 10 - (this.width / 2), this.y + 10, this.width - 20, this.height - 20);
+
+        const bambooMatImg = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
+        ctx.drawImage(bambooMatImg, this.x, this.y);
+
+        rollManage.activeIngredients.forEach(element => {
+            const img = ASSET_MANAGER.getAsset(element.img);
+            //console.log(element.img);
+            //ctx.drawImage(img, this.x, this.y);
+        })
         this.foods.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img)
-            const xOffset = 10
-            const spacing = (this.width - xOffset) / 3
-            for(let i = 0; i < 3; i++) {
-                ctx.drawImage(img, this.x + (i * spacing) - (this.width / 2) + xOffset, this.y + (this.height / 2) - (img.height / 2), img.width, img.height);
+            const xOffset = 50;
+            const spacing = (this.width - xOffset - 50) / 6
+            for(let i = 0; i < 6; i++) {
+                ctx.drawImage(img, this.x + (i * spacing) + xOffset, this.y + 100, img.width * 2, img.height * 2);
             } 
         });
     };
 
     onDnDDrop(e) {
-        console.log("dropped");
-        console.log(e);
-        console.log(e.detail)
-        if(e.detail.x > this.x - (this.width / 2) && e.detail.x < this.x + (this.width / 2) && e.detail.y > this.y && e.detail.y < this.y + this.height) {
+        //console.log("dropped");
+        //console.log(e);
+        //console.log(e.detail)
+        if(e.detail.x >= this.x && e.detail.x <= this.x + this.width && e.detail.y >= this.y && e.detail.y <= this.y + this.height) {
             console.log("dropped in food bottom");
             this.foods.push(e.detail.button.food);
             rollManage.addIngredient(new Ingredient(e.detail.button.food.name));

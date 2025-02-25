@@ -213,22 +213,25 @@ class FoodBottom extends GameObject {
             return;
         }
 
-        const bambooMatImg = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
-        ctx.drawImage(bambooMatImg, this.x, this.y);
+        if (rollManage.activeIngredients.length > 0) {
+            const bambooMatImg = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
+            ctx.drawImage(bambooMatImg, this.x, this.y);
 
-        rollManage.activeIngredients.forEach(element => {
-            const img = ASSET_MANAGER.getAsset(element.img);
-            //console.log(element.img);
-            //ctx.drawImage(img, this.x, this.y);
-        })
-        this.foods.forEach(element => {
-            const img = ASSET_MANAGER.getAsset(element.img)
-            const xOffset = 50;
-            const spacing = (this.width - xOffset - 50) / 6;
-            for(let i = 0; i < 6; i++) {
-                ctx.drawImage(img, this.x + (i * spacing) + xOffset, this.y + 100, img.width * 2, img.height * 2);
-            } 
-        });
+
+            rollManage.activeIngredients.forEach(element => {
+                const img = ASSET_MANAGER.getAsset(element.img);
+                ctx.drawImage(img, this.x, this.y);
+            })
+            this.foods.forEach(element => {
+                const img = ASSET_MANAGER.getAsset(element.img)
+                const xOffset = 50;
+                const spacing = (this.width - xOffset - 50) / 6;
+                for(let i = 0; i < 6; i++) {
+                    ctx.drawImage(img, this.x + (i * spacing) + xOffset, this.y + 100, img.width * 2, img.height * 2);
+                } 
+            });
+        }
+    
     };
 
     onDnDDrop(e) {

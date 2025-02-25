@@ -9,7 +9,7 @@ export class Order {
 export default class Ingredient {
     constructor(type, img) {
         this.type = type;
-        this.img = this.img;
+        this.img = img;
     }
 }
 

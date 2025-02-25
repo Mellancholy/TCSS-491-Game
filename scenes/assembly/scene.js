@@ -145,7 +145,7 @@ class FoodBin extends GameObject {
 }
 
 const UNROLLED_HEIGHT = 120
-const ROLLED_HEIGHT = 30
+const ROLLED_HEIGHT = 75
 
 class FoodBottom extends GameObject {
     constructor(game, x, y, width, height) {
@@ -180,9 +180,9 @@ class FoodBottom extends GameObject {
     draw(ctx) {
         if(this.cut) {
             ctx.fillStyle = "green";
-            const cutWidth = this.width / 6
+            const cutWidth = (this.width - 50) / 6
             for(let i = 0; i < 6; i++) {
-                ctx.fillRect(this.x - (this.width / 2) + ((cutWidth + 5) * i), this.y, cutWidth, ROLLED_HEIGHT); 
+                ctx.fillRect(this.x - 5 + ((cutWidth + 5) * i), this.y + 100, cutWidth, ROLLED_HEIGHT); 
             }
             if(this.game.sliding) return;
             setTimeout(() => {
@@ -198,7 +198,7 @@ class FoodBottom extends GameObject {
         }
         if(this.rolled) {
             ctx.fillStyle = "green";
-            ctx.fillRect(this.x - (this.width / 2), this.y, this.width, ROLLED_HEIGHT);
+            ctx.fillRect(this.x, this.y + 100, this.width - 50, ROLLED_HEIGHT);
             if(this.game.down) {
                 ctx.beginPath()
                 this.game.previousMousePositions.forEach((pos, index) => {
@@ -224,7 +224,7 @@ class FoodBottom extends GameObject {
         this.foods.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img)
             const xOffset = 50;
-            const spacing = (this.width - xOffset - 50) / 6
+            const spacing = (this.width - xOffset - 50) / 6;
             for(let i = 0; i < 6; i++) {
                 ctx.drawImage(img, this.x + (i * spacing) + xOffset, this.y + 100, img.width * 2, img.height * 2);
             } 

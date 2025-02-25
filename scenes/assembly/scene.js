@@ -217,10 +217,11 @@ class FoodBottom extends GameObject {
             const bambooMatImg = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
             ctx.drawImage(bambooMatImg, this.x, this.y);
 
-
             rollManage.activeIngredients.forEach(element => {
-                const img = ASSET_MANAGER.getAsset(element.img);
-                ctx.drawImage(img, this.x, this.y);
+                if (element.type == 'rice' || element.type == 'nori') {
+                    const img = ASSET_MANAGER.getAsset(element.img);
+                    ctx.drawImage(img, this.x, this.y);
+                }
             })
             this.foods.forEach(element => {
                 const img = ASSET_MANAGER.getAsset(element.img)

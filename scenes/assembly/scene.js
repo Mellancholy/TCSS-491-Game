@@ -79,6 +79,7 @@ export class RiceAssemblyScene extends Scene {
         this.rollButton = Button.rectButton(this.game, 600, 320, 100, 50, () => {
             console.log("Clicked roll button");
             this.roll()
+            rollManage.isComplete();
         }, "Roll")
         this.rollButton.hidden = true;
         this.addGameObject(this.rollButton)
@@ -178,42 +179,42 @@ class FoodBottom extends GameObject {
     };
 
     draw(ctx) {
-        if(this.cut) {
-            ctx.fillStyle = "green";
-            const cutWidth = (this.width - 50) / 6
-            for(let i = 0; i < 6; i++) {
-                ctx.fillRect(this.x - 5 + ((cutWidth + 5) * i), this.y + 100, cutWidth, ROLLED_HEIGHT); 
-            }
-            if(this.game.sliding) return;
-            setTimeout(() => {
-                setInterval(() => {
-                    this.x += 10
-                    if(this.x > 1024) {
-                        this.removeFromWorld = true
-                    }
-                }, 10)
-            }, 1000)
-            this.game.sliding = true
-            return;    
-        }
-        if(this.rolled) {
-            ctx.fillStyle = "green";
-            ctx.fillRect(this.x, this.y + 100, this.width - 50, ROLLED_HEIGHT);
-            if(this.game.down) {
-                ctx.beginPath()
-                this.game.previousMousePositions.forEach((pos, index) => {
-                    if(index === 0) {
-                        ctx.moveTo(pos.x, pos.y);
-                    } else {
-                        ctx.lineTo(pos.x, pos.y);
-                    }
-                })
-                ctx.stroke()
-            }
-            return;
-        }
-
         if (rollManage.activeIngredients.length > 0) {
+            if(this.cut) {
+                ctx.fillStyle = "green";
+                const cutWidth = (this.width - 50) / 6
+                for(let i = 0; i < 6; i++) {
+                    ctx.fillRect(this.x - 5 + ((cutWidth + 5) * i), this.y + 100, cutWidth, ROLLED_HEIGHT); 
+                }
+                if(this.game.sliding) return;
+                setTimeout(() => {
+                    setInterval(() => {
+                        this.x += 10
+                        if(this.x > 1024) {
+                            this.removeFromWorld = true
+                        }
+                    }, 10)
+                }, 1000)
+                this.game.sliding = true
+                return;    
+            }
+            if(this.rolled) {
+                ctx.fillStyle = "green";
+                ctx.fillRect(this.x, this.y + 100, this.width - 50, ROLLED_HEIGHT);
+                if(this.game.down) {
+                    ctx.beginPath()
+                    this.game.previousMousePositions.forEach((pos, index) => {
+                        if(index === 0) {
+                            ctx.moveTo(pos.x, pos.y);
+                        } else {
+                            ctx.lineTo(pos.x, pos.y);
+                        }
+                    })
+                    ctx.stroke()
+                }
+                return;
+            }
+        
             const bambooMatImg = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
             ctx.drawImage(bambooMatImg, this.x, this.y);
 
@@ -239,7 +240,7 @@ class FoodBottom extends GameObject {
         //console.log("dropped");
         //console.log(e);
         //console.log(e.detail)
-        if(e.detail.x >= this.x && e.detail.x <= this.x + this.width && e.detail.y >= this.y && e.detail.y <= this.y + this.height) {
+        if(e.detail.x >= this.x && e.detail.x <= this.x + this.width && e.detail.y >= this.y && e.detail.y <= this.y + this.height && rollManage.activeIngredients.length > 0) {
             console.log("dropped in food bottom");
             this.foods.push(e.detail.button.food);
             rollManage.addIngredient(new Ingredient(e.detail.button.food.name));

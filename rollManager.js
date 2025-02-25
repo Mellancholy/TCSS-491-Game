@@ -2,6 +2,7 @@ export default class RollManager {
     constructor(game) {
         this.game = game;
         this.activeIngredients = [];
+        this.isComplete = false;
     }
 
     addIngredient(ingredient) {
@@ -11,6 +12,10 @@ export default class RollManager {
 
     getRolls() {
         return this.activeIngredients;
+    }
+
+    completeRoll() {
+        this.isComplete = true;
     }
 
     update() {};

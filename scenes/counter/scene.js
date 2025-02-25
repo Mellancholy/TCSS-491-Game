@@ -29,4 +29,4 @@ class Background extends GameObject {
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 0, 0);
     };
-}
+} 

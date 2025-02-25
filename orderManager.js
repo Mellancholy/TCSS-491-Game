@@ -18,5 +18,5 @@ export default class OrderManager {
 
     update() {};
     draw(ctx) {};
-}
+}  
     

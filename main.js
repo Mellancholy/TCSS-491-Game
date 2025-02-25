@@ -74,22 +74,12 @@ ASSET_MANAGER.queueDownload("./assets/assembly/salmon.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/uni.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/tamago.png");
 
-
-ASSET_MANAGER.downloadAll(() => {
-	const canvas = document.getElementById("gameWorld");
-	const ctx = canvas.getContext("2d");
-    
-	gameEngine.init(ctx);
-
-	gameEngine.addEntity(sceneManage);
-    gameEngine.addEntity(orderManage);
-    gameEngine.addEntity(rollManage)
-
-	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadScene.bind(sceneManage)));
-
-	gameEngine.start();
-
-});
+// Sides images
+ASSET_MANAGER.queueDownload("./assets/sides/microwave.png");
+ASSET_MANAGER.queueDownload("./assets/sides/Tofu.png");
+ASSET_MANAGER.queueDownload("./assets/sides/MisoBin.png");
+ASSET_MANAGER.queueDownload("./assets/sides/blank.png");
+ASSET_MANAGER.queueDownload("./assets/sides/Ginger.png");
 
 /** Creates an alias for requestAnimationFrame for backwards compatibility */
 window.requestAnimFrame = (() => {
@@ -107,7 +97,29 @@ window.requestAnimFrame = (() => {
             window.setTimeout(callback, 1000 / 60);
         });
 })();
-const sceneManage = new SceneManager(gameEngine);
-const orderManage = new OrderManager(gameEngine);
-const rollManage = new RollManager(gameEngine);
+
+let sceneManage = null;
+let orderManage = null;
+let rollManage = null;
+
+ASSET_MANAGER.downloadAll(() => {
+	const canvas = document.getElementById("gameWorld");
+	const ctx = canvas.getContext("2d");
+    
+    sceneManage = new SceneManager(gameEngine);
+    orderManage = new OrderManager(gameEngine);
+    rollManage = new RollManager(gameEngine);
+
+	gameEngine.init(ctx);
+
+	gameEngine.addEntity(sceneManage);
+    gameEngine.addEntity(orderManage);
+    gameEngine.addEntity(rollManage)
+
+	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadScene.bind(sceneManage)));
+
+	gameEngine.start();
+
+});
+
 export { sceneManage, orderManage, rollManage };

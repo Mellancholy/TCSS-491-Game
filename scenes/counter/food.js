@@ -1,8 +1,9 @@
 export class Order {
     
-    constructor(ingredients, sides) {
-        this.ingredients = ingredients
-        this.sides = sides
+    constructor(ingredients, side, condiment) {
+        this.ingredients = ingredients;
+        this.side = side;
+        this.condiment = condiment;
     }
 }
 
@@ -19,11 +20,19 @@ class Wrap extends Ingredient {
 }
 
 class Side {
+    constructor(name, type) {
+        this.name = name;
+        this.type = type;
+    }
+}
+
+class Condiment {
     constructor(type) {
         this.type = type
     }
 }
 
+// rolls
 export const CALIFORNIA_ROLL = [
     new Ingredient('rice'),
     new Wrap('nori'),
@@ -46,5 +55,27 @@ export const ALASKAN_ROLL = [
     new Ingredient('crab')
 ]
 
-export const WASABI = new Side('wasabi');
-export const GINGER = new Side('ginger');
+// sides
+export const KARAAGE = new Side('karaage', [
+    new Ingredient('chicken')
+]);
+
+export const MISOSOUP = new Side('miso soup', [
+    new Ingredient('miso'),
+    new Ingredient('green onion'),
+    new Ingredient('tofu')
+]);
+
+export const EDAMAME = new Side('edamame', [
+    new Ingredient('edamame')
+]);
+
+export const GYOZA = new Side('gyoza', [
+    new Ingredient('chicken'),
+    new Ingredient('green onions')
+]);
+
+// condiments
+export const WASABI = new Condiment('wasabi');
+export const GINGER = new Condiment('ginger');
+export const SOY = new Condiment('soy sauce');

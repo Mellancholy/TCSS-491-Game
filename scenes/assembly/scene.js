@@ -12,7 +12,7 @@ export class RiceAssemblyScene extends Scene {
     };
 
     initalizeScene() {
-        this.addGameObject(new Background(this.game));
+        this.addGameObject(new Background(this.game, 0, 0));
         this.foodBottom = new FoodBottom(this.game, 1024 / 2, 290, 120, 120);
         this.addGameObject(this.foodBottom);
         const binWidth = 80;
@@ -100,7 +100,7 @@ class Background extends GameObject {
     update() {}
 
     draw(ctx) {
-        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Backgrounds.png"), 0, 0, 1024, 768);
+        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png"), 0, 0);
         ctx.drawImage(ASSET_MANAGER.getAsset("./assets/assembly/case.jpg"), 0, 420, 1024, 197);
     }
 }

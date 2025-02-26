@@ -1,6 +1,6 @@
 import Scene from '../../scene.js';
 import GameObject from '../../gameObject.js';
-import { ASSET_MANAGER } from "../../main.js";
+import {ASSET_MANAGER, rollManage} from "../../main.js";
 import { Button, DnDButton } from "../../button.js";
 import Ingredient from "../counter/food.js";
 
@@ -117,6 +117,8 @@ class FoodTray extends GameObject {
   draw(ctx) {
     ctx.drawImage(ASSET_MANAGER.getAsset("./assets/sides/Tray.png"), this.x, this.y, this.width, this.height);
   };
+
+
 }
 
 class DraggableObject extends GameObject {

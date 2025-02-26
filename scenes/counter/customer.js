@@ -9,28 +9,39 @@ export default class Customer extends GameObject {
         this.width = 400;
         this.height = 600;
         this.order = null;
-        this.showOrder = false;
+        this.showOrder = true;
+        this.hasOrdered = false;
+        this.hasMoved = false;
         Object.assign(this, { game, x, y });
-        this.walkTo(200, 100, this.displayOrder.bind(this));
+        //this.walkTo(100, this.displayOrder.bind(this));
     };
 
     update() {
+        if (!this.hasOrdered && this.showOrder) {
+            this.hasMoved = true;   
+            this.walkTo(100, this.displayOrder.bind(this));
+        }
 
     };
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, this.x, this.y, this.width, this.height);
         if(this.showOrder) {
+            const length = this.order.ingredients.length * 75
             console.log(this.order);
             ctx.fillStyle = "white";
-            ctx.fillRect(300, 100, 200, this.order.ingredients.length * 100);
+            ctx.fillRect(500, 100, 300, length);
             ctx.fillStyle = "black";
-            ctx.strokeRect(300, 100, 200, 100);
+            ctx.strokeRect(500, 100, 300, length);
+            const placement = length + 95;
             ctx.font = "20px Arial";
-            ctx.fillText("Order", this.x, this.y - 200);
-            ctx.font = "16px Arial";
             for(let i = this.order.ingredients.length - 1; i > -1; i--) {
-                ctx.fillText(this.order.ingredients[i].type, this.x, this.y + i * 20);
+                if (this.order.ingredients[i].type === "rice" || this.order.ingredients[i].type === "nori") {
+                    ctx.fillText(this.order.ingredients[i].type, 505, placement - i * 30);
+                } else {
+                    const sprite = ASSET_MANAGER.getAsset(this.order.ingredients[i].img);
+                    ctx.drawImage(sprite, 505, placement - i * sprite.height);
+                }
             }
             ctx.font = "20px Arial";
             ctx.fillText("Sides", this.x, this.y - 100);
@@ -41,7 +52,7 @@ export default class Customer extends GameObject {
         }
     };
 
-    async walkTo(x, y, onComplete=() => {}) {
+    async walkTo(y, onComplete=() => {}) {
         let intervalID = setInterval(() => {
             if(this.y === y) {
                 clearInterval(intervalID);
@@ -60,6 +71,7 @@ export default class Customer extends GameObject {
         this.order = this.randomOrder();
         orderManage.addOrder(this.order);
         this.showOrder = true;
+        this.hasOrdered = true;
     }
 
     randomOrder() {

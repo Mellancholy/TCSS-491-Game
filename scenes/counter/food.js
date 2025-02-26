@@ -28,23 +28,22 @@ class Side {
 export const CALIFORNIA_ROLL = [
     new Ingredient('rice'),
     new Wrap('nori'),
-    new Ingredient('crab'),
-    new Ingredient('avocado')
+    new Ingredient('crab', "./assets/assembly/crab.png"),
+    new Ingredient('avocado', "./assets/assembly/avocado.png"),
 ]
 
 export const SPICY_TUNA_ROLL = [
     new Ingredient('rice'),
     new Wrap('nori'),
-    new Ingredient('tuna'),
-    new Ingredient('mayo')
+    new Ingredient('tuna', "./assets/assembly/tuna.png"),
 ]
 
 export const ALASKAN_ROLL = [
-    new Ingredient('salmon'),
+    new Ingredient('salmon, "./assets/assembly/salmon.png"'),
     new Ingredient('rice'),
     new Wrap('nori'),
-    new Ingredient('avocado'),
-    new Ingredient('crab')
+    new Ingredient('avocado', "./assets/assembly/avocado.png"),
+    new Ingredient('crab', "./assets/assembly/crab.png"),
 ]
 
 export const WASABI = new Side('wasabi');

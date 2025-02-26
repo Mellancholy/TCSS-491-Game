@@ -79,8 +79,8 @@ export class RiceAssemblyScene extends Scene {
         this.rollButton = Button.rectButton(this.game, 600, 320, 100, 50, () => {
             console.log("Clicked roll button");
             this.roll()
-            rollManage.isComplete();
-        }, "Roll")
+            rollManage.completeRoll();
+        }, "Roll") 
         this.rollButton.hidden = true;
         this.addGameObject(this.rollButton)
     }

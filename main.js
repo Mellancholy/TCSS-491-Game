@@ -4,6 +4,7 @@ import OrderManager from "./orderManager.js";
 import SceneManager from "./sceneManager.js";
 import StationSwitcher from "./stationSwitcher.js";
 import RollManager from "./rollManager.js";
+import CustomerManager from "./customerManager.js";
 
 const gameEngine = new GameEngine();
 
@@ -14,11 +15,9 @@ export const ASSET_MANAGER = new AssetManager();
 // backgrounds
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Rice_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Roll_Background.JPG");
-ASSET_MANAGER.queueDownload("./assets/backgrounds/Sides_Background.JPG");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Background.png");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Foreground.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Background.png");
-ASSET_MANAGER.queueDownload("./assets/backgrounds/Counter_Background.png");
-ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Backgrounds.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Minigame_Background.png");
 
 // rice station
@@ -110,4 +109,5 @@ window.requestAnimFrame = (() => {
 const sceneManage = new SceneManager(gameEngine);
 const orderManage = new OrderManager(gameEngine);
 const rollManage = new RollManager(gameEngine);
-export { sceneManage, orderManage, rollManage };
+const customerManage = new CustomerManager(gameEngine);
+export { sceneManage, orderManage, rollManage, customerManage };

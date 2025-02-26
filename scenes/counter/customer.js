@@ -6,12 +6,12 @@ export default class Customer extends GameObject {
     constructor(game, x, y) {
         super(game);
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/characters/dummy.png");
-        this.width = 200;
-        this.height = 200;
+        this.width = 400;
+        this.height = 600;
         this.order = null;
         this.showOrder = false;
         Object.assign(this, { game, x, y });
-        this.walkTo(200, 280, this.displayOrder.bind(this));
+        this.walkTo(200, 100, this.displayOrder.bind(this));
     };
 
     update() {
@@ -21,16 +21,16 @@ export default class Customer extends GameObject {
     draw(ctx) {
         ctx.drawImage(this.spritesheet, this.x, this.y, this.width, this.height);
         if(this.showOrder) {
-            //console.log(this.order);
+            console.log(this.order);
             ctx.fillStyle = "white";
-            ctx.fillRect(this.x, this.y - 200, 200, 200);
+            ctx.fillRect(300, 100, 200, this.order.ingredients.length * 100);
             ctx.fillStyle = "black";
-            ctx.strokeRect(this.x, this.y - 200, 200, 200);
+            ctx.strokeRect(300, 100, 200, 100);
             ctx.font = "20px Arial";
             ctx.fillText("Order", this.x, this.y - 200);
             ctx.font = "16px Arial";
-            for(let i = 0; i < this.order.ingredients.length; i++) {
-                ctx.fillText(this.order.ingredients[i].type, this.x, this.y - 180 + i * 20);
+            for(let i = this.order.ingredients.length - 1; i > -1; i--) {
+                ctx.fillText(this.order.ingredients[i].type, this.x, this.y + i * 20);
             }
             ctx.font = "20px Arial";
             ctx.fillText("Sides", this.x, this.y - 100);
@@ -43,21 +43,15 @@ export default class Customer extends GameObject {
 
     async walkTo(x, y, onComplete=() => {}) {
         let intervalID = setInterval(() => {
-            if(this.x === x && this.y === y) {
+            if(this.y === y) {
                 clearInterval(intervalID);
                 onComplete();
             }
-            if (this.x < x) {
-                this.x += 2;
-            }
             if (this.y < y) {
-                this.y += 2;
-            }
-            if (this.x > x) {
-                this.x -= 2;
+                this.y += 5;
             }
             if (this.y > y) {
-                this.y -= 2;
+                this.y -= 5;
             }
         }, 1000 / 60);
     }

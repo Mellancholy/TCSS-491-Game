@@ -25,26 +25,31 @@ class Side {
     }
 }
 
-export const CALIFORNIA_ROLL = [
-    new Ingredient('rice'),
-    new Wrap('nori'),
+
+export const WRAP = [
+    new Wrap('rice'),
+    new Wrap('nori')
+]
+
+export const INGREDIENTS = [
     new Ingredient('crab', "./assets/assembly/crab.png"),
     new Ingredient('avocado', "./assets/assembly/avocado.png"),
+    new Ingredient('cucmber', "./assets/assembly/cucumber.png"),
+    new Ingredient('salmon', "./assets/assembly/salmon.png"),
+    new Ingredient('tamago', "./assets/assembly/tamago.png"),
+    new Ingredient('tuna',  "./assets/assembly/tuna.png"),
+    new Ingredient('uni',  "./assets/assembly/uni.png"),
+
 ]
 
-export const SPICY_TUNA_ROLL = [
-    new Ingredient('rice'),
-    new Wrap('nori'),
-    new Ingredient('tuna', "./assets/assembly/tuna.png"),
+export const CONDIMENTS = [
+    new Side('wasabi'),
+    new Side('ginger')
 ]
 
-export const ALASKAN_ROLL = [
-    new Ingredient('salmon, "./assets/assembly/salmon.png"'),
-    new Ingredient('rice'),
-    new Wrap('nori'),
-    new Ingredient('avocado', "./assets/assembly/avocado.png"),
-    new Ingredient('crab', "./assets/assembly/crab.png"),
+export const SIDES = [
+    new Side('miso soup'),
+    new Side('karaage'),
+    new Side('edamame'),
+    new Side('takoyaki')
 ]
-
-export const WASABI = new Side('wasabi');
-export const GINGER = new Side('ginger');

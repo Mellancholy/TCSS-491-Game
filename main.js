@@ -80,6 +80,7 @@ ASSET_MANAGER.queueDownload("./assets/sides/Tofu.png");
 ASSET_MANAGER.queueDownload("./assets/sides/MisoBin.png");
 ASSET_MANAGER.queueDownload("./assets/sides/blank.png");
 ASSET_MANAGER.queueDownload("./assets/sides/Ginger.png");
+ASSET_MANAGER.queueDownload("./assets/sides/Tray.png");
 
 /** Creates an alias for requestAnimationFrame for backwards compatibility */
 window.requestAnimFrame = (() => {

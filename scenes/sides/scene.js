@@ -13,6 +13,7 @@ export class SidesAssemblyScene extends Scene {
 
   initalizeScene() {
     this.addGameObject(new Background(this.game));
+    this.addGameObject(new FoodTray(this.game, null, 200, 300, 650, 500));
 
     // this.foodTray = new this.foodTray(this.game, 700, 290, 120, 120);
     // this.addGameObject(this.foodTray);
@@ -77,9 +78,23 @@ class Background extends GameObject {
 
   draw(ctx) {
       ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Backgrounds.png"), 0, 0, 1024, 768);
+
   }
 }
 
 class Microwave extends GameObject {
 
+}
+
+class FoodTray extends GameObject {
+  constructor(game, food, x, y, width, height) {
+    super(game);
+    Object.assign(this, { game, food, x, y, width, height });
+  };
+
+  update() {};
+
+  draw(ctx) {
+    ctx.drawImage(ASSET_MANAGER.getAsset("./assets/sides/Tray.png"), this.x, this.y, this.width, this.height);
+  };
 }

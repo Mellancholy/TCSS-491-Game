@@ -57,7 +57,7 @@ export class SidesAssemblyScene extends Scene {
       },
       {
         name: "gyoza",
-        img: "./assets/sides/blank.png"
+        img: "./assets/sides/Gyoza.png"
       },
       {
         name: "edamame",
@@ -78,4 +78,8 @@ class Background extends GameObject {
   draw(ctx) {
       ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Backgrounds.png"), 0, 0, 1024, 768);
   }
+}
+
+class Microwave extends GameObject {
+
 }

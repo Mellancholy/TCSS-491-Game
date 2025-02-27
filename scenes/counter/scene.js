@@ -53,9 +53,13 @@ class SceneUpdater extends GameObject {
     constructor(game, scene) {
         super(game);
         Object.assign(this, { game , scene });
+        this.orderManageButtonExists = false;
     }
 
     update() {
+        if (!this.orderManageButtonExists) {
+            this.scene.addGameObject(orderManage.orderButton);
+        }
         if (customerManage.customers.length == 0) {
             const newCustomer = new Customer(this.game, this.scene, 100, 200)
             customerManage.addCustomer(newCustomer);

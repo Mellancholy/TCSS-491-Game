@@ -17,6 +17,7 @@ export default class Customer extends GameObject {
         this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
             this.orderReceived = true;
             this.okButton.hidden = true;
+            orderManage.addOrder(this.order);
         }, "OK") 
         this.okButton.hidden = true;;
         this.scene.addGameObject(this.okButton);
@@ -37,7 +38,7 @@ export default class Customer extends GameObject {
     draw(ctx) {
         ctx.drawImage(this.spritesheet, this.x, this.y, this.width, this.height);
         if(this.showOrder && !this.orderReceived) {
-            const length = this.order.ingredients.length * 75
+            const length = (WRAP.length + 3 + CONDIMENTS.length + 1) * 40
             ctx.fillStyle = "white";
             ctx.fillRect(500, 100, 200, length);
             ctx.fillStyle = "black";

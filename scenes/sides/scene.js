@@ -122,18 +122,18 @@ class FoodTray extends GameObject {
       ctx.drawImage(img, this.x , this.y);
     });
 
-    // Draw the updated drop zone (right half of tray)
+    // Draw the bounds
     ctx.save();
     ctx.strokeStyle = "red";
     ctx.lineWidth = 2;
     ctx.setLineDash([5, 5]);
 
-    // Adjusted rectangle to highlight only the right half
+
     ctx.strokeRect(
-        this.x, // Start from the middle of the tray
-        this.y,                    // Keep the same top position
-        this.width / 4,            // Cover only the right half
-        this.height / 4            // Keep the drop height small
+        this.x,
+        this.y,
+        this.width / 4,
+        this.height / 4
     );
 
     ctx.restore();

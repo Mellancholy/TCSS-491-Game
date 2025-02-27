@@ -13,7 +13,7 @@ export class SidesAssemblyScene extends Scene {
 
   initalizeScene() {
     this.addGameObject(new Background(this.game));
-    this.addGameObject(new FoodTray(this.game, null, 200, 300, 650, 500));
+    this.addGameObject(new FoodTray(this.game, 200, 300, 650, 500));
 
     // this.foodTray = new this.foodTray(this.game, 700, 290, 120, 120);
     // this.addGameObject(this.foodTray);
@@ -21,7 +21,7 @@ export class SidesAssemblyScene extends Scene {
     //this.microwave = new this.microwave(this.game, 1024/2, 100, 200, 200);
     //this.addGameObject(this.microwave);
 
-    const tableItems = [
+    const condiments = [
       {
         name: "soy sauce",
         img: "./assets/sides/soysauce.png",
@@ -42,7 +42,7 @@ export class SidesAssemblyScene extends Scene {
       }
     ];
 
-    tableItems.forEach(item => {
+    condiments.forEach(item => {
       this.addGameObject(new DraggableObject(this.game, item, item.x, item.y, 80, 80));
     })
     
@@ -107,16 +107,34 @@ class Microwave extends GameObject {
 }
 
 class FoodTray extends GameObject {
-  constructor(game, food, x, y, width, height) {
+  constructor(game, x, y, width, height) {
     super(game);
-    Object.assign(this, { game, food, x, y, width, height });
+    Object.assign(this, { game, x, y, width, height, condiment: [] });
   };
 
   update() {};
 
   draw(ctx) {
     ctx.drawImage(ASSET_MANAGER.getAsset("./assets/sides/Tray.png"), this.x, this.y, this.width, this.height);
+
+    this.condiment.forEach(element => {
+      const img = ASSET_MANAGER.getAsset(element.img)
+      ctx.drawImage(img, this.x , this.y);
+    });
   };
+
+  onDnDDrop(e) {
+    console.log("dropped");
+    console.log(e);
+    console.log(e.detail)
+    if(e.detail.x > this.x - (this.width) && e.detail.x < this.x + (this.width) && e.detail.y > this.y && e.detail.y < this.y + this.height) {
+      console.log("dropped in food tray");
+      this.condiment.push(e.detail.button.food);
+      console.log(e.detail.button.food);
+      rollManage.addIngredient(new Ingredient(e.detail.button.food.name));
+      //e.detail.button.game.currentScene.rollButton.hidden = false;
+    }
+  }
 
 
 }

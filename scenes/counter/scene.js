@@ -58,6 +58,7 @@ class SceneUpdater extends GameObject {
 
     update() {
         if (!this.orderManageButtonExists) {
+            this.orderManageButtonExists = true;
             this.scene.addGameObject(orderManage.orderButton);
         }
         if (customerManage.customers.length == 0) {

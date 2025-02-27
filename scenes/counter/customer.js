@@ -1,7 +1,7 @@
 import GameObject from "../../gameObject.js";
 import { ASSET_MANAGER, orderManage } from "../../main.js";
 import { Order, INGREDIENTS, WRAP, CONDIMENTS, SIDES } from "./food.js";
-import { Button, DnDButton } from "../../button.js";
+import { Button } from "../../button.js";
 
 export default class Customer extends GameObject {
     constructor(game, scene, x, y) {

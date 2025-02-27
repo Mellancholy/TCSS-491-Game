@@ -2,7 +2,7 @@ import Scene from '../../scene.js';
 import GameObject from '../../gameObject.js';
 import { ASSET_MANAGER } from "../../main.js";
 import { Button, DnDButton } from "../../button.js";
-import { rollManage } from '../../main.js';
+import { rollManage , orderManage } from '../../main.js';
 import Ingredient from "../counter/food.js";
 
 export class RiceAssemblyScene extends Scene {
@@ -83,6 +83,7 @@ export class RiceAssemblyScene extends Scene {
         }, "Roll") 
         this.rollButton.hidden = true;
         this.addGameObject(this.rollButton)
+        this.addGameObject(new SceneUpdater(this.game, this));
     }
 
     roll() {
@@ -235,6 +236,7 @@ class FoodBottom extends GameObject {
         }
     
     };
+    
 
     onDnDDrop(e) {
         //console.log("dropped");
@@ -247,4 +249,25 @@ class FoodBottom extends GameObject {
             e.detail.button.game.currentScene.rollButton.hidden = false;
         }
     }
+}
+
+class SceneUpdater extends GameObject {
+    constructor(game, scene) {
+        super(game);
+        Object.assign(this, { game , scene });
+        this.orderManageButtonExists = false;
+    }
+
+    update() {
+
+        if (!this.orderManageButtonExists) {
+            this.orderManageButtonExists = true;
+            orderManage.orderButton.removeFromWorld = false
+            this.scene.addGameObject(orderManage.orderButton);
+        }
+    };
+
+    draw(ctx) {
+    
+    };
 }

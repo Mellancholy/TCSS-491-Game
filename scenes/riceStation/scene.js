@@ -18,11 +18,15 @@ export class RiceStationScene extends Scene {
             const foods = [
                 {
                     name: "rice", 
-                    img: "./assets/objects/Rice_Cooked.png"
+                    img: "./assets/objects/Rice_Cooked.png",
+                    xOffset: 0,
+                    yOffset: -10
                 },
                 {
                     name: "nori", 
-                    img: "./assets/objects/Nori.png"
+                    img: "./assets/objects/Nori.png",
+                    xOffset: 0,
+                    yOffset: 0
                 }
             ]
             const riceCooker = new RiceCooker(this.game, foods[0], 10, 10, 512, 512)
@@ -141,6 +145,7 @@ class BambooMat extends GameObject {
     constructor(game, x, y) {
         super(game);
         Object.assign(this, { game, x, y, foods: [] });
+        this.matSprite = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
     };
 
     update() {
@@ -148,11 +153,16 @@ class BambooMat extends GameObject {
     };
 
     draw(ctx) {
-        const matSprite = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
-        ctx.drawImage(matSprite, this.x, this.y);
+        ctx.fillStyle = "blue"
+        ctx.fillRect(this.x, this.y, 5, 5)
+        ctx.drawImage(this.matSprite, this.x, this.y);
+        const centerX = this.x + (this.matSprite.width / 2)
+        const centerY = this.y + (this.matSprite.height / 2)
+        ctx.fillStyle = "red"
+        ctx.fillRect(centerX, centerY, 5, 5)
         this.foods.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img)
-            ctx.drawImage(img, this.x , this.y);
+            ctx.drawImage(img, centerX - (img.width / 2) + element.xOffset, centerY - (img.height / 2) + element.yOffset, img.width, img.height);
         });
     };
 

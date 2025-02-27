@@ -13,7 +13,7 @@ export class SidesAssemblyScene extends Scene {
 
   initalizeScene() {
     this.addGameObject(new Background(this.game));
-    this.addGameObject(new FoodTray(this.game, 200, 300, 650, 500));
+    this.addGameObject(new FoodTray(this.game, 200, 300, 600, 370));
 
     // this.foodTray = new this.foodTray(this.game, 700, 290, 120, 120);
     // this.addGameObject(this.foodTray);
@@ -98,7 +98,7 @@ class Background extends GameObject {
   update() {}
 
   draw(ctx) {
-      ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Backgrounds.png"), 0, 0, 1024, 768);
+      ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Backgrounds.png"), 0, 0, 1024, 683);
   }
 }
 

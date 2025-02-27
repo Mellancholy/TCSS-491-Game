@@ -119,7 +119,7 @@ class FoodTray extends GameObject {
 
     this.condiment.forEach(element => {
       const img = ASSET_MANAGER.getAsset(element.img)
-      ctx.drawImage(img, this.x , this.y);
+      ctx.drawImage(img, this.x + 45 , this.y + 15);
     });
 
     // Draw the bounds

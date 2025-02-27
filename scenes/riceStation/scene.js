@@ -153,13 +153,9 @@ class BambooMat extends GameObject {
     };
 
     draw(ctx) {
-        ctx.fillStyle = "blue"
-        ctx.fillRect(this.x, this.y, 5, 5)
         ctx.drawImage(this.matSprite, this.x, this.y);
         const centerX = this.x + (this.matSprite.width / 2)
         const centerY = this.y + (this.matSprite.height / 2)
-        ctx.fillStyle = "red"
-        ctx.fillRect(centerX, centerY, 5, 5)
         this.foods.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img)
             ctx.drawImage(img, centerX - (img.width / 2) + element.xOffset, centerY - (img.height / 2) + element.yOffset, img.width, img.height);

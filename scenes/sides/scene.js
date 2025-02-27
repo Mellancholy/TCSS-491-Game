@@ -121,13 +121,31 @@ class FoodTray extends GameObject {
       const img = ASSET_MANAGER.getAsset(element.img)
       ctx.drawImage(img, this.x , this.y);
     });
+
+    // Draw the updated drop zone (right half of tray)
+    ctx.save();
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 5]);
+
+    // Adjusted rectangle to highlight only the right half
+    ctx.strokeRect(
+        this.x, // Start from the middle of the tray
+        this.y,                    // Keep the same top position
+        this.width / 4,            // Cover only the right half
+        this.height / 4            // Keep the drop height small
+    );
+
+    ctx.restore();
+
+
   };
 
   onDnDDrop(e) {
     console.log("dropped");
     console.log(e);
     console.log(e.detail)
-    if(e.detail.x > this.x - (this.width) && e.detail.x < this.x + (this.width) && e.detail.y > this.y && e.detail.y < this.y + this.height) {
+    if(e.detail.x > this.x && e.detail.x < this.x + (this.width / 4) && e.detail.y > this.y && e.detail.y < this.y + this.height/4) {
       console.log("dropped in food tray");
       this.condiment.push(e.detail.button.food);
       console.log(e.detail.button.food);

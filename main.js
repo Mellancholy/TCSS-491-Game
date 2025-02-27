@@ -9,6 +9,7 @@ import CustomerManager from "./customerManager.js";
 const gameEngine = new GameEngine();
 
 export const ASSET_MANAGER = new AssetManager();
+let sceneManage, orderManage, rollManage, customerManage;
 
 // sprites
 
@@ -80,6 +81,11 @@ ASSET_MANAGER.downloadAll(() => {
     
 	gameEngine.init(ctx);
 
+    sceneManage = new SceneManager(gameEngine);
+    orderManage = new OrderManager(gameEngine);
+    rollManage = new RollManager(gameEngine);
+    customerManage  = new CustomerManager(gameEngine);
+
 	gameEngine.addEntity(sceneManage);
     gameEngine.addEntity(orderManage);
     gameEngine.addEntity(rollManage)
@@ -106,8 +112,4 @@ window.requestAnimFrame = (() => {
             window.setTimeout(callback, 1000 / 60);
         });
 })();
-const sceneManage = new SceneManager(gameEngine);
-const orderManage = new OrderManager(gameEngine);
-const rollManage = new RollManager(gameEngine);
-const customerManage = new CustomerManager(gameEngine);
 export { sceneManage, orderManage, rollManage, customerManage };

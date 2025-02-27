@@ -1,24 +1,33 @@
 import GameObject from "../../gameObject.js";
 import { ASSET_MANAGER, orderManage } from "../../main.js";
 import { Order, INGREDIENTS, WRAP, CONDIMENTS, SIDES } from "./food.js";
+import { Button, DnDButton } from "../../button.js";
 
 export default class Customer extends GameObject {
-    constructor(game, x, y) {
+    constructor(game, scene, x, y) {
         super(game);
+        Object.assign(this, { game, scene, x, y });
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/characters/dummy.png");
         this.width = 400;
         this.height = 600;
         this.order = null;
         this.showOrder = false;
+        this.orderReceived = false;
         this.hasWalked = false;
-        Object.assign(this, { game, x, y });
+        this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
+            this.orderReceived = true;
+            this.okButton.hidden = true;
+        }, "OK") 
+        this.okButton.hidden = true;;
+        this.scene.addGameObject(this.okButton);
+
     };
 
     update() {
         if (!this.hasWalked) {
             this.walkTo(100);
         } else {
-            if (!this.showOrder) {
+            if (!this.showOrder && !this.orderReceived) {
                 this.displayOrder();
             }
         }
@@ -27,9 +36,8 @@ export default class Customer extends GameObject {
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, this.x, this.y, this.width, this.height);
-        if(this.showOrder) {
+        if(this.showOrder && !this.orderReceived) {
             const length = this.order.ingredients.length * 75
-            console.log(this.order);
             ctx.fillStyle = "white";
             ctx.fillRect(500, 100, 200, length);
             ctx.fillStyle = "black";
@@ -50,6 +58,7 @@ export default class Customer extends GameObject {
                     ctx.fillText(this.order.sides[i - this.order.ingredients.length].type, 600, yOffset);
                 }
             }
+            this.okButton.hidden = false;
         }
     };
 
@@ -70,7 +79,6 @@ export default class Customer extends GameObject {
 
     displayOrder() {
         this.order = this.randomOrder();
-        orderManage.addOrder(this.order);
         this.showOrder = true;
     }
 
@@ -85,7 +93,7 @@ export default class Customer extends GameObject {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-        const numWrap = getRandomInt(1, WRAP.length);
+        const numWrap = getRandomInt(2, WRAP.length);
         const numIngredients = getRandomInt(1, 3);
         const numCondiments = getRandomInt(0, CONDIMENTS.length);
         const numSides = getRandomInt(0, 1);

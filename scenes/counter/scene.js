@@ -1,7 +1,8 @@
 import Scene from '../../scene.js';
 import GameObject from '../../gameObject.js'; 
-import { ASSET_MANAGER } from "../../main.js";
-import Customer from './customer.js';
+import { ASSET_MANAGER, customerManage, orderManage } from "../../main.js";
+import Customer from './customer.js'; 
+import { Button } from "../../button.js";
 
 export class CounterScene extends Scene {
     constructor(game, x, y) {
@@ -11,7 +12,7 @@ export class CounterScene extends Scene {
 
     initalizeScene() {
         this.addGameObject(new Background(this.game, 0, 0));
-        this.addGameObject(new Customer(this.game, 100, 550));
+        this.addGameObject(new SceneUpdater(this.game, this));
         this.addGameObject(new Foreground(this.game, 0, 0));
     }
 }
@@ -47,3 +48,26 @@ class Foreground extends GameObject {
         ctx.drawImage(this.spritesheet, 0, 0);
     };
 } 
+
+class SceneUpdater extends GameObject {
+    constructor(game, scene) {
+        super(game);
+        Object.assign(this, { game , scene });
+    }
+
+    update() {
+        if (customerManage.customers.length == 0) {
+            const newCustomer = new Customer(this.game, this.scene, 100, 200)
+            customerManage.addCustomer(newCustomer);
+            this.scene.addGameObject(newCustomer);
+            this.scene.addGameObject(new Foreground(this.game, 0, 0));
+        } else if (customerManage.customers.length == 1){
+            
+        }
+
+    };
+
+    draw(ctx) {
+    
+    };
+}

@@ -15,11 +15,9 @@ export class SidesAssemblyScene extends Scene {
     this.addGameObject(new Background(this.game));
     this.addGameObject(new FoodTray(this.game, 200, 300, 600, 370));
 
-    // this.foodTray = new this.foodTray(this.game, 700, 290, 120, 120);
-    // this.addGameObject(this.foodTray);
-
-    //this.microwave = new this.microwave(this.game, 1024/2, 100, 200, 200);
-    //this.addGameObject(this.microwave);
+    this.microwave = new Microwave(this.game, 200, 0, 600, 300);
+    this.addGameObject(this.microwave);
+    this.microwave.addButton();
 
     const condiments = [
       {
@@ -103,8 +101,65 @@ class Background extends GameObject {
 }
 
 class Microwave extends GameObject {
+  constructor(game, x, y, width, height) {
+      super(game);
+      Object.assign(this, { game, x, y, width, height, ingredientButtons: [] });
 
+
+      this.ingredients = [
+          { name: "miso paste", img: "./assets/sides/MisoBin.png" },
+          { name: "edamame", img: "./assets/sides/edamame.png" },
+          { name: "tofu", img: "./assets/sides/Tofu.png" },
+          { name: "green onions", img: "./assets/sides/blank.png" },
+          { name: "chicken", img: "./assets/sides/blank.png" }
+      ];
+  }
+
+
+  addButton() {
+      let xStart = 250; // Button positions inside microwave
+      let yStart = 200; // Below the microwave
+      const buttonSize = 75;
+      const spacing = 100; // Space between buttons
+
+
+      for (let i = 0; i < this.ingredients.length; i++) {
+          let ingredient = this.ingredients[i];
+
+
+          const button = DnDButton.recButImage(
+            this.game,
+            xStart + i * spacing, yStart, // Position
+            buttonSize, buttonSize, // Size
+            ingredient.img, // Image path
+            () => {
+                console.log(`Added ${ingredient.name} to microwave!`);
+                this.addIngredient(new Ingredient(ingredient.name));
+            }
+        );
+
+
+          this.ingredientButtons.push(button);
+          this.game.currentScene.addGameObject(button);
+      }
+  }
+
+
+  addIngredient(ingredient) {
+      this.ingredients.push(ingredient);
+      console.log(`${ingredient.type} added to the microwave.`);
+  }
+  update() {}
+
+
+  draw(ctx) {
+    const image = ASSET_MANAGER.getAsset("./assets/sides/microwave.png");
+
+
+    ctx.drawImage(image, this.x, this.y, this.width, this.height);
+  }
 }
+
 
 class FoodTray extends GameObject {
   constructor(game, x, y, width, height) {

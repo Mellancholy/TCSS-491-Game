@@ -1,10 +1,12 @@
 export default class GameObject {
-    constructor(game) {
+    constructor(game, persistent = false) {
         if (this.constructor == GameObject) {
             throw new Error("Abstract classes can't be instantiated.");
         }
         this.game = game;
         this.removeFromWorld = false;
+        this.persistent = persistent;
+        this.hidden = false;
     }
 
     update() {
@@ -16,8 +18,11 @@ export default class GameObject {
     }
 
     deload() {
-        this.removeFromWorld = true;
+        if (!this.persistent) {
+            this.removeFromWorld = true;
+        }
     }
+    
 
     onMouseDown(e) {
 

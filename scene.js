@@ -6,7 +6,7 @@ export default class Scene {
         }
         this.game = game;
         this.gameObjects = [];
-        //this.initalizeScene();
+        this.hiddenObjects = [];
     }
 
     initalizeScene() {
@@ -19,14 +19,29 @@ export default class Scene {
     }
 
     deload() {
-        this.gameObjects.forEach(gameObject => {
-            console.log("deloading game object: ");
-            console.log(gameObject);
-            gameObject.deload();
-        })
-        this.gameObjects = []
+        this.gameObjects = this.gameObjects.filter(gameObject => {
+            if (gameObject.persistent) {
+                // Hide persistent objects instead of removing them
+                this.hiddenObjects.push(gameObject);
+                gameObject.hidden = true;
+                return false;
+            } else {
+                console.log("deloading game object: ", gameObject);
+                gameObject.deload();
+                return false; // Remove non-persistent objects
+            }
+        });
+
     }
 
+    restoreHiddenObjects() {
+        this.hiddenObjects.forEach(gameObject => {
+            gameObject.hidden = false;
+            this.gameObjects.push(gameObject);
+        });
+        this.hiddenObjects = []; // Clear the hidden objects list after restoring
+    }
+    
     // Stub methods since its technically a game object
     draw(ctx) {}
     update() {}

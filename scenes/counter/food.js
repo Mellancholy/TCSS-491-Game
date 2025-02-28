@@ -27,8 +27,8 @@ class Side {
 
 
 export const WRAP = [
-    new Wrap('rice'),
-    new Wrap('nori')
+    new Wrap('rice', "./assets/objects/Rice_Cooked.png"),
+    new Wrap('nori', "./assets/objects/Nori.png"),
 ]
 
 export const INGREDIENTS = [

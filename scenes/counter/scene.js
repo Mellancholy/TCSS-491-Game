@@ -23,7 +23,7 @@ class Background extends GameObject {
         Object.assign(this, { game, x, y });
 
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Order_Background.png");
-    };
+    }; 
 
     update() {
     };
@@ -57,6 +57,10 @@ class SceneUpdater extends GameObject {
     }
 
     update() {
+        console.log(customerManage.currentCustomer);
+        if (customerManage.currentCustomer != null) {
+            customerManage.currentCustomer.removeFromWorld = false;
+        }
         if (!this.orderManageButtonExists) {
             this.orderManageButtonExists = true;
             this.scene.addGameObject(orderManage.orderButton);
@@ -64,10 +68,13 @@ class SceneUpdater extends GameObject {
         if (customerManage.customers.length == 0) {
             const newCustomer = new Customer(this.game, this.scene, 100, 200)
             customerManage.addCustomer(newCustomer);
+            customerManage.currentCustomer = newCustomer;
             this.scene.addGameObject(newCustomer);
             this.scene.addGameObject(new Foreground(this.game, 0, 0));
-        } else if (customerManage.customers.length == 1){
-            
+        } else if (customerManage.currentCustomer != null){
+            if (customerManage.currentCustomer.order != null && customerManage.currentCustomer.order.isComplete) {
+                this.scene.addGameObject(customerManage.currentCustomer);
+            }
         }
 
     };

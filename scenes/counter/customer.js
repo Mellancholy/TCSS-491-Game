@@ -13,6 +13,7 @@ export default class Customer extends GameObject {
         this.order = null;
         this.showOrder = false;
         this.orderReceived = false;
+        this.showCustomer = false;
         this.hasWalked = false;
         this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
             this.orderReceived = true;

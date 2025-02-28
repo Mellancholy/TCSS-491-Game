@@ -1,5 +1,5 @@
 import { ASSET_MANAGER } from "../../main.js";
-import { Background } from "../../background.js";
+import  Background  from "../../background.js";
 import Scene from "../../scene.js";
 import GameObject from "../../gameObject.js";
 import { sceneManage, rollManage } from '../../main.js';
@@ -7,7 +7,7 @@ import { DnDButton } from "../../button.js";
 import Ingredient from "../counter/food.js";
 import { WRAP } from "../counter/food.js";
 
-export class RiceStationScene extends Scene {
+export class RiceStationScene extends Scene { 
     constructor(game) {
             super(game)
             Object.assign(this, { game });

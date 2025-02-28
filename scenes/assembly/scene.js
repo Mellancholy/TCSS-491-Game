@@ -1,3 +1,4 @@
+import Background from '../../background.js';
 import Scene from '../../scene.js';
 import GameObject from '../../gameObject.js';
 import { ASSET_MANAGER } from "../../main.js";
@@ -12,7 +13,8 @@ export class RiceAssemblyScene extends Scene {
     };
 
     initalizeScene() {
-        this.addGameObject(new Background(this.game, 0, 0));
+        this.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
+        this.addGameObject(new Background(this.game, "./assets/assembly/case.jpg", 0, 150, 1024, 197));
         this.foodBottom = new FoodBottom(this.game, 227, 375, 570, 300);
         this.addGameObject(this.foodBottom);
         const binWidth = 80;
@@ -90,20 +92,6 @@ export class RiceAssemblyScene extends Scene {
         console.log("rolling");
         this.rollButton.removeFromWorld = true;
         this.foodBottom.rolled = true;
-    }
-}
- 
-class Background extends GameObject {
-    constructor(game) {
-        super(game);
-        Object.assign(this, { game });
-    }
-
-    update() {}
-
-    draw(ctx) {
-        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png"), 0, 0);
-        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/assembly/case.jpg"), 0, 150, 1024, 197);
     }
 }
 

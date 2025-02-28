@@ -17,21 +17,6 @@ export class RiceStationScene extends Scene {
             this.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
             this.addGameObject(new BambooMat(this.game, 450, 375));
 
-            // const foods = [
-            //     {
-            //         name: "rice", 
-            //         img: "./assets/objects/Rice_Cooked.png",
-            //         xOffset: 0,
-            //         yOffset: -10
-            //     },
-            //     {
-            //         name: "nori", 
-            //         img: "./assets/objects/Nori.png",
-            //         xOffset: 0,
-            //         yOffset: 0
-            //     }
-            // ]
-
             const riceCooker = new RiceCooker(this.game, 10, 10, 512, 512)
             this.addGameObject(riceCooker);
 
@@ -122,8 +107,8 @@ class BambooMat extends GameObject {
     constructor(game, x, y) {
         super(game);
         Object.assign(this, { game, x, y});
-        this.foods = [];
-        this.matSprite = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
+        this.ingredients = [];
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
     };
 
     update() {
@@ -131,25 +116,27 @@ class BambooMat extends GameObject {
     };
 
     draw(ctx) {
-        ctx.drawImage(this.matSprite, this.x, this.y);
-        const centerX = this.x + (this.matSprite.width / 2)
-        const centerY = this.y + (this.matSprite.height / 2)
-        this.foods.forEach(element => {
+        ctx.drawImage(this.spritesheet, this.x, this.y);
+        const centerX = this.x + (this.spritesheet.width / 2)
+        const centerY = this.y + (this.spritesheet.height / 2)
+
+        // Draw the ingredients on top of the bamboo mat
+        this.ingredients.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img)
-            ctx.drawImage(img, centerX - (img.width / 2) + element.xOffset, centerY - (img.height / 2) + element.yOffset, img.width, img.height);
+            ctx.drawImage(img, this.x, this.y);
+            // ctx.drawImage(img, centerX - (img.width / 2) + element.xOffset, centerY - (img.height / 2) + element.yOffset, img.width, img.height);
         });
     };
 
     onDnDDrop(e) {
         // console.log(e);
         // console.log(e.detail)
-        console.log(e.detail.y);
+        // console.log(e.detail.y);
         if(e.detail.x >= this.x && e.detail.x <= this.x + 512 &&
             e.detail.y >= this.y && e.detail.y <= this.y + 512) {
             console.log("dropped in food bottom");
-            this.foods.push(e.detail.button.food);
-            console.log(this.foods);
-            rollManage.addIngredient(new Ingredient(e.detail.button.food.name, e.detail.button.food.img));
+            this.ingredients.push(e.detail.button.food);
+            rollManage.addIngredient(new Ingredient(e.detail.button.food.type, e.detail.button.food.img));
         }
     }
 }

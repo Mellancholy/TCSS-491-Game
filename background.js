@@ -3,7 +3,7 @@ import { ASSET_MANAGER } from "./main.js";
 
 export default class Background extends GameObject {
     constructor(game, spritesheet, x = 0, y = 0, width = 0, height = 0) {
-        super(game);
+        super(game, 'background');
         Object.assign(this, { game , spritesheet});
         this.x = x;
         this.y = y;

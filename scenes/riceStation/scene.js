@@ -14,6 +14,8 @@ export class RiceStationScene extends Scene {
         };
 
     initalizeScene() {
+            console.log("HIDDEN:" + this.hiddenObjects);
+            this.restoreHiddenObjects();
             this.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
             this.addGameObject(new BambooMat(this.game, 450, 375));
 
@@ -27,7 +29,7 @@ export class RiceStationScene extends Scene {
 
 class RiceCooker extends GameObject {
     constructor(game, x, y, width, height) {
-        super(game, true);
+        super(game, 'ricecooker', true);
         Object.assign(this, { game, x, y, width, height});
         this.amount = 5;
         this.cookerClicked = false;
@@ -78,7 +80,7 @@ class RiceCooker extends GameObject {
 
 class Nori extends GameObject {
     constructor(game, x, y, width, height) {
-        super(game);
+        super(game, 'norisource');
         Object.assign(this, { game, x, y, width, height});
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/Nori_Source.png");
         this.addButton();

@@ -14,15 +14,20 @@ export default class Scene {
     }
 
     addGameObject(gameObject) {
-        this.gameObjects.push(gameObject);
-        this.game.addEntity(gameObject);
+        if (!this.hiddenObjects.some(obj => obj.id === gameObject.id)) {
+            this.gameObjects.push(gameObject);
+            this.game.addEntity(gameObject);
+        }
     }
 
     deload() {
         this.gameObjects = this.gameObjects.filter(gameObject => {
             if (gameObject.persistent) {
-                // Hide persistent objects instead of removing them
-                this.hiddenObjects.push(gameObject);
+                // Prevent duplicate hiddenObjects entries
+                if (!this.hiddenObjects.some(obj => obj.id === gameObject.id)) {
+                    this.hiddenObjects.push(gameObject);
+                    console.log("hiding game object: ", gameObject);
+                }
                 gameObject.hidden = true;
                 return false;
             } else {
@@ -31,7 +36,6 @@ export default class Scene {
                 return false; // Remove non-persistent objects
             }
         });
-
     }
 
     restoreHiddenObjects() {
@@ -39,9 +43,8 @@ export default class Scene {
             gameObject.hidden = false;
             this.gameObjects.push(gameObject);
         });
-        this.hiddenObjects = []; // Clear the hidden objects list after restoring
     }
-    
+
     // Stub methods since its technically a game object
     draw(ctx) {}
     update() {}

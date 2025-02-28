@@ -5,11 +5,10 @@ export default class GameObject {
         }
         this.game = game;
 
-        this.id = id;
+        this.id = id; 
         this.persistent = persistent;
 
         this.removeFromWorld = false;
-        this.hidden = false;
     }
 
     update() {
@@ -21,9 +20,11 @@ export default class GameObject {
     }
 
     deload() {
-        if (!this.persistent) {
-            this.removeFromWorld = true;
-        }
+        this.removeFromWorld = true;
+    }
+
+    restore() {
+        this.removeFromWorld = false;
     }
     
 

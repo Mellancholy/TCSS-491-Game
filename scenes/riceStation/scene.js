@@ -14,9 +14,10 @@ export class RiceStationScene extends Scene {
         };
 
     initalizeScene() {
-            console.log("HIDDEN:" + this.hiddenObjects);
-            this.restoreHiddenObjects();
+            console.log("HIDDEN:" + this.persistentObjects);
             this.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
+
+            this.restoreHiddenObjects();
             this.addGameObject(new BambooMat(this.game, 450, 375));
 
             const riceCooker = new RiceCooker(this.game, 10, 10, 512, 512)
@@ -41,20 +42,22 @@ class RiceCooker extends GameObject {
         this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, WRAP[0].img, () => {
             console.log("clicked on rice cooker");
             this.cookerClicked = true;
-            this.amount--;
         });
         this.dnd.width = this.width;
         this.dnd.height = this.height;
         this.dnd.food = WRAP[0];
+        this.dnd.persistent = true;
         if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
 
     update() {
         if (this.cookerClicked) {
+            this.amount--;
             if (this.amount == 0) {
                 this.beginMinigame();
                 this.amount = 5;
             }
+            this.cookerClicked = false;
         }
     };
 

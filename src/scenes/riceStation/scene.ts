@@ -13,6 +13,7 @@ export class RiceStationScene extends Scene {
     
     constructor(game: GameEngine) {
             super(game);
+            this.game = game;
         };
 
     initalizeScene() {
@@ -38,17 +39,18 @@ class RiceCooker extends GameObject {
     amount: number;
     cookerClicked: boolean;
     spritesheet: HTMLImageElement;
-    dnd: DnDButton;
+    dnd!: DnDButton;
     
     constructor(game: GameEngine, x: number, y: number, width: number, height: number) {
         super(game, 'riceCooker');
+        this.game = game;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.amount = 0;
         this.cookerClicked = false;
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker.png") as HTMLImageElement;
         this.addButton();
         super.loadSharedData();
     }
@@ -109,6 +111,7 @@ class Nori extends GameObject {
 
     constructor(game: GameEngine, x: number, y: number, width: number, height: number) {
         super(game, 'norisource');
+        this.game = game;
         this.x = x;
         this.y = y;
         this.width = width;

@@ -22,6 +22,7 @@ export class WashThatRiceScene extends Scene {
 
     constructor(game: GameEngine, x: number, y: number) {
         super(game);
+        this.game = game;
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png");
         this.x = x;
         this.y = y;
@@ -62,6 +63,7 @@ class Background extends GameObject {
 
     constructor(game: GameEngine, x: number, y: number) {
         super(game);
+        this.game = game;
         this.x = x;
         this.y = y;
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png");

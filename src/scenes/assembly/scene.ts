@@ -14,6 +14,7 @@ export class RiceAssemblyScene extends Scene {
     
     constructor(game: GameEngine) {
         super(game);
+        this.game = game;
     };
 
     initalizeScene() {
@@ -86,7 +87,7 @@ export class RiceAssemblyScene extends Scene {
         this.rollButton = Button.rectButton(this.game, 600, 320, 100, 50, () => {
             console.log("Clicked roll button");
             this.roll()
-            rollManage.completeRoll();
+            rollManage!.completeRoll();
         }, "Roll") 
         this.rollButton.hidden = true;
         super.addGameObject(this.rollButton)
@@ -96,8 +97,8 @@ export class RiceAssemblyScene extends Scene {
 
     roll() {
         console.log("rolling");
-        this.rollButton.removeFromWorld = true;
-        super.foodBottom.rolled = true;
+        this.rollButton!.removeFromWorld = true;
+        this.foodBottom!.rolled = true;
     }
 }
 
@@ -112,6 +113,7 @@ class FoodBin extends GameObject {
 
     constructor(game: GameEngine, food: {name: string, img: string}, x: number, y: number, width: number, height: number) {
         super(game, 'foodbin');
+        this.game = game;
         this.food = food;
         this.x = x;
         this.y = y;
@@ -134,7 +136,7 @@ class FoodBin extends GameObject {
     };
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/assembly/tray.jpg"), this.x, this.y, this.width, this.height);
+        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/assembly/tray.jpg") as HTMLImageElement, this.x, this.y, this.width, this.height);
         
         const bottomWidth = 80
         const bottomHeight = 35
@@ -146,7 +148,7 @@ class FoodBin extends GameObject {
         const ySpace = bottomHeight / yCount;
         for(let row = 0; row < yCount; row++) {
             for(let col = 0; col < xCount; col++) {
-                ctx.drawImage(ASSET_MANAGER.getAsset(this.food.img), this.x + xOffset + (xSpace * col), this.y + (yOffset / 2) - 5 + (ySpace * row))
+                ctx.drawImage(ASSET_MANAGER.getAsset(this.food.img) as HTMLImageElement, this.x + xOffset + (xSpace * col), this.y + (yOffset / 2) - 5 + (ySpace * row))
             }
         }
     };
@@ -168,6 +170,7 @@ class FoodBottom extends GameObject {
 
     constructor(game: GameEngine, x: number, y: number, width: number, height: number) {
         super(game, 'foodbottom');
+        this.game = game;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -185,7 +188,7 @@ class FoodBottom extends GameObject {
             console.log("Cut sushi");
         }
         if(this.game.down) {
-            if(this.game.timer.gameTime - this.game.previousMousePositionsLatest > 0.1) {
+            if(this.game.timer!.gameTime - this.game.previousMousePositionsLatest > 0.1) {
                 this.game.previousMousePositions = []
             }
             if(this.game.previousMousePositions.length === 15) {
@@ -238,17 +241,17 @@ class FoodBottom extends GameObject {
                 return;
             }
         
-            const bambooMatImg = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
+            const bambooMatImg = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png") as HTMLImageElement;
             ctx.drawImage(bambooMatImg, this.x, this.y);
 
             rollManage.activeIngredients.forEach(element => {
                 if (element.type == 'rice' || element.type == 'nori') {
-                    const img = ASSET_MANAGER.getAsset(element.img);
+                    const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
                     ctx.drawImage(img, this.x, this.y);
                 }
             })
             this.foods.forEach(element => {
-                const img = ASSET_MANAGER.getAsset(element.img)
+                const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
                 const xOffset = 50;
                 const spacing = (this.width - xOffset - 50) / 6;
                 for(let i = 0; i < 6; i++) {
@@ -274,9 +277,14 @@ class FoodBottom extends GameObject {
 }
 
 class SceneUpdater extends GameObject {
-    constructor(game, scene) {
+    game: GameEngine;
+    scene: RiceAssemblyScene;
+    orderManageButtonExists: boolean;
+
+    constructor(game: GameEngine, scene: RiceAssemblyScene) {
         super(game);
-        Object.assign(this, { game , scene });
+        this.game = game;
+        this.scene = scene;
         this.orderManageButtonExists = false;
     }
 

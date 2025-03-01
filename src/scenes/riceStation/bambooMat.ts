@@ -1,4 +1,3 @@
-import StationRiceCooker from "./stationRiceCooker.js";
 import GameObject from "src/gameObject.js";
 import { ASSET_MANAGER } from "src/main.js";
 import Nori from "./nori.js";
@@ -16,6 +15,7 @@ export default class BambooMat extends GameObject {
 
     constructor(game: GameEngine, x: number, y: number) {
         super(game);
+        this.game = game;
         this.x = x;
         this.y = y;
 
@@ -59,9 +59,6 @@ export default class BambooMat extends GameObject {
 
             if (draggedItem instanceof Nori) {
                 this.nori = true;
-            }
-            if (draggedItem instanceof StationRiceCooker ) {
-                this.rice = true;
             }
         }
     }

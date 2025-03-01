@@ -18,6 +18,7 @@ export default class Scene {
     }
 
     addGameObject(gameObject: GameObject) {
+        console.log(this)
         this.gameObjects.push(gameObject);
         this.game.addEntity(gameObject);
     }

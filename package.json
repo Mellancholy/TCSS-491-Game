@@ -2,15 +2,20 @@
   "name": "soy-much-sushi",
   "version": "1.0.0",
   "main": "main.js",
+  "homepage": "https://mellancholy.github.io/TCSS-491-Game/",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite"
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d dist",
+    "dev": "vite",
+    "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@types/node": "^22.13.7",
+    "gh-pages": "^6.3.0",
     "typescript": "^5.8.2",
     "vite": "^6.2.0"
   }

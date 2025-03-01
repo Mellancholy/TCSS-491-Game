@@ -1,4 +1,4 @@
-export default class GameObject {
+export default class GameObject { 
     constructor(game, id, persistent = false) {
         if (this.constructor == GameObject) {
             throw new Error("Abstract classes can't be instantiated.");

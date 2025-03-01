@@ -16,7 +16,6 @@ export class RiceStationScene extends Scene {
     initalizeScene() {
             this.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
             console.log("HIDDEN:" + this.persistentObjects);
-            this.restoreHiddenObjects();
 
             this.addGameObject(new BambooMat(this.game, 450, 375));
 
@@ -25,6 +24,8 @@ export class RiceStationScene extends Scene {
 
             const nori = new Nori(this.game, 500, 80, 450, 300)
             this.addGameObject(nori);
+
+            this.restoreHiddenObjects();
 
         }
 }
@@ -48,6 +49,7 @@ class RiceCooker extends GameObject {
         this.dnd.height = this.height;
         this.dnd.food = WRAP[0];
         this.dnd.persistent = true;
+        this.dnd.id = 'ricesourcebuttons';
         if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
 
@@ -96,6 +98,8 @@ class Nori extends GameObject {
         this.dnd.width = this.width;
         this.dnd.height = this.height;
         this.dnd.food = WRAP[1];
+        this.dnd.persistent = true;
+        this.dnd.id = 'norisourcebutton'
         if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
 

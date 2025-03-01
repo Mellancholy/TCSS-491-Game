@@ -16,11 +16,13 @@ export default class Scene {
     }
 
     addGameObject(gameObject) {
-        // will add a gameObject into scene as long as it is not already store in persistenObjects
+        // will add a gameObject into scene as long as it is not already store in persistentObjects
         if (!this.persistentObjects.some(obj => obj.id === gameObject.id)) {
             console.log("Loading game object:", gameObject);
             this.gameObjects.push(gameObject);
             this.game.addEntity(gameObject);
+        } else {
+            console.log("Object is in Hidden:", gameObject);
         }
     }
 

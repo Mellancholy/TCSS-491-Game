@@ -3,7 +3,7 @@ import { ASSET_MANAGER } from "./main.js";
 
 export class Button extends GameObject {
     constructor(game, x, y, onClick) {
-        super(game);
+        super(game, 'button');
         Object.assign(this, { game, x, y, onClick, hidden: false });
     }
 

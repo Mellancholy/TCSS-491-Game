@@ -14,10 +14,10 @@ export class RiceStationScene extends Scene {
         };
 
     initalizeScene() {
-            console.log("HIDDEN:" + this.persistentObjects);
             this.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
-
+            console.log("HIDDEN:" + this.persistentObjects);
             this.restoreHiddenObjects();
+
             this.addGameObject(new BambooMat(this.game, 450, 375));
 
             const riceCooker = new RiceCooker(this.game, 10, 10, 512, 512)
@@ -25,6 +25,7 @@ export class RiceStationScene extends Scene {
 
             const nori = new Nori(this.game, 500, 80, 450, 300)
             this.addGameObject(nori);
+
         }
 }
 

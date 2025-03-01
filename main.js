@@ -74,7 +74,7 @@ ASSET_MANAGER.queueDownload("./assets/assembly/salmon.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/uni.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/tamago.png");
 
-
+ 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
@@ -86,8 +86,8 @@ ASSET_MANAGER.downloadAll(() => {
     rollManage = new RollManager(gameEngine);
     customerManage  = new CustomerManager(gameEngine);
 
-	gameEngine.addEntity(sceneManage);
     gameEngine.addEntity(orderManage);
+	gameEngine.addEntity(sceneManage);
     gameEngine.addEntity(rollManage)
 
 	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadScene.bind(sceneManage)));

@@ -86,6 +86,7 @@ export class RiceAssemblyScene extends Scene {
         this.rollButton.hidden = true;
         this.addGameObject(this.rollButton)
         this.addGameObject(new SceneUpdater(this.game, this));
+        
     }
 
     roll() {

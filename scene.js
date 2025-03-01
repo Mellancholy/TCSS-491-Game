@@ -23,6 +23,22 @@ export default class Scene {
         }
     }
 
+    removePersistentObject(id) {
+        // Find and remove from persistentObjects
+        const index = this.persistentObjects.findIndex(object => object.id === id);
+        if (index !== -1) {
+            const removedObject = this.persistentObjects.splice(index, 1)[0]; // Remove from persistent list
+    
+            // Find the same object in gameObjects and mark it for removal
+            const gameObjIndex = this.gameObjects.findIndex(obj => obj.id === id);
+            if (gameObjIndex !== -1) {
+                this.gameObjects[gameObjIndex].removeFromWorld = true; // Flag for removal
+                this.gameObjects[gameObjIndex].persistent = false; // Flag for removal
+            }
+        }
+    }
+    
+
     deload() {
         // deloads ALL gameObjects but stores persistent for later restoration
         this.gameObjects = this.gameObjects.filter(gameObject => {

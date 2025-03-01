@@ -1,35 +1,28 @@
-import GameObject from "../../gameObject.js";
+import GameObject from "../../gameObject.js"; 
 import { ASSET_MANAGER, orderManage } from "../../main.js";
 import { Order, INGREDIENTS, WRAP, CONDIMENTS, SIDES } from "./food.js";
 import { Button } from "../../button.js";
 
 export default class Customer extends GameObject {
     constructor(game, scene, x, y) {
-        super(game);
+        super(game, 'customer', true);
         Object.assign(this, { game, scene, x, y });
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/characters/dummy.png");
         this.width = 400;
         this.height = 600;
         this.order = null;
         this.showOrder = false;
-        this.orderReceived = false;
+        this.orderAdded = false;
         this.showCustomer = false;
         this.hasWalked = false;
-        this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
-            this.orderReceived = true;
-            this.okButton.hidden = true;
-            orderManage.addOrder(this.order);
-        }, "OK") 
-        this.okButton.hidden = true;;
-        this.scene.addGameObject(this.okButton);
-
+        this.addButton();
     };
 
     update() {
         if (!this.hasWalked) {
             this.walkTo(100);
         } else {
-            if (!this.showOrder && !this.orderReceived) {
+            if (!this.showOrder && !this.orderAdded) {
                 this.displayOrder();
             }
         }
@@ -38,7 +31,7 @@ export default class Customer extends GameObject {
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, this.x, this.y, this.width, this.height);
-        if(this.showOrder && !this.orderReceived) {
+        if(this.showOrder && !this.orderAdded) {
             const length = (WRAP.length + 3 + CONDIMENTS.length + 1) * 40
             ctx.fillStyle = "white";
             ctx.fillRect(500, 100, 200, length);
@@ -82,6 +75,18 @@ export default class Customer extends GameObject {
     displayOrder() {
         this.order = this.randomOrder();
         this.showOrder = true;
+    }
+
+    addButton() {
+        this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
+            this.orderAdded = true;
+            this.okButton.hidden = true;
+            orderManage.addOrder(this.order);
+        }, "OK") 
+        this.okButton.persistent = true;
+        this.okButton.hidden = true;
+        if(this.game.currentScene) this.game.currentScene.addGameObject(this.okButton);
+
     }
 
     randomOrder() {

@@ -6,12 +6,7 @@ export default class OrderManager {
         this.game = game;
         this.activeOrders = [];
         this.showOrder = false;
-        this.orderButton = Button.rectButton(this.game, 150, 0, 200, 50, () => {
-            this.showOrder = !this.showOrder;
-            console.log(this.showOrder)
-            console.log(this.activeOrders.length);
-        }, "ORDERS") 
-        this.orderButton.hidden = false;
+        this.addButton();
     }
 
     addOrder(order) {
@@ -28,6 +23,17 @@ export default class OrderManager {
 
     getOrderLength () {
         return this.activeOrders.length;
+    }
+
+    addButton() {
+        this.orderButton = Button.rectButton(this.game, 150, 0, 200, 50, () => {
+            this.showOrder = !this.showOrder;
+            console.log(this.showOrder)
+            console.log(this.activeOrders.length);
+        }, "ORDERS") 
+        this.orderButton.persistent = true;
+        this.orderButton.hidden = false;
+        this.game.addEntity(this.orderButton);
     }
 
     update() {

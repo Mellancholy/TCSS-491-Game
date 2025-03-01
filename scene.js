@@ -44,20 +44,33 @@ export default class Scene {
 
     deload() {
         // Filter and store persistent objects, deload everything
-        this.gameObjects = this.gameObjects.filter(gameObject => {
+        // this.gameObjects = this.gameObjects.filter(gameObject => {
+        //     if (gameObject.persistent) {
+        //         // Store persistent object if not already stored
+        //         if (!this.persistentObjects.some(obj => obj.id === gameObject.id)) {
+        //             console.log("Hiding game object:", gameObject);
+        //             this.persistentObjects.push(gameObject);
+        //         }
+        //         return false; // Remove from gameObjects but keep stored
+        //     } else {
+        //         console.log("Deloading game object:", gameObject);
+        //         gameObject.deload(); // Call deload to handle removal
+        //         return false; // Remove from gameObjects
+        //     }
+        // });
+
+        this.gameObjects.forEach(gameObject => {
             if (gameObject.persistent) {
-                // Store persistent object if not already stored
                 if (!this.persistentObjects.some(obj => obj.id === gameObject.id)) {
                     console.log("Hiding game object:", gameObject);
                     this.persistentObjects.push(gameObject);
                 }
-                return false; // Remove from gameObjects but keep stored
-            } else {
-                console.log("Deloading game object:", gameObject);
-                gameObject.deload(); // Call deload to handle removal
-                return false; // Remove from gameObjects
             }
-        });
+            console.log("deloading game object: ");
+            console.log(gameObject);
+            gameObject.deload();
+        })
+        this.gameObjects = []
     }
 
     restoreHiddenObjects() {

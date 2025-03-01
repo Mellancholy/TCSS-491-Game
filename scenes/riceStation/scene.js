@@ -111,7 +111,7 @@ class Nori extends GameObject {
 
 class BambooMat extends GameObject {
     constructor(game, x, y) {
-        super(game);
+        super(game, 'bamboomat');
         Object.assign(this, { game, x, y});
         this.ingredients = [];
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");

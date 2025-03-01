@@ -161,6 +161,7 @@ export default class GameEngine {
     };
 
     update() {
+        // console.log(this.entities);
         let entitiesCount = this.entities.length;
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];

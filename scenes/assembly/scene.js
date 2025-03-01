@@ -13,6 +13,7 @@ export class RiceAssemblyScene extends Scene {
     };
 
     initalizeScene() {
+        
         this.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
         this.addGameObject(new Background(this.game, "./assets/assembly/case.jpg", 0, 150, 1024, 197));
         this.foodBottom = new FoodBottom(this.game, 227, 375, 570, 300);

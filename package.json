@@ -1,0 +1,17 @@
+{
+  "name": "soy-much-sushi",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.13.7",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0"
+  }
+}

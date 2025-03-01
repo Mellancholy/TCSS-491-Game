@@ -1,8 +1,16 @@
+import GameEngine from "src/gameEngine";
 import GameObject from "src/gameObject.js";
 import { ASSET_MANAGER } from "src/main.js";
+import Pot from "./pot";
 
 export default class Faucet extends GameObject {
-    constructor(game, pot) {
+    game: GameEngine;
+    pot: Pot;
+    isOn: boolean;
+    gameWon: boolean;
+    gameOver: boolean;
+    
+    constructor(game: GameEngine, pot: Pot) {
         super(game);
         this.game = game;
         this.isOn = false;
@@ -22,11 +30,11 @@ export default class Faucet extends GameObject {
             if (this.pot.liters >= 700 && this.pot.liters < 800 && !this.gameWon) {
                 this.gameWon = true; 
                 console.log(this.gameWon); // debugging
-                const currentData = this.game.addSharedData("riceCooker");
+                const currentData = this.game.getSharedDataByKey("riceCooker");
                 const newAmount = currentData ? currentData.amount + 5 : 5;
                 this.game.addSharedData("riceCooker", {amount: newAmount});
                 setTimeout(() => {
-                    this.game.sceneManager.loadScene("rice")
+                    this.game.sceneManager!.loadScene("rice")
                 }
                 , 2000)
             } else {
@@ -38,11 +46,11 @@ export default class Faucet extends GameObject {
         
     };
 
-    draw(ctx) {
+    draw(ctx: CanvasRenderingContext2D) {
         if (this.isOn) {
-            ctx.drawImage(ASSET_MANAGER.getAsset("./assets/objects/Faucet_On.png"), 565, 248);
+            ctx.drawImage(ASSET_MANAGER.getAsset("./assets/objects/Faucet_On.png") as HTMLImageElement, 565, 248);
         } else {
-            ctx.drawImage(ASSET_MANAGER.getAsset("./assets/objects/Faucet_Off.png"), 565, 285);
+            ctx.drawImage(ASSET_MANAGER.getAsset("./assets/objects/Faucet_Off.png") as HTMLImageElement, 565, 285);
         }
 
         // Drawing hit box
@@ -52,7 +60,7 @@ export default class Faucet extends GameObject {
         ctx.stroke();
     };
 
-    faucetManager(mouseX, mouseY) {
+    faucetManager(mouseX: number, mouseY: number) {
         if (mouseX >= 550 && mouseX <= 550 + 50 && mouseY >= 285 && mouseY <= 285 + 45 && !this.isOn) {
             this.isOn = true;
             console.log(this.isOn);

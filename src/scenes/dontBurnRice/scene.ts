@@ -2,13 +2,20 @@ import RiceCooker from "./ricecooker.js";
 import TimerBar from "./timerBar.js";
 import { ASSET_MANAGER } from "src/main.js";
 import Scene from "src/scene.js";
+import GameEngine from "src/gameEngine.js";
 import GameObject from "src/gameObject.js";
 
 
 export class DontBurnRiceScene extends Scene {
-    constructor(game, x, y) {
+    game: GameEngine;
+    x: number;
+    y: number;
+    
+    constructor(game: GameEngine, x: number, y: number) {
         super(game);
-        Object.assign(this, { game, x, y });
+        this.game = game;
+        this.x = x;
+        this.y = y;
     };
 
     initalizeScene() {
@@ -21,18 +28,24 @@ export class DontBurnRiceScene extends Scene {
     }
 }
 
-class Background extends GameObject{
-    constructor(game, x, y) {
+class Background extends GameObject {
+    game: GameEngine;
+    x: number;
+    y: number;
+    spritesheet: HTMLImageElement;
+    
+    constructor(game: GameEngine, x: number, y: number) {
         super(game);
-        Object.assign(this, { game, x, y });
-
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Minigame_Background.png");
+        this.game = game;
+        this.x = x;
+        this.y = y;
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Minigame_Background.png") as HTMLImageElement;
     };
 
     update() {
     };
 
-    draw(ctx) {
+    draw(ctx: CanvasRenderingContext2D) {
         ctx.drawImage(this.spritesheet, 0, 0);
     };
 }

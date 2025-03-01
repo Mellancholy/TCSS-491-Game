@@ -1,26 +1,38 @@
 export class Order {
-    
-    constructor(ingredients, sides) {
+    ingredients: Ingredient[]
+    sides: Side[]
+
+    constructor(ingredients: Ingredient[], sides: Side[]) {
         this.ingredients = ingredients
         this.sides = sides
     }
 }
 
 export default class Ingredient {
-    constructor(type, img) {
+    type: string
+    img: string
+
+    constructor(type: string, img: string) {
         this.type = type;
         this.img = img;
     }
 }
 
 class Wrap extends Ingredient {
-    constructor(type, img) {
+    type: string
+    img: string
+    
+    constructor(type: string, img: string) {
         super(type, img);
+        this.type = type;
+        this.img = img;
     }
 }
 
 class Side {
-    constructor(type) {
+    type: string;
+
+    constructor(type: string) {
         this.type = type
     }
 }

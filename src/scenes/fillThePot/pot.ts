@@ -1,12 +1,21 @@
+import GameEngine from "src/gameEngine";
 import GameObject from "src/gameObject.js";
 import { ASSET_MANAGER } from "src/main.js";
 
 export default class Pot extends GameObject {
-    constructor(game) {
+    game: GameEngine;
+    liters: number;
+    spritesheet: HTMLImageElement;
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+    
+    constructor(game: GameEngine) {
         super(game);
         this.game = game;
         this.liters = 0;
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/Pot_Animation.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/Pot_Animation.png") as HTMLImageElement;
         this.width = 380;
         this.height = 300;
         this.x = 322;
@@ -18,7 +27,7 @@ export default class Pot extends GameObject {
 
     };
 
-    draw(ctx) {
+    draw(ctx: CanvasRenderingContext2D) {
         if (this.liters == 0) {
             ctx.drawImage(this.spritesheet, 0, 0, this.width, this.height, this.x, this.y, this.width, this.height);
         } else if (this.liters <= 100) {

@@ -2,11 +2,20 @@ import GameObject from "src/gameObject.js";
 import { ASSET_MANAGER, orderManage } from "src/main.js";
 import { Order, INGREDIENTS, WRAP, CONDIMENTS, SIDES } from "./food.js";
 import { Button } from "src/button.js";
+import GameEngine from "src/gameEngine.js";
+import Scene from "src/scene.js";
+import { randomIntRange } from "src/util.js";
 
 export default class Customer extends GameObject {
-    constructor(game, scene, x, y) {
+    game: GameEngine;
+    x: number;
+    y: number;
+
+    constructor(game: GameEngine, x: number, y: number) {
         super(game, 'customer', true);
-        Object.assign(this, { game, scene, x, y });
+        this.game = game;
+        this.x = x;
+        this.y = y;
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/characters/dummy.png");
         this.width = 400;
         this.height = 600;
@@ -30,7 +39,7 @@ export default class Customer extends GameObject {
 
     };
 
-    draw(ctx) {
+    draw(ctx: CanvasRenderingContext2D) {
         ctx.drawImage(this.spritesheet, this.x, this.y, this.width, this.height);
         if(this.showOrder && !this.orderAdded) {
             const length = (WRAP.length + 3 + CONDIMENTS.length + 1) * 40
@@ -47,7 +56,7 @@ export default class Customer extends GameObject {
                     if (this.order.ingredients[i].type === "rice" || this.order.ingredients[i].type === "nori") {
                         ctx.fillText(this.order.ingredients[i].type, 600, yOffset);
                     } else {
-                        const sprite = ASSET_MANAGER.getAsset(this.order.ingredients[i].img);
+                        const sprite = ASSET_MANAGER.getAsset(this.order.ingredients[i].img) as HTMLImageElement;
                         ctx.drawImage(sprite, 600 - sprite.width / 2, yOffset - sprite.height); // Adjust for sprite height
                     }
                 } else if (this.order.sides.length > 0) {
@@ -58,7 +67,7 @@ export default class Customer extends GameObject {
         }
     };
 
-    walkTo(y) {
+    walkTo(y: number) {
         let intervalID = setInterval(() => {
             if(this.y === y) {
                 clearInterval(intervalID);
@@ -92,19 +101,15 @@ export default class Customer extends GameObject {
 
     randomOrder() {
         // Helper function to get random elements from an array
-        function getRandomElements(array, count) {
+        function getRandomElements(array: any[], count: number) {
             let shuffled = array.slice().sort(() => 0.5 - Math.random()); // Shuffle the array
             return shuffled.slice(0, count); // Pick the first 'count' elements
         }
 
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        const numWrap = getRandomInt(2, WRAP.length);
-        const numIngredients = getRandomInt(1, 3);
-        const numCondiments = getRandomInt(0, CONDIMENTS.length);
-        const numSides = getRandomInt(0, 1);
+        const numWrap = randomIntRange(2, WRAP.length);
+        const numIngredients = randomIntRange(1, 3);
+        const numCondiments = randomIntRange(0, CONDIMENTS.length);
+        const numSides = randomIntRange(0, 1);
 
         const selectedWraps = getRandomElements(WRAP, numWrap);
         const selectedIngredients = getRandomElements(INGREDIENTS, numIngredients);

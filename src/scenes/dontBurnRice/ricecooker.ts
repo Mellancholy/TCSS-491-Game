@@ -1,9 +1,16 @@
 import GameObject from "src/gameObject.js";
 import { ASSET_MANAGER } from "src/main.js";
 import TimerBar from "./timerBar.js";
+import GameEngine from "src/gameEngine.js";
 
 export default class RiceCooker extends GameObject {
-    constructor(game) {
+    game: GameEngine;
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+
+    constructor(game: GameEngine) {
         super(game);
         this.game = game;
         this.x = 237;
@@ -14,19 +21,19 @@ export default class RiceCooker extends GameObject {
         this.clicked = false;
     }
 
-    onMouseDown(e) {
+    onMouseDown(e: MouseEvent) {
         if (this.isClicked(e.clientX, e.clientY)) {
             this.handleClick();
         }
     }
 
-    onMouseUp(e) {
+    onMouseUp(e: MouseEvent) {
         if(this.isClicked(e.clientX, e.clientY)) {
             this.handleClick();
         }
     }
 
-    isClicked(mouseX, mouseY) {
+    isClicked(mouseX: number, mouseY: number) {
         return (
             mouseX >= this.x &&
             mouseX <= this.x + this.w &&
@@ -55,10 +62,10 @@ export default class RiceCooker extends GameObject {
         
     }
 
-    draw(ctx) {
+    draw(ctx: CanvasRenderingContext2D) {
         //console.log("RiceCooker draw method called");
-        const off = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker_Off.png");
-        const on = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker_On.png");
+        const off = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker_Off.png") as HTMLImageElement;
+        const on = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker_On.png") as HTMLImageElement;
 
         ctx.drawImage(off, this.x, this.y, this.w, this.h);
 

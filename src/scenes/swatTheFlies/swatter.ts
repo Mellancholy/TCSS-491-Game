@@ -2,9 +2,19 @@ import GameObject from "src/gameObject.js";
 import { ASSET_MANAGER } from "src/main.js";
 import Fly from "./fly.js";
 import { isColliding } from "src/util.js";
+import GameEngine from "src/gameEngine.js";
 
 export default class Swatter extends GameObject {
-    constructor(game) {
+    game: GameEngine;
+    x: number;
+    y: number;
+    isDragging: boolean;
+    offsetX: number;
+    offsetY: number;
+    isPressed: boolean;
+    radius: number;
+
+    constructor(game: GameEngine) {
         super(game);
         this.game = game;
         this.x = 500; // Initial x position
@@ -18,7 +28,7 @@ export default class Swatter extends GameObject {
     };
 
     update() {
-        if (this.isDragging) {
+        if (this.isDragging && this.game.move) {
             this.x = this.game.move.x - this.offsetX;
             this.y = this.game.move.y - this.offsetY;
         }
@@ -43,8 +53,8 @@ export default class Swatter extends GameObject {
         };
     };
 
-    draw(ctx) {
-        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/swatter.png"),this.x,this.y)
+    draw(ctx: CanvasRenderingContext2D) {
+        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/swatter.png") as HTMLImageElement,this.x,this.y)
 
         // Draw bounding circle
         // ctx.beginPath();
@@ -54,15 +64,15 @@ export default class Swatter extends GameObject {
         // ctx.stroke();
     };
 
-    onMouseDown(e) {
+    onMouseDown(e: MouseEvent) {
         this.startDragging(e.clientX, e.clientY);
     };
 
-    onMouseUp(e) {
+    onMouseUp(e: MouseEvent) {
         this.stopDragging();
     }
 
-    startDragging(mouseX, mouseY) {
+    startDragging(mouseX: number, mouseY: number) {
         if (mouseX >= this.x && mouseX <= this.x + 325 && mouseY >= this.y && mouseY <= this.y + 350) {
             this.isDragging = true;
             this.offsetX = mouseX - this.x;

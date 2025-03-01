@@ -1,9 +1,18 @@
 import GameObject from "src/gameObject.js";
 import { ASSET_MANAGER } from "src/main.js";
 import Animator from "./animator.js";
+import GameEngine from "src/gameEngine.js";
 
 export default class Fly extends GameObject {
-    constructor(game) {
+    game: GameEngine
+    animator: Animator;
+    x: number;
+    y: number;
+    speed: number;
+    isSquashed: (() => void) | null;
+    radius: number;
+    
+    constructor(game: GameEngine) {
         super(game);
         this.game = game;
         this.animator = new Animator(ASSET_MANAGER.getAsset("./assets/flies.png"), 0, 0,
@@ -11,12 +20,12 @@ export default class Fly extends GameObject {
         this.x = Math.random() * 500;
         this.y = Math.random() * 400;
         this.speed = 100;
-        this.isSquashed = false;
+        this.isSquashed = null;
         this.radius = 60; // Approximate radius for collision
     };
 
     update() {
-        this.x += this.speed*this.game.clockTick;
+        this.x += this.speed*this.game.clockTick!;
         if(this.x > 700) {
             this.x = Math.random() * 500;
             this.y = Math.random() * 500;
@@ -31,8 +40,8 @@ export default class Fly extends GameObject {
         };
     };
 
-    draw(ctx) {
-        this.animator.drawFrame(this.game.clockTick, ctx, this.x, this.y);
+    draw(ctx: CanvasRenderingContext2D) {
+        this.animator.drawFrame(this.game.clockTick!, ctx, this.x, this.y);
         //ctx.drawImage(ASSET_MANAGER.getAsset("./PngItem_2222200.png"),0,0)
 
         // Draw bounding circle

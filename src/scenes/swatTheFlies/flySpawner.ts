@@ -1,8 +1,15 @@
 import GameObject from 'src/gameObject.js';
 import Fly from './fly.js';
+import GameEngine from 'src/gameEngine.js';
 
 export default class FlySpawner extends GameObject {
-    constructor(game, numFlies, spawnInterval) {
+    game: GameEngine;
+    numFlies: number;
+    spawnInterval: number;
+    currentFlies: number;
+    intervalID: NodeJS.Timeout | null;
+    
+    constructor(game: GameEngine, numFlies: number, spawnInterval: number) {
         super(game);
         this.game = game;
         this.numFlies = numFlies;
@@ -40,6 +47,6 @@ export default class FlySpawner extends GameObject {
 
     deload() {
         super.deload();
-        clearInterval(this.intervalID);
+        if(this.intervalID) clearInterval(this.intervalID);
     };
 }

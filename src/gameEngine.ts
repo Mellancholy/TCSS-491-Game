@@ -11,7 +11,7 @@ export default class GameEngine {
     ctx: CanvasRenderingContext2D | null;
     entities: any[];
     persistentGameObjects: {[key: string]: any};
-    click: boolean | null;
+    click: { x: number, y: number } | null;
     mouse: { x: number, y: number } | null;
     move: { x: number, y: number } | null | undefined;
     down: boolean | null;
@@ -23,7 +23,7 @@ export default class GameEngine {
     keys: {[key: string]: boolean};
     currentDraggedItem: any | null;
     options: { debugging: boolean };
-    sceneManger: SceneManager | null;
+    sceneManager: SceneManager | null;
     currentScene: Scene | null;
     sharedData: {[key: string]: any};
     timer: Timer | undefined;
@@ -60,7 +60,7 @@ export default class GameEngine {
             debugging: false,
         };
 
-        this.sceneManger = null;
+        this.sceneManager = null;
         this.currentScene = null;
         this.sharedData = {};
     };
@@ -75,6 +75,7 @@ export default class GameEngine {
         this.running = true;
         const gameLoop = () => {
             this.loop();
+            // @ts-expect-error
             requestAnimFrame(gameLoop, this.ctx!.canvas);
         };
         gameLoop();
@@ -108,7 +109,6 @@ export default class GameEngine {
 
         this.ctx!.canvas.addEventListener("mouseup", e => {
             this.down = false;
-            this.click = false;
             // Stop dragging
             this.entities.forEach(entity => {
                 if(entity.onMouseUp) entity.onMouseUp(e);
@@ -125,7 +125,6 @@ export default class GameEngine {
         }, false);
 
         this.ctx!.canvas.addEventListener("click", e => {
-            this.click = true;
             this.entities.forEach(entity => {
                 if (entity instanceof Faucet) {
                     entity.faucetManager(getXandY(e).x, getXandY(e).y);
@@ -140,6 +139,7 @@ export default class GameEngine {
 
         this.ctx!.canvas.addEventListener("wheel", e => {
             if (this.options.debugging) {
+                //@ts-ignore
                 console.log("WHEEL", getXandY(e), e.wheelDelta);
             }
             e.preventDefault(); // Prevent Scrolling

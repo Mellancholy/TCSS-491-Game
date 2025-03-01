@@ -6,7 +6,7 @@ import StationSwitcher from "./stationSwitcher.js";
 import RollManager from "./rollManager.js";
 import CustomerManager from "./customerManager.js";
 
-const gameEngine = new GameEngine();
+
 
 export const ASSET_MANAGER = new AssetManager();
 let sceneManage, orderManage, rollManage, customerManage;
@@ -76,8 +76,18 @@ ASSET_MANAGER.queueDownload("./assets/assembly/tamago.png");
 
  
 ASSET_MANAGER.downloadAll(() => {
-	const canvas = document.getElementById("gameWorld");
+    const gameEngine = new GameEngine({
+        debugging: false,
+    });
+
+	const canvas = document.getElementById("gameWorld") as HTMLCanvasElement;
+    if (!canvas) {
+        throw new Error("Canvas element not found");
+    }
 	const ctx = canvas.getContext("2d");
+    if (!ctx) {
+        throw new Error("Canvas context not found");
+    }
     
 	gameEngine.init(ctx);
 
@@ -99,18 +109,19 @@ ASSET_MANAGER.downloadAll(() => {
 });
 
 /** Creates an alias for requestAnimationFrame for backwards compatibility */
+//@ts-expect-error
 window.requestAnimFrame = (() => {
-    return window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
+    return window.requestAnimationFrame || // @ts-expect-error
+        window.webkitRequestAnimationFrame || // @ts-expect-error
+        window.mozRequestAnimationFrame || // @ts-expect-error
+        window.oRequestAnimationFrame || // @ts-expect-error
         window.msRequestAnimationFrame ||
         /**
          * Compatibility for requesting animation frames in older browsers
          * @param {Function} callback Function
          * @param {DOM} element DOM ELEMENT
          */
-        ((callback, element) => {
+        ((callback: TimerHandler, element: any) => {
             window.setTimeout(callback, 1000 / 60);
         });
 })();

@@ -14,7 +14,6 @@ export class CounterScene extends Scene {
 
     initalizeScene() { 
         this.addGameObject(new Background(this.game, "./assets/backgrounds/Order_Background.png"));
-        this.restoreHiddenObjects();
         this.addGameObject(new Customer(this.game, this.scene, 100, 200));  
         this.addGameObject(new Background(this.game, "./assets/backgrounds/Order_Foreground.png")); 
     

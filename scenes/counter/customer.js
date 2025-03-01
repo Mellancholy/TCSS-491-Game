@@ -21,6 +21,7 @@ export default class Customer extends GameObject {
     update() {
         if (!this.hasWalked) {
             this.walkTo(100);
+            this.hasWalked = true;
         } else {
             if (!this.showOrder && !this.orderAdded) {
                 this.displayOrder();
@@ -69,7 +70,7 @@ export default class Customer extends GameObject {
             if (this.y > y) {
                 this.y -= 5;
             }
-        }, 1000 / 60);
+        }, 20);
     }
 
     displayOrder() {

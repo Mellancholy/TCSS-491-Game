@@ -82,15 +82,17 @@ ASSET_MANAGER.downloadAll(() => {
 	gameEngine.init(ctx);
 
     sceneManage = new SceneManager(gameEngine);
+	gameEngine.addEntity(sceneManage);
+    gameEngine.sceneManager = sceneManage;
+
     orderManage = new OrderManager(gameEngine);
     rollManage = new RollManager(gameEngine);
     customerManage  = new CustomerManager(gameEngine);
 
     gameEngine.addEntity(orderManage);
-	gameEngine.addEntity(sceneManage);
     gameEngine.addEntity(rollManage)
 
-	gameEngine.addEntity(new StationSwitcher(gameEngine, sceneManage.loadScene.bind(sceneManage)));
+	gameEngine.addEntity(new StationSwitcher(gameEngine));
 
 	gameEngine.start();
 

@@ -19,9 +19,16 @@ export default class Faucet extends GameObject {
         }
 
         if (!this.isOn && this.pot.liters > 0) {
-            if (this.pot.liters >= 700 && this.pot.liters < 800) {
+            if (this.pot.liters >= 700 && this.pot.liters < 800 && !this.gameWon) {
                 this.gameWon = true; 
                 console.log(this.gameWon); // debugging
+                const currentData = this.game.addSharedData("riceCooker");
+                const newAmount = currentData ? currentData.amount + 5 : 5;
+                this.game.addSharedData("riceCooker", {amount: newAmount});
+                setTimeout(() => {
+                    this.game.sceneManager.loadScene("rice")
+                }
+                , 2000)
             } else {
                 this.gameWon = false;
             }

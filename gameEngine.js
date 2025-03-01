@@ -33,7 +33,9 @@ export default class GameEngine {
             debugging: false,
         };
 
+        this.sceneManger = null;
         this.currentScene = null;
+        this.sharedData = {};
     };
 
     init(ctx) {
@@ -187,5 +189,27 @@ export default class GameEngine {
         this.update();
         this.draw();
     };
+
+    getSharedData() {
+        return this.sharedData;
+    }
+
+    getSharedDataByKey(key) {
+        return this.sharedData[key];
+    }
+    
+    getSharedDataByKeyAndDefault(key, defaultValue) {
+        if (this.sharedData[key] === undefined) {
+            return defaultValue;
+        }
+        return this.sharedData[key];
+    }
+    addSharedData(key, value) {
+        this.sharedData[key] = {...value};
+    }
+
+    removeSharedDataByKey(key) {
+        delete this.sharedData[key];
+    }
 
 };

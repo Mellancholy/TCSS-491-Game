@@ -15,6 +15,13 @@ export default class ProgressBar extends GameObject{
     update() {
         if(this.progress >= 1) {
             this.game.win = true
+            const currentData = this.game.addSharedData("riceCooker");
+            const newAmount = currentData ? currentData.amount + 5 : 5;
+            this.game.addSharedData("riceCooker", {amount: newAmount});
+            setTimeout(() => {
+                this.game.sceneManager.loadScene("rice")
+            }
+            , 2000)
             return
         }
         if(this.game.spinning && this.progress < 1) {

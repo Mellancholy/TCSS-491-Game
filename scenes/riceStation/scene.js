@@ -25,19 +25,18 @@ export class RiceStationScene extends Scene {
             const nori = new Nori(this.game, 500, 80, 450, 300)
             this.addGameObject(nori);
 
-            this.restoreHiddenObjects();
-
         }
 }
 
 class RiceCooker extends GameObject {
     constructor(game, x, y, width, height) {
-        super(game, 'ricecooker', true);
+        super(game, 'riceCooker');
         Object.assign(this, { game, x, y, width, height});
-        this.amount = 5;
+        this.amount = 0;
         this.cookerClicked = false;
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker.png");
         this.addButton();
+        this.loadSharedData();
     };
 
     addButton() {
@@ -55,11 +54,12 @@ class RiceCooker extends GameObject {
 
     update() {
         if (this.cookerClicked) {
-            this.amount--;
+            
             if (this.amount == 0) {
                 this.beginMinigame();
                 this.amount = 5;
             }
+            this.amount--;
             this.cookerClicked = false;
         }
     };

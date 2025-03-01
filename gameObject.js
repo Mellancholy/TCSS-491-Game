@@ -9,6 +9,9 @@ export default class GameObject {
             game, id, persistent, removeFromWorld: false
         })
 
+        if(persistent) {
+            this.game.registerPersistentGameObject(this.id, this)
+        }
     }
 
     init() {

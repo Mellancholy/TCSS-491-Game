@@ -17,6 +17,15 @@ export default class Scene {
         this.game.addEntity(gameObject);
     }
 
+    addPersistantGameObject(id) {
+        let obj = this.game.getPersistentGameObject(id);
+        if (!obj) {
+            return false;
+        }
+        this.addGameObject(obj);
+        return true;
+    }
+
     deload() {
         this.gameObjects.forEach(gameObject => {
             if (gameObject.persistent) {

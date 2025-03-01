@@ -13,6 +13,7 @@ export default class GameEngine {
 
         // Everything that will be updated and drawn each frame
         this.entities = [];
+        this.persistentGameObjects = {};
 
         // Information on the input
         this.click = null;
@@ -212,4 +213,19 @@ export default class GameEngine {
         delete this.sharedData[key];
     }
 
+    registerPersistentGameObject(id, gameObject) {
+        this.persistentGameObjects[id] = gameObject;
+    }
+
+    getPersistentGameObject(id) {
+        return this.persistentGameObjects[id];
+    }
+
+    removePersistentGameObject(id) {
+        delete this.persistentGameObjects[id];
+    }
+    
+    clearPersistentGameObjects() {
+        this.persistentGameObjects = {};
+    }
 };

@@ -1,4 +1,4 @@
-import GameObject from "src/gameObject.js"; 
+import GameObject from "src/gameObject.js";
 import { ASSET_MANAGER, orderManage } from "src/main.js";
 import { Order, INGREDIENTS, WRAP, CONDIMENTS, SIDES } from "./food.js";
 import { Button } from "src/button.js";
@@ -10,81 +10,147 @@ export default class Customer extends GameObject {
     game: GameEngine;
     x: number;
     y: number;
+    yDrawOffset: number;
+    spritesheet: HTMLImageElement;
+    exclamationSprite: HTMLImageElement;
+    width: number;
+    height: number;
+    state: string;
+    order: Order | null;
+    okButton: Button | undefined;
 
     constructor(game: GameEngine, x: number, y: number) {
         super(game, 'customer', true);
         this.game = game;
         this.x = x;
         this.y = y;
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/characters/dummy.png");
+        this.yDrawOffset = 0;
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/characters/dummy.png") as HTMLImageElement;
+        this.exclamationSprite = ASSET_MANAGER.getAsset("./assets/button/exclam.png") as HTMLImageElement;
         this.width = 400;
         this.height = 600;
+        this.state = "init"
         this.order = null;
-        this.showOrder = false;
-        this.orderAdded = false;
-        this.showCustomer = false;
-        this.hasWalked = false;
         this.addButton();
     };
 
     update() {
-        if (!this.hasWalked) {
-            this.walkTo(100);
-            this.hasWalked = true;
-        } else {
-            if (!this.showOrder && !this.orderAdded) {
-                this.displayOrder();
-            }
+        switch (this.state) {
+            case "init":
+                this.state = "walking";
+                let npc = this;
+                async function startWalk() {
+                    await npc.walkTo(100, 100);
+                    npc.state = "waiting";
+                }
+                startWalk();
+                break;
+            case "walking":
+                break;
+            case "waiting":
+                break;
+            case "order":
+                break;
+            default:
+                break;
         }
-
     };
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.drawImage(this.spritesheet, this.x, this.y, this.width, this.height);
-        if(this.showOrder && !this.orderAdded) {
-            const length = (WRAP.length + 3 + CONDIMENTS.length + 1) * 40
-            ctx.fillStyle = "white";
-            ctx.fillRect(500, 100, 200, length);
-            ctx.fillStyle = "black";
-            ctx.strokeRect(500, 100, 200, length);
-            const placement = length + 95;
-            ctx.font = "20px Arial";
-            ctx.textAlign = "center";
-            for (let i = 0; i < this.order.ingredients.length + this.order.sides.length; i++) {
-                let yOffset = placement - i * 30; // Increment placement upwards as index increases
-                if (i < this.order.ingredients.length) {
-                    if (this.order.ingredients[i].type === "rice" || this.order.ingredients[i].type === "nori") {
-                        ctx.fillText(this.order.ingredients[i].type, 600, yOffset);
-                    } else {
-                        const sprite = ASSET_MANAGER.getAsset(this.order.ingredients[i].img) as HTMLImageElement;
-                        ctx.drawImage(sprite, 600 - sprite.width / 2, yOffset - sprite.height); // Adjust for sprite height
-                    }
-                } else if (this.order.sides.length > 0) {
-                    ctx.fillText(this.order.sides[i - this.order.ingredients.length].type, 600, yOffset);
-                }
-            }
-            this.okButton.hidden = false;
+        ctx.drawImage(this.spritesheet, this.x, this.y + this.yDrawOffset, this.width, this.height);
+        switch (this.state) {
+            case "init":
+                break;
+            case "walking":
+                break;
+            case "waiting":
+                ctx.drawImage(this.exclamationSprite, this.x + (this.spritesheet.width / 2) - (this.exclamationSprite.width / 2) - 10, this.y - 30, 100, 100);
+                break;
+            case "order":
+                this.drawOrder(ctx);
+                break;
+            default:
+                break;
         }
     };
 
-    walkTo(y: number) {
-        let intervalID = setInterval(() => {
-            if(this.y === y) {
-                clearInterval(intervalID);
-                this.hasWalked = true;
+    drawOrder(ctx: CanvasRenderingContext2D) {
+        if (!this.order) return;
+        const orderX = 500
+        const orderY = 100
+        const length = (WRAP.length + 3 + CONDIMENTS.length + 1) * 40
+        ctx.fillStyle = "white";
+        ctx.fillRect(orderX, orderY, 200, length);
+        ctx.fillStyle = "black";
+        ctx.strokeRect(orderX, orderY, 200, length);
+        ctx.font = "20px Arial";
+        ctx.textAlign = "center";
+        let yOffset = orderY
+        this.order.ingredients.forEach((ingredient) => {
+            if (ingredient.type === "rice" || ingredient.type === "nori") {
+                ctx.fillText(ingredient.type, 600, orderY + yOffset);
+            } else {
+                const sprite = ASSET_MANAGER.getAsset(ingredient.img) as HTMLImageElement;
+                ctx.drawImage(sprite, 600 - sprite.width / 2, orderY + yOffset); // Adjust for sprite height
+                yOffset += sprite.height;
             }
-            if (this.y < y) {
-                this.y += 5;
+            yOffset += 30; // Increment placement upwards as index increases
+        });
+        this.order.sides.forEach((side) => {
+            ctx.fillText(side.type, 600, 100 + yOffset);
+            yOffset += 30; // Increment placement upwards as index increases
+        })
+        this.okButton!.hidden = false;
+    }
+
+    async walkTo(x: number, y: number) {
+        let npc: Customer = this;
+        return new Promise((resolve) => {
+            let t = 0;
+            function step() {
+                const speed = 5;
+                const xDiff = Math.abs(npc.x - x);
+                const yDiff = Math.abs(npc.y - y);
+                const dx = x - npc.x;
+                const dy = y - npc.y;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const nx = dx / length;
+                const ny = dy / length;
+                const xChange = Math.min(nx * speed, xDiff);
+                const yChange = Math.min(ny * speed, yDiff);
+                if (npc.x !== x) {
+                    npc.x += xChange
+                }
+                if (npc.x !== x) {
+                    npc.y += yChange
+                }
+                if (npc.x === x && npc.y === y) {
+                    resolve(true);
+                    return;
+                }
+
+                npc.yDrawOffset = (Math.sin((Math.PI / 4) * t) * 10);
+                requestAnimationFrame(step);
+                t += 0.1;
             }
-            if (this.y > y) {
-                this.y -= 5;
-            }
-        }, 20);
+            step()
+        })
+        // let intervalID = setInterval(() => {
+        //     if(this.y === y) {
+        //         clearInterval(intervalID);
+        //         this.hasWalked = true;
+        //     }
+        //     if (this.y < y) {
+        //         this.y += 5;
+        //     }
+        //     if (this.y > y) {
+        //         this.y -= 5;
+        //     }
+        // }, 20);
     }
 
     displayOrder() {
         this.order = this.randomOrder();
-        this.showOrder = true;
     }
 
     addButton() {
@@ -92,10 +158,10 @@ export default class Customer extends GameObject {
             this.orderAdded = true;
             this.okButton.hidden = true;
             orderManage.addOrder(this.order);
-        }, "OK") 
+        }, "OK")
         this.okButton.persistent = true;
         this.okButton.hidden = true;
-        if(this.game.currentScene) this.game.currentScene.addGameObject(this.okButton);
+        if (this.game.currentScene) this.game.currentScene.addGameObject(this.okButton);
 
     }
 
@@ -120,6 +186,15 @@ export default class Customer extends GameObject {
             [...selectedWraps, ...selectedIngredients],
             [...selectedCondiments, ...selectedSides]
         );
+    }
+
+    onMouseDown(e: MouseEvent): void {
+        if (this.state === "waiting") {
+            if (e.x > this.x && e.x < this.x + this.width && e.y > this.y && e.y < this.y + this.height) {
+                this.displayOrder();
+                this.state = "order";
+            }
+        }
     }
 
 }

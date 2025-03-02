@@ -64,6 +64,7 @@ ASSET_MANAGER.queueDownload("./assets/swatter.png");
 
 //Counter
 ASSET_MANAGER.queueDownload("./assets/characters/dummy.png");
+ASSET_MANAGER.queueDownload("./assets/button/exclam.png");
 
 // Food bits
 ASSET_MANAGER.queueDownload("./assets/assembly/crab.png");

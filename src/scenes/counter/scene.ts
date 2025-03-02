@@ -23,7 +23,7 @@ export class CounterScene extends Scene {
         this.addGameObject(new Background(this.game, "./assets/backgrounds/Order_Background.png"));
         if(!this.addPersistantGameObject("customer")) {
             console.log("Did not find customer");
-            this.addGameObject(new Customer(this.game, 100, 200));
+            this.addGameObject(new Customer(this.game, 500, 25));
         }
         this.addGameObject(new Background(this.game, "./assets/backgrounds/Order_Foreground.png")); 
     

@@ -25,7 +25,7 @@ export default class Customer extends GameObject {
         this.x = x;
         this.y = y;
         this.yDrawOffset = 0;
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/characters/dummy.png") as HTMLImageElement;
+        this.spritesheet = ASSET_MANAGER.getAsset(this.randomCustomer()) as HTMLImageElement;
         this.exclamationSprite = ASSET_MANAGER.getAsset("./assets/button/exclam.png") as HTMLImageElement;
         this.width = 400;
         this.height = 600;
@@ -186,6 +186,11 @@ export default class Customer extends GameObject {
             [...selectedWraps, ...selectedIngredients],
             [...selectedCondiments, ...selectedSides]
         );
+    }
+
+    randomCustomer() {
+        const customerNum = Math.floor(Math.random() * (5 - 0 + 1)) + 0;
+        return "./assets/characters/Customer_" + customerNum + ".png";
     }
 
     onMouseDown(e: MouseEvent): void {

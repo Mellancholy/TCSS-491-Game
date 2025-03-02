@@ -75,6 +75,15 @@ ASSET_MANAGER.queueDownload("./assets/assembly/salmon.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/uni.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/tamago.png");
 
+// Customers
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_0.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_1.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_2.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_3.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_4.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_5.png");
+
+
  
 ASSET_MANAGER.downloadAll(() => {
     const gameEngine = new GameEngine({

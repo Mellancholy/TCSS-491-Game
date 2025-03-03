@@ -135,7 +135,7 @@ class Microwave extends GameObject {
       for (let i = 0; i < ingredientList.length; i++) {
           let ingredient = ingredientList[i];
 
-          const inButton = Button.recButImage(
+          const inButton = Button.rectButtonImage(
               this.game,
               xStart + i * spacing, yStart, 
               buttonSize, buttonSize, 

@@ -2,14 +2,14 @@ import AssetManager from "./assetManager.js";
 import GameEngine from "./gameEngine.js";
 import OrderManager from "./orderManager.js";
 import SceneManager from "./sceneManager.js";
-import StationSwitcher from "./stationSwitcher.js";
 import RollManager from "./rollManager.js";
 import CustomerManager from "./customerManager.js";
+import HUD from "./hud/hud.js";
 
 
 
 export const ASSET_MANAGER = new AssetManager();
-let sceneManage, orderManage, rollManage, customerManage;
+let sceneManage: SceneManager, orderManage: OrderManager, rollManage: RollManager, customerManage: CustomerManager;
 
 // sprites
 
@@ -112,7 +112,7 @@ ASSET_MANAGER.queueDownload("./assets/sides/chicken.png");
 
 ASSET_MANAGER.downloadAll(() => {
     const gameEngine = new GameEngine({
-        debugging: false,
+        debugging: true,
     });
 
 	const canvas = document.getElementById("gameWorld") as HTMLCanvasElement;
@@ -137,7 +137,7 @@ ASSET_MANAGER.downloadAll(() => {
     gameEngine.addEntity(orderManage);
     gameEngine.addEntity(rollManage)
 
-	gameEngine.addEntity(new StationSwitcher(gameEngine));
+	gameEngine.addEntity(new HUD(gameEngine));
 
 	gameEngine.start();
 

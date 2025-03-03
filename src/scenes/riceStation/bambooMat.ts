@@ -5,6 +5,7 @@ import Ingredient from "src/scenes/counter/food.js";
 import Wrap from "src/scenes/counter/food.js";
 import { sceneManage, orderManage, rollManage } from 'src/main.js';
 import GameEngine from "src/gameEngine.js";
+import GameState from "src/gameState.js";
 
 export default class BambooMat extends GameObject {
     game: GameEngine;
@@ -54,7 +55,7 @@ export default class BambooMat extends GameObject {
         if (e.clientX >= this.x && e.clientX <= this.x + 512 &&
             e.clientY >= this.y && e.clientY <= this.y + 512) {
 
-            const draggedItem = this.game.currentDraggedItem;
+            const draggedItem = GameState.getInstance().getState("currentDraggedItem");
             console.log(draggedItem);
 
             if (draggedItem instanceof Nori) {

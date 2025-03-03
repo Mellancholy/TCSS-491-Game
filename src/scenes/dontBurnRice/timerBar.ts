@@ -41,11 +41,11 @@ export default class TimerBar extends GameObject {
                 this.result = "undercooked";
             } else if (this.elapsedTime >= this.perfectStart && this.elapsedTime <= this.perfectEnd) {
                 this.result = "perfect";
-                const currentData = this.game.addSharedData("riceCooker");
+                const currentData = this.game.getSharedDataByKey("riceCooker");
                 const newAmount = currentData ? currentData.amount + 5 : 5;
                 this.game.addSharedData("riceCooker", {amount: newAmount});
                 setTimeout(() => {
-                    this.game.sceneManager.loadScene("rice")
+                    this.game.sceneManager!.loadScene("rice")
                 }
                 , 2000)
             } else {

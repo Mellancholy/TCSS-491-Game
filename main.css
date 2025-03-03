@@ -1,0 +1,22 @@
+main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-family: monospace;
+    width: 100%;
+}
+
+canvas {
+    height: 90vh;
+    width: calc(90vh * (4 / 3));
+    align-self: center;
+}
+
+canvas:focus {
+    outline: none;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+}

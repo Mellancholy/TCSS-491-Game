@@ -32,6 +32,7 @@ export default class Customer extends GameObject {
         this.state = "init"
         this.order = null;
         this.addButton();
+        console.log("Customer created");
     };
 
     update() {
@@ -57,6 +58,10 @@ export default class Customer extends GameObject {
     };
 
     draw(ctx: CanvasRenderingContext2D) {
+        if(this.game.options.debugging) {
+            ctx.strokeStyle = "red";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
         ctx.drawImage(this.spritesheet, this.x, this.y + this.yDrawOffset, this.width, this.height);
         switch (this.state) {
             case "init":
@@ -154,15 +159,22 @@ export default class Customer extends GameObject {
     }
 
     addButton() {
-        this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
-            this.orderAdded = true;
+        console.log("Adding button");
+        if(!this.game.currentScene) {
+            throw new Error("No current scene found");
+        }
+        if(!this.game.currentScene.addPersistantGameObject("okButton")) {
+            this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
+                this.okButton!.hidden = true;
+                orderManage.addOrder(this.order);
+            }, "OK")
+            this.okButton.persistent = true;
+            this.okButton.id = "okButton";
             this.okButton.hidden = true;
-            orderManage.addOrder(this.order);
-        }, "OK")
-        this.okButton.persistent = true;
-        this.okButton.hidden = true;
-        if (this.game.currentScene) this.game.currentScene.addGameObject(this.okButton);
-
+            this.game.registerPersistentGameObject("okButton", this.okButton)
+            if (this.game.currentScene) this.game.currentScene.addGameObject(this.okButton);
+        }
+        
     }
 
     randomOrder() {

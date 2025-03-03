@@ -1,9 +1,12 @@
 import GameEngine from "src/gameEngine";
 import GameObject from "src/gameObject.js";
+import GameState from "src/gameState";
 import { ASSET_MANAGER } from "src/main.js";
 
 export default class Nori extends GameObject {
     game: GameEngine;
+    noriSprite: HTMLImageElement;
+    noriSourceSprite: HTMLImageElement;
     x: number;
     y: number;
     noriX: number;
@@ -16,6 +19,8 @@ export default class Nori extends GameObject {
     constructor(game: GameEngine, x: number, y: number) {
         super(game);
         this.game = game;
+        this.noriSprite = ASSET_MANAGER.getAsset("./assets/objects/Nori.png") as HTMLImageElement;
+        this.noriSourceSprite = ASSET_MANAGER.getAsset("./assets/objects/Nori_Source.png") as HTMLImageElement;
         this.x = x;
         this.y = y;
 
@@ -28,19 +33,17 @@ export default class Nori extends GameObject {
     }
 
     update() {
-        if (this.noriClicked) {
+        if (this.noriClicked && this.game.mouse) {
             this.noriX = this.game.mouse.x - this.offsetX;
             this.noriY = this.game.mouse.y - this.offsetY;
         }
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        const sprite = ASSET_MANAGER.getAsset("./assets/objects/Nori_Source.png");
-        ctx.drawImage(sprite, this.x, this.y, sprite.width / 2, sprite.height / 2);
+        ctx.drawImage(this.noriSourceSprite, this.x, this.y, this.sprite.width / 2, this.sprite.height / 2);
 
         if (this.noriClicked) {
-            const noriSprite = ASSET_MANAGER.getAsset("./assets/objects/Nori.png");
-            ctx.drawImage(noriSprite, this.noriX, this.noriY, noriSprite.width / 2, noriSprite.height / 2);
+            ctx.drawImage(this.noriSprite, this.noriX, this.noriY, this.noriSprite.width / 2, this.noriSprite.height / 2);
         }
     }
 
@@ -51,17 +54,18 @@ export default class Nori extends GameObject {
             this.noriClicked = true;
             this.offsetX = mouseX - this.x;
             this.offsetY = mouseY - this.y;
-            this.game.currentDraggedItem = this;
+            GameState.getInstance().setState("currentDraggedItem", this);
         }
     }
 
     // Stop dragging when mouse is released
     stopDragging() {
         this.noriClicked = false;
-        this.game.currentDraggedItem = null;
+        GameState.getInstance().setState("currentDraggedItem", null);
     };
 
     onMouseDown(e: MouseEvent) {
+        if(!this.game.mouse) return;
         this.createNoriAndDrag(this.game.mouse.x, this.game.mouse.y);
     }
 

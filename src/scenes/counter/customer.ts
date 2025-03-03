@@ -58,6 +58,10 @@ export default class Customer extends GameObject {
     };
 
     draw(ctx: CanvasRenderingContext2D) {
+        if(this.game.options.debugging) {
+            ctx.strokeStyle = "red";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
         ctx.drawImage(this.spritesheet, this.x, this.y + this.yDrawOffset, this.width, this.height);
         switch (this.state) {
             case "init":

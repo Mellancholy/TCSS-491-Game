@@ -112,7 +112,7 @@ ASSET_MANAGER.queueDownload("./assets/sides/chicken.png");
 
 ASSET_MANAGER.downloadAll(() => {
     const gameEngine = new GameEngine({
-        debugging: false,
+        debugging: true,
     });
 
 	const canvas = document.getElementById("gameWorld") as HTMLCanvasElement;

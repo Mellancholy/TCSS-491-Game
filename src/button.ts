@@ -4,17 +4,21 @@ import GameEngine from "./gameEngine.js";
 
 export class Button extends GameObject {
     image: HTMLImageElement | undefined;
-    x: number | undefined;
-    y: number | undefined;
+    x: number;
+    y: number;
     width: any;
     height: any;
     bgColor: any;
     text: string | undefined;
+    hidden: boolean;
     
 
     constructor(game: GameEngine, x: number, y: number, onClick: () => void) {
         super(game, 'button');
-        Object.assign(this, { game, x, y, onClick, hidden: false });
+        this.x = x;
+        this.y = y;
+        this.onClick = onClick;
+        this.hidden = false;
     }
 
     static imageButton(game: GameEngine, x: number, y: number, image: string, onClick: () => void) {
@@ -29,7 +33,7 @@ export class Button extends GameObject {
         return button;
     }
 
-    static recButImage(game, x, y, width, height, image, onClick) {
+    static rectButtonImage(game: GameEngine, x: number, y: number, width: number, height: number, image: string, onClick: { (): void; (): void; }) {
         let dnd = new Button(game, x, y, onClick);
         Object.assign(dnd, { width, height, image: ASSET_MANAGER.getAsset(image), transparent: true });
     
@@ -56,13 +60,13 @@ export class Button extends GameObject {
     onMouseDown(e: MouseEvent) {
         if(this.hidden) return;
         if(this.image) {
-            if (e.offsetX > this.x! && e.offsetX < this.x! + this.image.width &&
-                e.offsetY > this.y! && e.offsetY < this.y! + this.image.height) {
+            if (e.x > this.x! && e.x < this.x! + this.image.width &&
+                e.y > this.y! && e.y < this.y! + this.image.height) {
                     this.onClick();
             }
         } else {
-            if (e.offsetX > this.x! && e.offsetX < this.x + this.width &&
-                e.offsetY > this.y! && e.offsetY < this.y + this.height) {
+            if (e.x > this.x! && e.x < this.x + this.width &&
+                e.y > this.y! && e.y < this.y + this.height) {
                     this.onClick();
             }
         }

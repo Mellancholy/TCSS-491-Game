@@ -83,17 +83,21 @@ export default class GameEngine {
 
     startInput() {
         var getXandY = (e: MouseEvent) => {
-            var x = e.clientX - this.ctx!.canvas.getBoundingClientRect().left;
-            var y = e.clientY - this.ctx!.canvas.getBoundingClientRect().top;
+            let bounds = this.ctx!.canvas.getBoundingClientRect();
+            let scaleX = this.ctx!.canvas.width / bounds.width;
+            let scaleY = this.ctx!.canvas.height / bounds.height;
+
+            let x = (e.clientX - bounds.left) * scaleX;
+            let y = (e.clientY - bounds.top) * scaleY;
 
             return { x: x , y: y };
         }
         
         this.ctx!.canvas.addEventListener("mousemove", e => {
             this.move = getXandY(e);
-            if (this.options.debugging) {
-                console.log("MOUSE_MOVE", getXandY(e));
-            }
+            // if (this.options.debugging) {
+            //     console.log("MOUSE_MOVE", getXandY(e));
+            // }
             this.mouse = getXandY(e);
             this.previousMousePositionsDelayCounter++;
 
@@ -108,20 +112,35 @@ export default class GameEngine {
         });
 
         this.ctx!.canvas.addEventListener("mouseup", e => {
+            const realCoords = getXandY(e);
+            const modifiedEvent = {
+                ...e,
+                x: realCoords.x,
+                y: realCoords.y,
+            }
             this.down = false;
             // Stop dragging
             this.entities.forEach(entity => {
-                if(entity.onMouseUp) entity.onMouseUp(e);
+                if(entity.onMouseUp) entity.onMouseUp(modifiedEvent);
             });
 
              console.log("Mouse Up");  // Check if this is firing
         }, false);
 
         this.ctx!.canvas.addEventListener("mousedown", (e) => {
+            const realCoords = getXandY(e);
+            const modifiedEvent = {
+                ...e,
+                x: realCoords.x,
+                y: realCoords.y,
+            }
             this.down = true;
             this.entities.forEach(entity => {
-                if(entity.onMouseDown) entity.onMouseDown(e);
+                if(entity.onMouseDown) entity.onMouseDown(modifiedEvent);
             });
+            if(this.options.debugging) {
+                this.addEntity(new Point(this, modifiedEvent.x, modifiedEvent.y));
+            }
         }, false);
 
         this.ctx!.canvas.addEventListener("click", e => {
@@ -253,3 +272,20 @@ export default class GameEngine {
         this.persistentGameObjects = {};
     }
 };
+
+class Point extends GameObject {
+    x: number;
+    y: number;
+    constructor(game: GameEngine, x: number, y: number) {
+        super(game);
+        this.x = x;
+        this.y = y;
+    }
+    update() {
+        
+    }
+    draw(ctx: CanvasRenderingContext2D) {
+        ctx.fillStyle = "red";
+        ctx.fillRect(this.x, this.y, 5, 5);
+    }
+}

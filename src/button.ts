@@ -29,6 +29,27 @@ export class Button extends GameObject {
         return button;
     }
 
+    static recButImage(game, x, y, width, height, image, onClick) {
+        let dnd = new Button(game, x, y, onClick);
+        Object.assign(dnd, { width, height, image: ASSET_MANAGER.getAsset(image), transparent: true });
+    
+        dnd.draw = function (ctx) {
+            
+            ctx.fillStyle = "lightgray";
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+    
+            
+            if (this.image) {
+                const imgSize = Math.min(this.width, this.height) * 0.8; 
+                ctx.drawImage(this.image, this.x + (this.width - imgSize) / 2, this.y + (this.height - imgSize) / 2, imgSize, imgSize);
+            } else {
+                console.error(`Image not found for button: ${image}`);
+            }
+        };
+    
+        return dnd;
+    }
+
     update() {
     }
 
@@ -108,7 +129,6 @@ export class DnDButton extends GameObject {
         Object.assign(dnd, { width, height, bgColor: color });
         return dnd;
     }
-
 
     update() {
         

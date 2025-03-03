@@ -172,6 +172,7 @@ class FoodBottom extends GameObject {
     rolled: boolean;
     chops: number;
     cut: boolean;
+    sliding: boolean;
 
     constructor(game: GameEngine, x: number, y: number, width: number, height: number) {
         super(game, 'foodbottom');
@@ -184,6 +185,7 @@ class FoodBottom extends GameObject {
         this.rolled = false;
         this.chops = 0;
         this.cut = false;
+        this.sliding = false;
     };
 
     update() {
@@ -217,7 +219,7 @@ class FoodBottom extends GameObject {
                 for(let i = 0; i < 6; i++) {
                     ctx.fillRect(this.x - 5 + ((cutWidth + 5) * i), this.y + 100, cutWidth, ROLLED_HEIGHT); 
                 }
-                if(this.game.sliding) return;
+                if(this.sliding) return;
                 setTimeout(() => {
                     setInterval(() => {
                         this.x += 10
@@ -226,7 +228,7 @@ class FoodBottom extends GameObject {
                         }
                     }, 10)
                 }, 1000)
-                this.game.sliding = true
+                this.sliding = true
                 return;    
             }
             if(this.rolled) {

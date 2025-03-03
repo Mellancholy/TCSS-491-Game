@@ -31,9 +31,9 @@ export class WashThatRiceScene extends Scene {
     initalizeScene() {
         super.addGameObject(new Background(this.game, 0, 0));
 
-        super.addGameObject(new ProgressBar(this.game, 0, HEIGHT - 20, 1024, 20));
-	
         super.addGameObject(new PotTop(this.game, (WIDTH / 2), (HEIGHT / 2)));
+
+        super.addGameObject(new ProgressBar(this.game, 0, HEIGHT - 20, 1024, 20));
     
         
         let amountOfGrains = 2;

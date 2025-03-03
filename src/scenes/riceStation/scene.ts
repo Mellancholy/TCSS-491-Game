@@ -116,13 +116,12 @@ class Nori extends GameObject {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/Nori_Source.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/Nori_Source.png") as HTMLImageElement;
         this.addButton();
     };
 
     addButton() {
-        this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, WRAP[1].img, () => {
-        });
+        this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, WRAP[1].img, () => {});
         this.dnd.width = this.width;
         this.dnd.height = this.height;
         this.dnd.food = WRAP[1];
@@ -150,10 +149,11 @@ class BambooMat extends GameObject {
 
     constructor(game: GameEngine, x: number, y: number) {
         super(game, 'bamboomat');
+        this.game = game;
         this.x = x;
         this.y = y
         this.ingredients = [];
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png") as HTMLImageElement;
     };
 
     update() {
@@ -167,7 +167,7 @@ class BambooMat extends GameObject {
 
         // Draw the ingredients on top of the bamboo mat
         this.ingredients.forEach(element => {
-            const img = ASSET_MANAGER.getAsset(element.img)
+            const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
             ctx.drawImage(img, this.x, this.y);
             // ctx.drawImage(img, centerX - (img.width / 2) + element.xOffset, centerY - (img.height / 2) + element.yOffset, img.width, img.height);
         });

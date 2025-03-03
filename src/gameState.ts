@@ -1,3 +1,4 @@
+import GameObject from "./gameObject";
 import Customer from "./scenes/counter/customer";
 import { Order } from "./scenes/counter/food";
 
@@ -10,13 +11,15 @@ type GameStateType = {
     gameTime: number;
     timeSinceDayStart: number;
     orders: OrderState[]
+    currentDraggedItem: GameObject | null
 };
 
 const DEFAULT_GAME_STATE: GameStateType = {
     money: 0,
     gameTime: 0,
     timeSinceDayStart: 0,
-    orders: []
+    orders: [],
+    currentDraggedItem: null
 };
 
 export default class GameState {

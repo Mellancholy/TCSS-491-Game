@@ -17,7 +17,7 @@ export class SidesAssemblyScene extends Scene {
 
     this.microwave = new Microwave(this.game, 200, 0, 600, 300);
     this.addGameObject(this.microwave);
-    this.microwave.addButton();
+    this.microwave.addButtons();
 
     const condiments = [
       {
@@ -103,63 +103,120 @@ class Background extends GameObject {
 class Microwave extends GameObject {
   constructor(game, x, y, width, height) {
       super(game);
-      Object.assign(this, { game, x, y, width, height, ingredientButtons: [] });
+      Object.assign(this, { game, x, y, width, height, ingredientButtons: [], ingredients: [], cookedSide: null });
 
+      this.recipes = [
+          { name: "Miso Soup", ingredients: ["miso paste", "tofu", "green onions"], img: "./assets/sides/MisoSoup.png" },
+          { name: "Edamame", ingredients: ["edamame"], img: "./assets/sides/Edamame.png" },
+          { name: "Gyoza", ingredients: ["chicken", "green onions"], img: "./assets/sides/Gyoza.png" },
+          { name: "Karaage", ingredients: ["chicken"], img: "./assets/sides/Karaage.png" }
+      ];
 
-      this.ingredients = [
+      this.cookButton = null; // Store button reference
+  }
+
+  addButtons() {
+      let xStart = 250;  
+      let yStart = 200;  
+      const buttonSize = 75;
+      const spacing = 100;  
+
+      this.ingredientButtons = [];
+      this.buttons = [];
+
+      const ingredientList = [
           { name: "miso paste", img: "./assets/sides/MisoBin.png" },
           { name: "edamame", img: "./assets/sides/edamame.png" },
           { name: "tofu", img: "./assets/sides/Tofu.png" },
           { name: "green onions", img: "./assets/sides/blank.png" },
           { name: "chicken", img: "./assets/sides/blank.png" }
       ];
+
+      for (let i = 0; i < ingredientList.length; i++) {
+          let ingredient = ingredientList[i];
+
+          const inButton = Button.recButImage(
+              this.game,
+              xStart + i * spacing, yStart, 
+              buttonSize, buttonSize, 
+              ingredient.img, 
+              () => {
+                  console.log(`✅ Added ${ingredient.name} to microwave!`);
+                  this.addIngredient(new Ingredient(ingredient.name));
+              }
+          );
+
+          this.ingredientButtons.push(inButton);
+          this.game.currentScene.addGameObject(inButton);
+      }
+
+      const cookButtonX = 725;
+      const cookButtonY = 100;
+
+      this.cookButton = Button.rectButton(
+          this.game,
+          cookButtonX, cookButtonY,
+          buttonSize, 75,
+          () => {
+              this.cookSideDish();
+          },
+          "Cook!"
+      );
+
+      this.cookButton.disabled = true; 
+      this.game.currentScene.addGameObject(this.cookButton);
   }
 
+  addIngredient(ingredient) {
+      if (!ingredient || !ingredient.type) {
+          console.error("invalid ingredient added!");
+          return;
+      }
+      this.ingredients.push(ingredient);
+      console.log(`added ${ingredient.type} to microwave.`);
+  }
 
-  addButton() {
-      let xStart = 250; // Button positions inside microwave
-      let yStart = 200; // Below the microwave
-      const buttonSize = 75;
-      const spacing = 100; // Space between buttons
+  cookSideDish() {
+      console.log("cooking!");
 
+      const ingredientNames = this.ingredients.map(ing => ing.type);
 
-      for (let i = 0; i < this.ingredients.length; i++) {
-          let ingredient = this.ingredients[i];
+      for (let recipe of this.recipes) {
+          if (recipe.ingredients.every(req => ingredientNames.includes(req)) &&
+              ingredientNames.length === recipe.ingredients.length) {
+              
+              console.log(`${recipe.name} created`);
+              
+              this.cookedSide = { name: recipe.name, img: recipe.img };
+              this.ingredients = []; // clears microwave after cooking
 
+              return;
+          }
+      }
 
-          const button = DnDButton.recButImage(
-            this.game,
-            xStart + i * spacing, yStart, // Position
-            buttonSize, buttonSize, // Size
-            ingredient.img, // Image path
-            () => {
-                console.log(`Added ${ingredient.name} to microwave!`);
-                this.addIngredient(new Ingredient(ingredient.name));
-            }
-        );
+      console.log("not matching recipe");
+  }
 
-
-          this.ingredientButtons.push(button);
-          this.game.currentScene.addGameObject(button);
+  update() {
+      if (this.cookButton) {
+          this.cookButton.disabled = this.ingredients.length === 0;
       }
   }
 
-
-  addIngredient(ingredient) {
-      this.ingredients.push(ingredient);
-      console.log(`${ingredient.type} added to the microwave.`);
-  }
-  update() {}
-
-
   draw(ctx) {
-    const image = ASSET_MANAGER.getAsset("./assets/sides/microwave.png");
+      const image = ASSET_MANAGER.getAsset("./assets/sides/microwave.png");
+      ctx.drawImage(image, this.x, this.y, this.width, this.height);
 
-
-    ctx.drawImage(image, this.x, this.y, this.width, this.height);
+      if (this.cookedSide && this.cookedSide.img) {
+          const cookedImage = ASSET_MANAGER.getAsset(this.cookedSide.img);
+          if (cookedImage) {
+              ctx.drawImage(cookedImage, this.x + this.width / 3, this.y + this.height / 3, 100, 100);
+          } else {
+              console.warn(` no image for ${this.cookedSide.name}`);
+          }
+      }
   }
 }
-
 
 class FoodTray extends GameObject {
   constructor(game, x, y, width, height) {

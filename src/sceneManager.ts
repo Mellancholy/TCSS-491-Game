@@ -7,6 +7,7 @@ import { RiceStationScene } from "./scenes/riceStation/scene.js";
 import { RiceAssemblyScene } from "./scenes/assembly/scene.js";
 import GameEngine from "./gameEngine.js";
 import Scene from "./scene.js";
+import { SidesAssemblyScene } from "./scenes/sides/scene.js";
 
 export default class SceneManager {
     game: GameEngine;
@@ -21,7 +22,7 @@ export default class SceneManager {
         this.registerScene("order", new CounterScene(this.game, 0, 0));
         this.registerScene("rice", new RiceStationScene(this.game));
         this.registerScene("roll", new RiceAssemblyScene(this.game));
-        this.registerScene("sides", new WashThatRiceScene(this.game, 0, 0));
+        this.registerScene("sides", new SidesAssemblyScene(this.game, 0, 0));
 
         this.registerScene("burn", new DontBurnRiceScene(this.game, 0, 0));
         this.registerScene("fill", new FillThePotScene(this.game, 0, 0));

@@ -74,8 +74,42 @@ ASSET_MANAGER.queueDownload("./assets/assembly/avocado.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/salmon.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/uni.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/tamago.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/octopus.png");
 
- 
+// Customers
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_0.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_1.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_2.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_3.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_4.png");
+ASSET_MANAGER.queueDownload("./assets/characters/Customer_5.png");
+
+// Trays
+ASSET_MANAGER.queueDownload("./assets/trays/tray_avocado.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_crab.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_cucumber.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_octopus.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_salmon.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_tamago.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_tuna.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_uni.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_empty.png");
+
+ASSET_MANAGER.queueDownload("./assets/sides/microwave.png");
+ASSET_MANAGER.queueDownload("./assets/sides/Tofu.png");
+ASSET_MANAGER.queueDownload("./assets/sides/MisoBin.png");
+ASSET_MANAGER.queueDownload("./assets/sides/blank.png");
+ASSET_MANAGER.queueDownload("./assets/sides/Ginger.png");
+ASSET_MANAGER.queueDownload("./assets/sides/edamame.png");
+ASSET_MANAGER.queueDownload("./assets/sides/Tray.png");
+ASSET_MANAGER.queueDownload("./assets/sides/soysauce.png");
+ASSET_MANAGER.queueDownload("./assets/sides/wasabi.jpg");
+ASSET_MANAGER.queueDownload("./assets/sides/Gyoza.png");
+ASSET_MANAGER.queueDownload("./assets/sides/MisoSoup.png");
+ASSET_MANAGER.queueDownload("./assets/sides/Karaage.png");
+ASSET_MANAGER.queueDownload("./assets/sides/chicken.png");
+
+
 ASSET_MANAGER.downloadAll(() => {
     const gameEngine = new GameEngine({
         debugging: false,
@@ -89,7 +123,7 @@ ASSET_MANAGER.downloadAll(() => {
     if (!ctx) {
         throw new Error("Canvas context not found");
     }
-    
+
 	gameEngine.init(ctx);
 
     sceneManage = new SceneManager(gameEngine);

@@ -51,7 +51,7 @@ export const INGREDIENTS = [
     new Ingredient('tamago', "./assets/assembly/tamago.png"),
     new Ingredient('tuna',  "./assets/assembly/tuna.png"),
     new Ingredient('uni',  "./assets/assembly/uni.png"),
-
+    new Ingredient('octopus',  "./assets/assembly/uni.png"),
 ]
 
 export const CONDIMENTS = [

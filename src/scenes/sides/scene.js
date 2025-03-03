@@ -195,6 +195,7 @@ class Microwave extends GameObject {
       }
 
       console.log("not matching recipe");
+      this.ingredients = [];
   }
 
   update() {

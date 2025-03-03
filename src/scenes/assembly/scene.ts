@@ -27,10 +27,6 @@ export class RiceAssemblyScene extends Scene {
         const binHeight = 80;
         const foods = [
             {
-                name: "rice",
-                img: "./assets/assembly/crab.png",
-            },
-            {
                 name: "avocado",
                 img: "./assets/assembly/avocado.png",
             },
@@ -43,20 +39,16 @@ export class RiceAssemblyScene extends Scene {
                 img: "./assets/assembly/cucumber.png",
             },
             {
+                name: "octopus",
+                img: "./assets/assembly/octopus.png",
+            },
+            {
                 name: "salmon",
                 img: "./assets/assembly/salmon.png",
             },
             {
                 name: "tuna",
                 img: "./assets/assembly/tuna.png",
-            },
-            {
-                name: "shrimp",
-                img: "./assets/assembly/cucumber.png",
-            },
-            {
-                name: "eel",
-                img: "./assets/assembly/cucumber.png",
             },
             {
                 name: "uni",
@@ -67,11 +59,23 @@ export class RiceAssemblyScene extends Scene {
                 img: "./assets/assembly/tamago.png",
             },
             {
-                name: "idk",
+                name: "empty",
                 img: "./assets/assembly/cucumber.png",
             },
             {
-                name: "idk",
+                name: "empty",
+                img: "./assets/assembly/cucumber.png",
+            },
+            {
+                name: "empty",
+                img: "./assets/assembly/cucumber.png",
+            },
+            {
+                name: "empty",
+                img: "./assets/assembly/cucumber.png",
+            },
+            {
+                name: "empty",
                 img: "./assets/assembly/cucumber.png",
             }
         ]
@@ -136,7 +140,8 @@ class FoodBin extends GameObject {
     };
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/assembly/tray.jpg") as HTMLImageElement, this.x, this.y, this.width, this.height);
+        // ctx.drawImage(ASSET_MANAGER.getAsset("./assets/assembly/tray.jpg") as HTMLImageElement, this.x, this.y, this.width, this.height);
+        ctx.drawImage(ASSET_MANAGER.getAsset("./assets/trays/tray_" + this.food.name + ".png") as HTMLImageElement, this.x, this.y, this.width, this.height);
         
         const bottomWidth = 80
         const bottomHeight = 35
@@ -146,11 +151,11 @@ class FoodBin extends GameObject {
         const xSpace = bottomWidth / xCount
         const yCount = 3
         const ySpace = bottomHeight / yCount;
-        for(let row = 0; row < yCount; row++) {
-            for(let col = 0; col < xCount; col++) {
-                ctx.drawImage(ASSET_MANAGER.getAsset(this.food.img) as HTMLImageElement, this.x + xOffset + (xSpace * col), this.y + (yOffset / 2) - 5 + (ySpace * row))
-            }
-        }
+        // for(let row = 0; row < yCount; row++) {
+        //     for(let col = 0; col < xCount; col++) {
+        //         ctx.drawImage(ASSET_MANAGER.getAsset(this.food.img) as HTMLImageElement, this.x + xOffset + (xSpace * col), this.y + (yOffset / 2) - 5 + (ySpace * row))
+        //     }
+        // }
     };
 }
 

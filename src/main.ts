@@ -74,6 +74,7 @@ ASSET_MANAGER.queueDownload("./assets/assembly/avocado.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/salmon.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/uni.png");
 ASSET_MANAGER.queueDownload("./assets/assembly/tamago.png");
+ASSET_MANAGER.queueDownload("./assets/assembly/octopus.png");
 
 // Customers
 ASSET_MANAGER.queueDownload("./assets/characters/Customer_0.png");
@@ -83,6 +84,16 @@ ASSET_MANAGER.queueDownload("./assets/characters/Customer_3.png");
 ASSET_MANAGER.queueDownload("./assets/characters/Customer_4.png");
 ASSET_MANAGER.queueDownload("./assets/characters/Customer_5.png");
 
+// Trays
+ASSET_MANAGER.queueDownload("./assets/trays/tray_avocado.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_crab.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_cucumber.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_octopus.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_salmon.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_tamago.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_tuna.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_uni.png");
+ASSET_MANAGER.queueDownload("./assets/trays/tray_empty.png");
 
  
 ASSET_MANAGER.downloadAll(() => {

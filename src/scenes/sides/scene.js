@@ -2,7 +2,7 @@ import Scene from '../../scene.js';
 import GameObject from '../../gameObject.js';
 import {ASSET_MANAGER, rollManage} from "../../main.js";
 import { Button, DnDButton } from "../../button.js";
-import Ingredient from "../counter/food.js";
+import Ingredient from "../../../scenes/counter/food.js";
 
 
 export class SidesAssemblyScene extends Scene {
@@ -96,7 +96,7 @@ class Background extends GameObject {
   update() {}
 
   draw(ctx) {
-      ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Backgrounds.png"), 0, 0, 1024, 683);
+      ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png"), 0, 0, 1024, 683);
   }
 }
 

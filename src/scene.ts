@@ -1,3 +1,4 @@
+import { Button } from "./button";
 import GameEngine from "./gameEngine";
 import GameObject from "./gameObject";
 
@@ -18,9 +19,11 @@ export default class Scene {
     }
 
     addGameObject(gameObject: GameObject) {
-        console.log(this)
         this.gameObjects.push(gameObject);
         this.game.addEntity(gameObject);
+        if(gameObject instanceof Button) {
+            console.log(gameObject)
+        }
     }
 
     addPersistantGameObject(id: string) {

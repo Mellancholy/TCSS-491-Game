@@ -2,10 +2,11 @@
 import { Button } from "./button.js";
 import GameEngine from "./gameEngine.js";
 import { ASSET_MANAGER } from "./main.js";
+import { Order } from "./scenes/counter/food.js";
 
 export default class OrderManager {
     game: GameEngine;
-    activeOrders: any[];
+    activeOrders: Order[];
     orderButton!: Button;
     showOrder: boolean;
 

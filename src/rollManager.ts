@@ -1,8 +1,9 @@
 import GameEngine from "./gameEngine";
+import Ingredient from "./scenes/counter/food";
 
 export default class RollManager {
     game: GameEngine;
-    activeIngredients: any[];
+    activeIngredients: Ingredient[];
     isComplete: boolean;
 
     constructor(game: GameEngine) {

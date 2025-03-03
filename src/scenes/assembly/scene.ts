@@ -217,7 +217,7 @@ class FoodBottom extends GameObject {
                     setInterval(() => {
                         this.x += 10
                         if(this.x > 1024) {
-                            super.removeFromWorld = true
+                            this.removeFromWorld = true
                         }
                     }, 10)
                 }, 1000)

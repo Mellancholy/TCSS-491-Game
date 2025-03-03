@@ -39,8 +39,7 @@ export default class SceneManager {
     loadScene(scene: string) {
         if(this.currentScene === scene) return;
         if(!this.scenes[scene]) {
-            //console.log("error: scene not found: " + scene);
-            return;
+            throw new Error("Scene " + scene + " not found");
         }
 
         if(this.currentScene) {

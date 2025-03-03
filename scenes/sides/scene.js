@@ -108,7 +108,7 @@ class Microwave extends GameObject {
       this.recipes = [
           { name: "Miso Soup", ingredients: ["miso paste", "tofu", "green onions"], img: "./assets/sides/MisoSoup.png" },
           { name: "Edamame", ingredients: ["edamame"], img: "./assets/sides/edamame.png" },
-          { name: "Gyoza", ingredients: ["chicken", "green onions"], img: "./assets/sides/Gyoza.png" },
+          { name: "Gyoza", ingredients: ["green onions", "chicken"], img: "./assets/sides/Gyoza.png" },
           { name: "Karaage", ingredients: ["chicken"], img: "./assets/sides/Karaage.png" }
       ];
 
@@ -128,8 +128,8 @@ class Microwave extends GameObject {
           { name: "miso paste", img: "./assets/sides/MisoBin.png" },
           { name: "edamame", img: "./assets/sides/edamame.png" },
           { name: "tofu", img: "./assets/sides/Tofu.png" },
-          { name: "green onions", img: "./assets/sides/blank.png" },
-          { name: "chicken", img: "./assets/sides/chicken.png" }
+          { name: "chicken", img: "./assets/sides/chicken.png" },
+          { name: "green onions", img: "./assets/sides/blank.png" }
       ];
 
       for (let i = 0; i < ingredientList.length; i++) {

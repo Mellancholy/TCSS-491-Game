@@ -87,6 +87,7 @@ ASSET_MANAGER.queueDownload("./assets/sides/wasabi.jpg");
 ASSET_MANAGER.queueDownload("./assets/sides/Gyoza.png");
 ASSET_MANAGER.queueDownload("./assets/sides/MisoSoup.png");
 ASSET_MANAGER.queueDownload("./assets/sides/Karaage.png");
+ASSET_MANAGER.queueDownload("./assets/sides/chicken.png");
 
 /** Creates an alias for requestAnimationFrame for backwards compatibility */
 window.requestAnimFrame = (() => {

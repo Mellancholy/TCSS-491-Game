@@ -129,7 +129,7 @@ class Microwave extends GameObject {
           { name: "edamame", img: "./assets/sides/edamame.png" },
           { name: "tofu", img: "./assets/sides/Tofu.png" },
           { name: "green onions", img: "./assets/sides/blank.png" },
-          { name: "chicken", img: "./assets/sides/blank.png" }
+          { name: "chicken", img: "./assets/sides/chicken.png" }
       ];
 
       for (let i = 0; i < ingredientList.length; i++) {

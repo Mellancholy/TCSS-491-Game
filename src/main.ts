@@ -53,9 +53,6 @@ ASSET_MANAGER.queueDownload('./assets/backgrounds/FillThePot_Background.png');
 ASSET_MANAGER.queueDownload('./assets/objects/RiceCooker_On.png');
 ASSET_MANAGER.queueDownload('./assets/objects/RiceCooker_Off.png');
 
-
-ASSET_MANAGER.queueDownload('./assets/sounds/jingle.mp3');
-
 // Swat the flies
 ASSET_MANAGER.queueDownload("./assets/flies.png");
 ASSET_MANAGER.queueDownload("./assets/swatter.png");
@@ -106,6 +103,10 @@ ASSET_MANAGER.queueDownload("./assets/sides/Gyoza.png");
 ASSET_MANAGER.queueDownload("./assets/sides/MisoSoup.png");
 ASSET_MANAGER.queueDownload("./assets/sides/Karaage.png");
 ASSET_MANAGER.queueDownload("./assets/sides/chicken.png");
+
+// SOUNDS
+ASSET_MANAGER.queueDownload('./assets/sounds/jingle.mp3');
+ASSET_MANAGER.queueDownload('./assets/sounds/doorchime.mp3');
 
 
 ASSET_MANAGER.downloadAll(() => {

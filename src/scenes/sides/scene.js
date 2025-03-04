@@ -1,8 +1,9 @@
 import Scene from '../../scene.js';
 import GameObject from '../../gameObject.js';
-import {ASSET_MANAGER, rollManage} from "../../main.js";
+import { ASSET_MANAGER } from "../../main.js";
 import { Button, DnDButton } from "../../button.js";
-import Ingredient from "../../../scenes/counter/food.js";
+import GameState from 'src/gameState.js';
+import Ingredient from "src/scenes/counter/food.js";
 
 
 export class SidesAssemblyScene extends Scene {
@@ -34,7 +35,7 @@ export class SidesAssemblyScene extends Scene {
       },
       {
         name: "wasabi",
-        img:  "./assets/sides/wasabi.jpg",
+        img:  "./assets/sides/wasabi.png",
         x: 850,
         y: 370
       }
@@ -107,86 +108,79 @@ class Microwave extends GameObject {
 
       this.recipes = [
           { name: "Miso Soup", ingredients: ["miso paste", "tofu", "green onions"], img: "./assets/sides/MisoSoup.png" },
-          { name: "Edamame", ingredients: ["edamame"], img: "./assets/sides/cookedEdamame.png" },
+          { name: "Edamame", ingredients: ["edamame"], img: "./assets/sides/edamame.png" },
           { name: "Gyoza", ingredients: ["green onions", "chicken"], img: "./assets/sides/Gyoza.png" },
           { name: "Karaage", ingredients: ["chicken"], img: "./assets/sides/Karaage.png" }
       ];
 
-      this.cookButton = null; 
+      this.cookButton = null; // Store button reference
   }
 
   addButtons() {
-    let xStart = 585;  
-    let yStart = 80;  
-    const buttonSize = 80;
-    const xSpacing = 100; 
-    const ySpacing = 65; 
-    const columns = 2; 
+      let xStart = 250;  
+      let yStart = 200;  
+      const buttonSize = 75;
+      const spacing = 100;  
 
-    this.ingredientButtons = [];
+      this.ingredientButtons = [];
+      this.buttons = [];
 
-    const ingredientList = [
-        { name: "miso paste", img: "./assets/sides/MisoBin.png" },
-        { name: "edamame", img: "./assets/sides/edamame.png" },
-        { name: "tofu", img: "./assets/sides/Tofu.png" },
-        { name: "green onions", img: "./assets/sides/greenonions.png" },
-        { name: "chicken", img: "./assets/sides/chicken.png" }
-    ];
+      const ingredientList = [
+          { name: "miso paste", img: "./assets/sides/MisoBin.png" },
+          { name: "edamame", img: "./assets/sides/edamame.png" },
+          { name: "tofu", img: "./assets/sides/Tofu.png" },
+          { name: "chicken", img: "./assets/sides/chicken.png" },
+          { name: "green onions", img: "./assets/sides/greenonions.png" }
+      ];
 
-    for (let i = 0; i < ingredientList.length; i++) {
-        let ingredient = ingredientList[i];
+      for (let i = 0; i < ingredientList.length; i++) {
+          let ingredient = ingredientList[i];
 
-        
-        let col = i % columns;  
-        let row = Math.floor(i / columns); 
+          const inButton = Button.rectButtonImage(
+              this.game,
+              xStart + i * spacing, yStart, 
+              buttonSize, buttonSize, 
+              ingredient.img, 
+              () => {
+                  console.log(`Added ${ingredient.name} to microwave!`);
+                  this.addIngredient(new Ingredient(ingredient.name));
+              }
+          );
 
-        console.log(`Placing ${ingredient.name} at col=${col}, row=${row}`);
+          this.ingredientButtons.push(inButton);
+          this.game.currentScene.addGameObject(inButton);
+      }
 
-        const inButton = Button.rectButtonImage(
-            this.game,
-            xStart + col * xSpacing,  
-            yStart + row * ySpacing,  
-            buttonSize, buttonSize,
-            ingredient.img,
-            () => {
-                console.log(`✅ Clicked ${ingredient.name}`);
-                this.addIngredient(new Ingredient(ingredient.name));
-            }
-        );
-
-        this.ingredientButtons.push(inButton);
-        this.game.currentScene.addGameObject(inButton);
-    }
-
-      const cookButtonX = 687;
-      const cookButtonY = 220;
+      const cookButtonX = 725;
+      const cookButtonY = 100;
 
       this.cookButton = Button.rectButton(
-        this.game,
-        cookButtonX, cookButtonY, // Position
-        75, 75, // Size
-        () => { this.cookSideDish(); }, // onClick function
-        //"red", // Background color
-        "Cook!" // Button text
-    );    
+          this.game,
+          cookButtonX, cookButtonY,
+          buttonSize, 75,
+          () => {
+              this.cookSideDish();
+          },
+          "Cook!"
+      );
 
       this.cookButton.disabled = true; 
       this.game.currentScene.addGameObject(this.cookButton);
   }
 
   addIngredient(ingredient) {
-      if (!ingredient || !ingredient.type) {
+      if (!ingredient || !ingredient.name) {
           console.error("invalid ingredient added!");
           return;
       }
       this.ingredients.push(ingredient);
-      console.log(`added ${ingredient.type} to microwave.`);
+      console.log(`added ${ingredient.name} to microwave.`);
   }
 
   cookSideDish() {
       console.log("cooking!");
 
-      const ingredientNames = this.ingredients.map(ing => ing.type);
+      const ingredientNames = this.ingredients.map(ing => ing.name);
 
       for (let recipe of this.recipes) {
           if (recipe.ingredients.every(req => ingredientNames.includes(req)) &&
@@ -212,13 +206,13 @@ class Microwave extends GameObject {
   }
 
   draw(ctx) {
-      const image = ASSET_MANAGER.getAsset("./assets/sides/microwaveYuh.png");
+      const image = ASSET_MANAGER.getAsset("./assets/sides/microwave.png");
       ctx.drawImage(image, this.x, this.y, this.width, this.height);
 
       if (this.cookedSide && this.cookedSide.img) {
           const cookedImage = ASSET_MANAGER.getAsset(this.cookedSide.img);
           if (cookedImage) {
-              ctx.drawImage(cookedImage, 317, 100, 100, 100);
+              ctx.drawImage(cookedImage, this.x + this.width / 3, this.y + this.height / 3, 100, 100);
           } else {
               console.warn(` no image for ${this.cookedSide.name}`);
           }
@@ -269,7 +263,9 @@ class FoodTray extends GameObject {
       console.log("dropped in food tray");
       this.condiment.push(e.detail.button.food);
       console.log(e.detail.button.food);
-      rollManage.addIngredient(new Ingredient(e.detail.button.food.name));
+      const orderWorkingOn = GameState.getInstance().getState("orderWorkingOn");
+      if(!orderWorkingOn) return;
+      orderWorkingOn.ingredients.push(new Ingredient(e.detail.button.food.name));
       //e.detail.button.game.currentScene.rollButton.hidden = false;
     }
   }

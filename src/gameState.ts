@@ -11,6 +11,7 @@ type GameStateType = {
     gameTime: number;
     timeSinceDayStart: number;
     orders: OrderState[]
+    orderWorkingOn: Order | null
     currentDraggedItem: GameObject | null
 };
 
@@ -19,6 +20,7 @@ const DEFAULT_GAME_STATE: GameStateType = {
     gameTime: 0,
     timeSinceDayStart: 0,
     orders: [],
+    orderWorkingOn: null,
     currentDraggedItem: null
 };
 
@@ -35,8 +37,9 @@ export default class GameState {
         return GameState.instance;
     }
     
-    public setState<K extends keyof GameStateType>(key: K, value: GameStateType[K]): void {
+    public setState<K extends keyof GameStateType>(key: K, value: GameStateType[K]): GameStateType[K] {
         this.state[key] = value;
+        return this.state[key];
     }
     
     public getState<K extends keyof GameStateType>(key: K): GameStateType[K] {

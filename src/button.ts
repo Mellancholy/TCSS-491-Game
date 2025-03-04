@@ -139,6 +139,14 @@ export class DnDButton extends GameObject {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
+        if(this.game.options.debugging) {
+            ctx.strokeStyle = "blue";
+            ctx.strokeRect(this.x, this.y, this.width!, this.height!);
+            if(this.image) {
+                ctx.strokeStyle = "green";
+                //ctx.strokeRect(this.x, this.y, this.image.width, this.image.height);
+            }
+        }
         if(this.transparent && !this.dragging) return;
         if(this.image) {
             if(this.dragging) {
@@ -164,16 +172,15 @@ export class DnDButton extends GameObject {
     }
 
     onMouseDown(e: MouseEvent) {
-        console.log("mouse down dnd button");
         if(this.image && !this.transparent) {
-            if (e.offsetX > this.x && e.offsetX < this.x + this.image.width &&
-                e.offsetY > this.y && e.offsetY < this.y + this.image.height) {
+            if (e.x > this.x && e.x < this.x + this.image.width &&
+                e.y > this.y && e.y < this.y + this.image.height) {
                     this.dragging = true;
                     this.onClick();
             }
         } else {
-            if (e.offsetX > this.x && e.offsetX < this.x + this.width! &&
-                e.offsetY > this.y && e.offsetY < this.y + this.height!) {
+            if (e.x > this.x && e.x < this.x + this.width! &&
+                e.y > this.y && e.y < this.y + this.height!) {
                     this.dragging = true;
                     this.onClick();
             }
@@ -186,8 +193,8 @@ export class DnDButton extends GameObject {
             const event = new CustomEvent("dndDrop",
                 {
                     detail: {
-                        x: e.offsetX,
-                        y: e.offsetY,
+                        x: e.x,
+                        y: e.y,
                         button: this
                     }
                 }

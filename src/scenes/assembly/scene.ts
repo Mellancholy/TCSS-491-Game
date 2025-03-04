@@ -3,9 +3,9 @@ import Scene from 'src/scene.js';
 import GameObject from 'src/gameObject.js';
 import { ASSET_MANAGER } from "src/main.js";
 import { Button, DnDButton } from "src/button.js";
-import { rollManage , orderManage } from 'src/main.js';
-import Ingredient from "src/scenes/counter/food.js";
+import Ingredient, { FILLINGS } from "src/scenes/counter/food.js";
 import GameEngine from 'src/gameEngine';
+import GameState from 'src/gameState';
 
 export class RiceAssemblyScene extends Scene {
     game: GameEngine;
@@ -19,83 +19,28 @@ export class RiceAssemblyScene extends Scene {
 
     initalizeScene() {
 
-        super.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
-        super.addGameObject(new Background(this.game, "./assets/assembly/case.jpg", 0, 150, 1024, 197));
+        this.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
+        this.addGameObject(new Background(this.game, "./assets/assembly/case.jpg", 0, 150, 1024, 197));
         this.foodBottom = new FoodBottom(this.game, 227, 375, 570, 300);
-        super.addGameObject(this.foodBottom);
+        this.addGameObject(this.foodBottom);
         const binWidth = 80;
         const binHeight = 80;
-        const foods = [
-            {
-                name: "avocado",
-                img: "./assets/assembly/avocado.png",
-            },
-            {
-                name: "crab",
-                img: "./assets/assembly/crab.png",
-            },
-            {
-                name: "cucumber",
-                img: "./assets/assembly/cucumber.png",
-            },
-            {
-                name: "octopus",
-                img: "./assets/assembly/octopus.png",
-            },
-            {
-                name: "salmon",
-                img: "./assets/assembly/salmon.png",
-            },
-            {
-                name: "tuna",
-                img: "./assets/assembly/tuna.png",
-            },
-            {
-                name: "uni",
-                img: "./assets/assembly/uni.png",
-            },
-            {
-                name: "tamago",
-                img: "./assets/assembly/tamago.png",
-            },
-            {
-                name: "empty",
-                img: "./assets/assembly/cucumber.png",
-            },
-            {
-                name: "empty",
-                img: "./assets/assembly/cucumber.png",
-            },
-            {
-                name: "empty",
-                img: "./assets/assembly/cucumber.png",
-            },
-            {
-                name: "empty",
-                img: "./assets/assembly/cucumber.png",
-            },
-            {
-                name: "empty",
-                img: "./assets/assembly/cucumber.png",
-            }
-        ]
+        const foods = FILLINGS;
         let curFood = 0;
         let y = 240;
-        for(let x = 0; x < 12; x++) {
+        for(let x = 0; x < foods.length; x++) {
             const foodBin = new FoodBin(this.game, foods[curFood], 10 + x * (binWidth + 4), y, binWidth, binHeight);
-            super.addGameObject(foodBin);
+            this.addGameObject(foodBin);
             foodBin.addButton(); // add the button to the scene after the bin is added
             curFood++;
         }
 
         this.rollButton = Button.rectButton(this.game, 600, 320, 100, 50, () => {
             console.log("Clicked roll button");
-            this.roll()
-            rollManage!.completeRoll();
+            this.roll();
         }, "Roll") 
         this.rollButton.hidden = true;
-        super.addGameObject(this.rollButton)
-        super.addGameObject(new SceneUpdater(this.game, this));
+        this.addGameObject(this.rollButton);
         
     }
 
@@ -168,7 +113,6 @@ class FoodBottom extends GameObject {
     y: number;
     width: number;
     height: number;
-    foods: {name: string, img: string}[];
     rolled: boolean;
     chops: number;
     cut: boolean;
@@ -181,7 +125,6 @@ class FoodBottom extends GameObject {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.foods = [];
         this.rolled = false;
         this.chops = 0;
         this.cut = false;
@@ -212,7 +155,9 @@ class FoodBottom extends GameObject {
     };
 
     draw(ctx: CanvasRenderingContext2D) {
-        if (rollManage.activeIngredients.length > 0) {
+        let currentOrder = GameState.getInstance().getState('orderWorkingOn');
+        if(!currentOrder) return;
+        if (currentOrder?.ingredients.length > 0) {
             if(this.cut) {
                 ctx.fillStyle = "green";
                 const cutWidth = (this.width - 50) / 6
@@ -251,13 +196,16 @@ class FoodBottom extends GameObject {
             const bambooMatImg = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png") as HTMLImageElement;
             ctx.drawImage(bambooMatImg, this.x, this.y);
 
-            rollManage.activeIngredients.forEach(element => {
-                if (element.type == 'rice' || element.type == 'nori') {
+            console.log(currentOrder)
+            //Draw rice and nori
+            currentOrder.ingredients.filter(element => element.name === 'rice' || element.name === 'nori').forEach(element => {
+                if (element.name == 'rice' || element.name == 'nori') {
                     const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
                     ctx.drawImage(img, this.x, this.y);
                 }
             })
-            this.foods.forEach(element => {
+            //Draw fillings
+            currentOrder.ingredients.filter(element => element.name != 'rice' && element.name != 'nori').forEach(element => {
                 const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
                 const xOffset = 50;
                 const spacing = (this.width - xOffset - 50) / 6;
@@ -271,39 +219,12 @@ class FoodBottom extends GameObject {
     
 
     onDnDDrop(e: CustomEvent) {
-        //console.log("dropped");
-        //console.log(e);
-        //console.log(e.detail)
-        if(e.detail.x >= this.x && e.detail.x <= this.x + this.width && e.detail.y >= this.y && e.detail.y <= this.y + this.height && rollManage.activeIngredients.length > 0) {
+        let orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
+        if(!orderWorkingOn) return;
+        if(e.detail.x >= this.x && e.detail.x <= this.x + this.width && e.detail.y >= this.y && e.detail.y <= this.y + this.height && orderWorkingOn?.ingredients.length > 0) {
             console.log("dropped in food bottom");
-            this.foods.push(e.detail.button.food);
-            rollManage.addIngredient(new Ingredient(e.detail.button.food.name));
+            orderWorkingOn.ingredients.push(e.detail.button.food);
             e.detail.button.game.currentScene.rollButton.hidden = false;
         }
     }
-}
-
-class SceneUpdater extends GameObject {
-    game: GameEngine;
-    scene: RiceAssemblyScene;
-    orderManageButtonExists: boolean;
-
-    constructor(game: GameEngine, scene: RiceAssemblyScene) {
-        super(game);
-        this.game = game;
-        this.scene = scene;
-        this.orderManageButtonExists = false;
-    }
-
-    update() {
-
-        if (!this.orderManageButtonExists) {
-            this.orderManageButtonExists = true;
-            orderManage.orderButton.removeFromWorld = false
-            this.scene.addGameObject(orderManage.orderButton);
-        }
-    };
-
-    draw(ctx: CanvasRenderingContext2D) {
-    };
 }

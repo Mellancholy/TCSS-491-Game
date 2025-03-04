@@ -65,7 +65,7 @@ export default class Swatter extends GameObject {
     };
 
     onMouseDown(e: MouseEvent) {
-        this.startDragging(e.clientX, e.clientY);
+        this.startDragging(e.x, e.y);
     };
 
     onMouseUp(e: MouseEvent) {

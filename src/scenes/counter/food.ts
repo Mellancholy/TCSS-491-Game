@@ -1,35 +1,36 @@
 export class Order {
-    ingredients: Ingredient[]
-    sides: Side[]
-
-    constructor(ingredients: Ingredient[], sides: Side[]) {
-        this.ingredients = ingredients
-        this.sides = sides
+    ingredients: Ingredient[];
+    sides: Side[];
+    condiment: Condiment | null;
+    
+    constructor(ingredients: Ingredient[], sides: Side[], condiment: Condiment | null) {
+        this.ingredients = ingredients;
+        this.sides = sides;
+        this.condiment = condiment;
     }
 }
 
 export default class Ingredient {
-    type: string
-    img: string
+    name: string;
+    img: string;
 
-    constructor(type: string, img: string) {
-        this.type = type;
-        this.img = img;
-    }
-}
-
-class Wrap extends Ingredient {
-    type: string
-    img: string
-    
-    constructor(type: string, img: string) {
-        super(type, img);
-        this.type = type;
-        this.img = img;
+    constructor(type: string, img: string = '') {
+        this.name = type
+        this.img = img
     }
 }
 
 class Side {
+    name: string;
+    type: Ingredient[];
+    
+    constructor(name: string, type: Ingredient[]) {
+        this.name = name;
+        this.type = type;
+    }
+}
+
+class Condiment {
     type: string;
 
     constructor(type: string) {
@@ -37,31 +38,84 @@ class Side {
     }
 }
 
+export const NORI = new Ingredient('nori', './assets/objects/Nori.png');
+export const RICE = new Ingredient('rice', './assets/objects/Rice.png');
+export const RICE_CARRY = './assets/objects/Rice_Cooked.png';
+
+const AVOCADO = new Ingredient('avocado', './assets/assembly/avocado.png');
+const CRAB = new Ingredient('crab', './assets/assembly/crab.png');
+const CUCUMBER = new Ingredient('cucumber', './assets/assembly/cucumber.png');
+const OCTOPUS = new Ingredient('octopus', './assets/assembly/octopus.png');
+const SALMON = new Ingredient('salmon', './assets/assembly/salmon.png');
+const TUNA = new Ingredient('tuna', './assets/assembly/tuna.png');
+const UNI = new Ingredient('uni', './assets/assembly/uni.png');
+const TAMAGO = new Ingredient('tamago', './assets/assembly/tamago.png');
 
 export const WRAP = [
-    new Wrap('rice', "./assets/objects/Rice_Cooked.png"),
-    new Wrap('nori', "./assets/objects/Nori.png"),
+    NORI, RICE
 ]
 
-export const INGREDIENTS = [
-    new Ingredient('crab', "./assets/assembly/crab.png"),
-    new Ingredient('avocado', "./assets/assembly/avocado.png"),
-    new Ingredient('cucmber', "./assets/assembly/cucumber.png"),
-    new Ingredient('salmon', "./assets/assembly/salmon.png"),
-    new Ingredient('tamago', "./assets/assembly/tamago.png"),
-    new Ingredient('tuna',  "./assets/assembly/tuna.png"),
-    new Ingredient('uni',  "./assets/assembly/uni.png"),
-    new Ingredient('octopus',  "./assets/assembly/uni.png"),
+export const FILLINGS = [
+    AVOCADO, CRAB, CUCUMBER, OCTOPUS, SALMON, TUNA, UNI, TAMAGO
 ]
 
-export const CONDIMENTS = [
-    new Side('wasabi'),
-    new Side('ginger')
+
+// rolls
+export const CALIFORNIA_ROLL = [
+    RICE,
+    NORI,
+    CRAB,
+    AVOCADO
 ]
+
+export const SPICY_TUNA_ROLL = [
+    RICE,
+    NORI,
+    TUNA,
+]
+
+export const ALASKAN_ROLL = [
+    SALMON,
+    RICE,
+    NORI,
+    AVOCADO,
+    CRAB,
+]
+
+// sides
+export const KARAAGE = new Side('karaage', [
+    new Ingredient('chicken')
+]);
+
+export const MISOSOUP = new Side('miso soup', [
+    new Ingredient('miso'),
+    new Ingredient('green onion'),
+    new Ingredient('tofu')
+]);
+
+export const EDAMAME = new Side('edamame', [
+    new Ingredient('edamame')
+]);
+
+export const GYOZA = new Side('gyoza', [
+    new Ingredient('chicken'),
+    new Ingredient('green onions')
+]);
 
 export const SIDES = [
-    new Side('miso soup'),
-    new Side('karaage'),
-    new Side('edamame'),
-    new Side('takoyaki')
+    KARAAGE,
+    MISOSOUP,
+    EDAMAME,
+    GYOZA
+]
+
+// condiments
+export const WASABI = new Condiment('wasabi');
+export const GINGER = new Condiment('ginger');
+export const SOY = new Condiment('soy sauce');
+
+export const CONDIMENTS = [
+    WASABI,
+    GINGER,
+    SOY
 ]

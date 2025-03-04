@@ -21,7 +21,6 @@ export default class GameEngine {
     previousMousePositionsLatest: number;
     wheel: WheelEvent | null;
     keys: {[key: string]: boolean};
-    currentDraggedItem: any | null;
     options: { debugging: boolean };
     sceneManager: SceneManager | null;
     currentScene: Scene | null;
@@ -51,7 +50,6 @@ export default class GameEngine {
         this.previousMousePositionsLatest = 0;
         this.wheel = null;
         this.keys = {};
-        this.currentDraggedItem = null;
 
 
 
@@ -117,14 +115,14 @@ export default class GameEngine {
                 ...e,
                 x: realCoords.x,
                 y: realCoords.y,
-            }
+            } as MouseEvent;
             this.down = false;
             // Stop dragging
             this.entities.forEach(entity => {
                 if(entity.onMouseUp) entity.onMouseUp(modifiedEvent);
             });
 
-             console.log("Mouse Up");  // Check if this is firing
+            //console.log("Mouse Up");  // Check if this is firing
         }, false);
 
         this.ctx!.canvas.addEventListener("mousedown", (e) => {
@@ -133,7 +131,7 @@ export default class GameEngine {
                 ...e,
                 x: realCoords.x,
                 y: realCoords.y,
-            }
+            } as MouseEvent;
             this.down = true;
             this.entities.forEach(entity => {
                 if(entity.onMouseDown) entity.onMouseDown(modifiedEvent);

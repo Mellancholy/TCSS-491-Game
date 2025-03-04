@@ -34,7 +34,7 @@ export class SidesAssemblyScene extends Scene {
       },
       {
         name: "wasabi",
-        img:  "./assets/sides/wasabi.jpg",
+        img:  "./assets/sides/wasabi.png",
         x: 850,
         y: 370
       }

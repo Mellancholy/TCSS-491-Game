@@ -3,7 +3,7 @@ import  Background  from "src/background.js";
 import Scene from "src/scene.js";
 import GameObject from "src/gameObject.js";
 import { DnDButton } from "src/button.js";
-import Ingredient, { NORI, Order, RICE } from "src/scenes/counter/food.js";
+import Ingredient, { NORI, Order, RICE, RICE_CARRY } from "src/scenes/counter/food.js";
 import GameEngine from "src/gameEngine";
 import GameState from "src/gameState";
 
@@ -47,7 +47,7 @@ class RiceCooker extends GameObject {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.amount = 0;
+        this.amount = 1;
         this.cookerClicked = false;
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/RiceCooker.png") as HTMLImageElement;
         this.addButton();
@@ -55,13 +55,13 @@ class RiceCooker extends GameObject {
     }
 
     addButton() {
-        this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, NORI.img, () => {
+        this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, RICE_CARRY, () => {
             console.log("clicked on rice cooker");
             this.cookerClicked = true;
         });
         this.dnd.width = this.width;
         this.dnd.height = this.height;
-        this.dnd.food = NORI
+        this.dnd.food = RICE
         this.dnd.persistent = true;
         this.dnd.id = 'ricesourcebuttons';
         if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
@@ -124,10 +124,10 @@ class Nori extends GameObject {
     };
 
     addButton() {
-        this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, RICE.img, () => {});
+        this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, NORI.img, () => {});
         this.dnd.width = this.width;
         this.dnd.height = this.height;
-        this.dnd.food = RICE
+        this.dnd.food = NORI
         this.dnd.persistent = true;
         if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
@@ -168,7 +168,11 @@ class BambooMat extends GameObject {
         const centerY = this.y + (this.spritesheet.height / 2)
 
         // Draw the ingredients on top of the bamboo mat
-        this.ingredients.forEach(element => {
+        const orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
+        if(!orderWorkingOn) return;
+        console.log("Strawberry")
+        console.log(orderWorkingOn);
+        orderWorkingOn.ingredients.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
             ctx.drawImage(img, this.x, this.y);
             // ctx.drawImage(img, centerX - (img.width / 2) + element.xOffset, centerY - (img.height / 2) + element.yOffset, img.width, img.height);

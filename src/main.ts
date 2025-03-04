@@ -21,6 +21,7 @@ ASSET_MANAGER.queueDownload("./assets/backgrounds/Minigame_Background.png");
 // rice station
 ASSET_MANAGER.queueDownload("./assets/objects/RiceCooker.png");
 ASSET_MANAGER.queueDownload("./assets/objects/BambooMat.png");
+ASSET_MANAGER.queueDownload("./assets/objects/Rice.png");
 ASSET_MANAGER.queueDownload("./assets/objects/Rice_Cooked.png");
 ASSET_MANAGER.queueDownload("./assets/objects/Nori.png");
 ASSET_MANAGER.queueDownload("./assets/objects/Nori_Source.png");

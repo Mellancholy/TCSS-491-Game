@@ -40,6 +40,7 @@ class Condiment {
 
 export const NORI = new Ingredient('nori', './assets/objects/Nori.png');
 export const RICE = new Ingredient('rice', './assets/objects/Rice.png');
+export const RICE_CARRY = './assets/objects/Rice_Cooked.png';
 
 const AVOCADO = new Ingredient('avocado', './assets/assembly/avocado.png');
 const CRAB = new Ingredient('crab', './assets/assembly/crab.png');

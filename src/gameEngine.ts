@@ -149,6 +149,7 @@ export default class GameEngine {
             });
             if (this.options.debugging) {
                 console.log("CLICK", getXandY(e));
+                console.log(e)
             }
             this.click = getXandY(e);
             // console.log("Mouse Clicked");

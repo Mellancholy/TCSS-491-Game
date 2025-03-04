@@ -21,9 +21,6 @@ export default class Scene {
     addGameObject(gameObject: GameObject) {
         this.gameObjects.push(gameObject);
         this.game.addEntity(gameObject);
-        if(gameObject instanceof Button) {
-            console.log(gameObject)
-        }
     }
 
     addPersistantGameObject(id: string) {

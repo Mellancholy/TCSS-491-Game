@@ -172,11 +172,6 @@ export class DnDButton extends GameObject {
     }
 
     onMouseDown(e: MouseEvent) {
-        //console.log("mouse down dnd button");
-        if(this.x === 10) {
-            console.log("ABC")
-            console.log(e)
-        }
         if(this.image && !this.transparent) {
             if (e.x > this.x && e.x < this.x + this.image.width &&
                 e.y > this.y && e.y < this.y + this.image.height) {
@@ -186,7 +181,6 @@ export class DnDButton extends GameObject {
         } else {
             if (e.x > this.x && e.x < this.x + this.width! &&
                 e.y > this.y && e.y < this.y + this.height!) {
-                    console.log("HERE")
                     this.dragging = true;
                     this.onClick();
             }

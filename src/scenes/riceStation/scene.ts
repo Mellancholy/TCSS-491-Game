@@ -61,8 +61,7 @@ class RiceCooker extends GameObject {
         });
         this.dnd.width = this.width;
         this.dnd.height = this.height;
-        this.dnd.food = RICE
-        this.dnd.persistent = true;
+        this.dnd.food = RICE;
         this.dnd.id = 'ricesourcebuttons';
         if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
@@ -127,8 +126,7 @@ class Nori extends GameObject {
         this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, NORI.img, () => {});
         this.dnd.width = this.width;
         this.dnd.height = this.height;
-        this.dnd.food = NORI
-        this.dnd.persistent = true;
+        this.dnd.food = NORI;
         if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
 
@@ -146,7 +144,6 @@ class BambooMat extends GameObject {
     game: GameEngine;
     x: number;
     y: number;
-    ingredients: Ingredient[];
     spritesheet: HTMLImageElement;
 
     constructor(game: GameEngine, x: number, y: number) {
@@ -154,7 +151,6 @@ class BambooMat extends GameObject {
         this.game = game;
         this.x = x;
         this.y = y
-        this.ingredients = [];
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png") as HTMLImageElement;
     };
 
@@ -170,8 +166,6 @@ class BambooMat extends GameObject {
         // Draw the ingredients on top of the bamboo mat
         const orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
         if(!orderWorkingOn) return;
-        console.log("Strawberry")
-        console.log(orderWorkingOn);
         orderWorkingOn.ingredients.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
             ctx.drawImage(img, this.x, this.y);
@@ -183,10 +177,9 @@ class BambooMat extends GameObject {
         // console.log(e);
         // console.log(e.detail)
         // console.log(e.detail.y);
-        if(e.detail.x >= this.x && e.detail.x <= this.x + 512 &&
-            e.detail.y >= this.y && e.detail.y <= this.y + 512) {
+        if(e.detail.x >= this.x && e.detail.x <= this.x + this.spritesheet.width &&
+            e.detail.y >= this.y && e.detail.y <= this.y + this.spritesheet.height) {
             console.log("dropped in food bottom");
-            this.ingredients.push(e.detail.button.food);
             let orderWorkingOn = GameState.getInstance().getState('orderWorkingOn')
             if(!orderWorkingOn) {
                 let newOrder = new Order([], [], null);

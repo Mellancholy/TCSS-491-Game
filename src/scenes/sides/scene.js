@@ -174,7 +174,7 @@ class Microwave extends GameObject {
           return;
       }
       this.ingredients.push(ingredient);
-      console.log(`added ${ingredient.type} to microwave.`);
+      console.log(`added ${ingredient.name} to microwave.`);
   }
 
   cookSideDish() {

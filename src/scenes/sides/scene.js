@@ -169,7 +169,7 @@ class Microwave extends GameObject {
   }
 
   addIngredient(ingredient) {
-      if (!ingredient || !ingredient.type) {
+      if (!ingredient || !ingredient.name) {
           console.error("invalid ingredient added!");
           return;
       }
@@ -180,7 +180,7 @@ class Microwave extends GameObject {
   cookSideDish() {
       console.log("cooking!");
 
-      const ingredientNames = this.ingredients.map(ing => ing.type);
+      const ingredientNames = this.ingredients.map(ing => ing.name);
 
       for (let recipe of this.recipes) {
           if (recipe.ingredients.every(req => ingredientNames.includes(req)) &&

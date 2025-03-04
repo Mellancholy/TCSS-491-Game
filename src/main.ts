@@ -1,15 +1,12 @@
 import AssetManager from "./assetManager.js";
 import GameEngine from "./gameEngine.js";
-import OrderManager from "./orderManager.js";
 import SceneManager from "./sceneManager.js";
-import RollManager from "./rollManager.js";
-import CustomerManager from "./customerManager.js";
 import HUD from "./hud/hud.js";
 
 
 
 export const ASSET_MANAGER = new AssetManager();
-let sceneManage: SceneManager, orderManage: OrderManager, rollManage: RollManager, customerManage: CustomerManager;
+let sceneManage: SceneManager;
 
 // sprites
 
@@ -112,7 +109,7 @@ ASSET_MANAGER.queueDownload("./assets/sides/chicken.png");
 
 ASSET_MANAGER.downloadAll(() => {
     const gameEngine = new GameEngine({
-        debugging: false,
+        debugging: true,
     });
 
 	const canvas = document.getElementById("gameWorld") as HTMLCanvasElement;
@@ -129,13 +126,6 @@ ASSET_MANAGER.downloadAll(() => {
     sceneManage = new SceneManager(gameEngine);
 	gameEngine.addEntity(sceneManage);
     gameEngine.sceneManager = sceneManage;
-
-    orderManage = new OrderManager(gameEngine);
-    rollManage = new RollManager(gameEngine);
-    customerManage  = new CustomerManager(gameEngine);
-
-    gameEngine.addEntity(orderManage);
-    gameEngine.addEntity(rollManage)
 
 	gameEngine.addEntity(new HUD(gameEngine));
 
@@ -160,4 +150,3 @@ window.requestAnimFrame = (() => {
             window.setTimeout(callback, 1000 / 60);
         });
 })();
-export { sceneManage, orderManage, rollManage, customerManage };

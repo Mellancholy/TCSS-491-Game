@@ -28,7 +28,7 @@ export default class SceneManager {
         this.registerScene("fill", new FillThePotScene(this.game, 0, 0));
         this.registerScene("wash", new WashThatRiceScene(this.game, 0, 0));
 
-        this.loadScene("order");
+        this.loadScene("rice");
         //this.onDeload = null;
     };
 

@@ -1,8 +1,8 @@
 import Scene from '../../scene.js';
 import GameObject from '../../gameObject.js';
-import {ASSET_MANAGER, rollManage} from "../../main.js";
+import { ASSET_MANAGER } from "../../main.js";
 import { Button, DnDButton } from "../../button.js";
-import Ingredient from "../../../scenes/counter/food.js";
+import GameState from 'src/gameState.js';
 
 
 export class SidesAssemblyScene extends Scene {
@@ -262,7 +262,9 @@ class FoodTray extends GameObject {
       console.log("dropped in food tray");
       this.condiment.push(e.detail.button.food);
       console.log(e.detail.button.food);
-      rollManage.addIngredient(new Ingredient(e.detail.button.food.name));
+      const orderWorkingOn = GameState.getInstance().getState("orderWorkingOn");
+      if(!orderWorkingOn) return;
+      orderWorkingOn.ingredients.push(new Ingredient(e.detail.button.food.name));
       //e.detail.button.game.currentScene.rollButton.hidden = false;
     }
   }

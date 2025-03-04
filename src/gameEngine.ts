@@ -232,6 +232,13 @@ export default class GameEngine {
         this.draw();
     };
 
+    getSceneManager(): SceneManager {
+        if(!this.sceneManager) {
+            throw new Error("SceneManager is not initialized");
+        }
+        return this.sceneManager;
+    }
+
     getSharedData() {
         return this.sharedData;
     }

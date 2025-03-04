@@ -1,10 +1,7 @@
 
 import Scene from 'src/scene.js';
 import  Background  from "src/background.js";
-import GameObject from 'src/gameObject.js'; 
-import { ASSET_MANAGER, customerManage, orderManage } from "src/main.js";
-import Customer from './customer.js'; 
-import { Button } from "src/button.js";
+import Customer from './customer.js';
 import GameEngine from 'src/gameEngine.js';
 
 export class CounterScene extends Scene {

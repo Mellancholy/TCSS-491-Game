@@ -1,10 +1,11 @@
 import GameObject from "src/gameObject.js";
-import { ASSET_MANAGER, orderManage } from "src/main.js";
-import { Order, INGREDIENTS, WRAP, CONDIMENTS, SIDES } from "./food.js";
+import { ASSET_MANAGER } from "src/main.js";
+import { Order, FILLINGS, WRAP, CONDIMENTS, SIDES } from "./food.js";
 import { Button } from "src/button.js";
 import GameEngine from "src/gameEngine.js";
 import Scene from "src/scene.js";
 import { randomIntRange } from "src/util.js";
+import GameState from "src/gameState.js";
 
 export default class Customer extends GameObject {
     game: GameEngine;
@@ -92,8 +93,8 @@ export default class Customer extends GameObject {
         ctx.textAlign = "center";
         let yOffset = orderY
         this.order.ingredients.forEach((ingredient) => {
-            if (ingredient.type === "rice" || ingredient.type === "nori") {
-                ctx.fillText(ingredient.type, 600, orderY + yOffset);
+            if (ingredient.name === "rice" || ingredient.name === "nori") {
+                ctx.fillText(ingredient.name, 600, orderY + yOffset);
             } else {
                 const sprite = ASSET_MANAGER.getAsset(ingredient.img) as HTMLImageElement;
                 ctx.drawImage(sprite, 600 - sprite.width / 2, orderY + yOffset); // Adjust for sprite height
@@ -102,7 +103,7 @@ export default class Customer extends GameObject {
             yOffset += 30; // Increment placement upwards as index increases
         });
         this.order.sides.forEach((side) => {
-            ctx.fillText(side.type, 600, 100 + yOffset);
+            ctx.fillText(side.name, 600, 100 + yOffset);
             yOffset += 30; // Increment placement upwards as index increases
         })
         this.okButton!.hidden = false;
@@ -166,7 +167,7 @@ export default class Customer extends GameObject {
         if(!this.game.currentScene.addPersistantGameObject("okButton")) {
             this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
                 this.okButton!.hidden = true;
-                orderManage.addOrder(this.order);
+                GameState.getInstance().addOrder(this, this.order!);
             }, "OK")
             this.okButton.persistent = true;
             this.okButton.id = "okButton";
@@ -186,17 +187,16 @@ export default class Customer extends GameObject {
 
         const numWrap = randomIntRange(2, WRAP.length);
         const numIngredients = randomIntRange(1, 3);
-        const numCondiments = randomIntRange(0, CONDIMENTS.length);
         const numSides = randomIntRange(0, 1);
 
         const selectedWraps = getRandomElements(WRAP, numWrap);
-        const selectedIngredients = getRandomElements(INGREDIENTS, numIngredients);
-        const selectedCondiments = getRandomElements(CONDIMENTS, numCondiments);
+        const selectedIngredients = getRandomElements(FILLINGS, numIngredients);
+        const selectedCondiments = getRandomElements(CONDIMENTS, 1);
         const selectedSides = getRandomElements(SIDES, numSides);
 
         return new Order(
             [...selectedWraps, ...selectedIngredients],
-            [...selectedCondiments, ...selectedSides]
+            [ ...selectedSides], selectedCondiments[0]
         );
     }
 

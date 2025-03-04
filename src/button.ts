@@ -139,6 +139,14 @@ export class DnDButton extends GameObject {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
+        if(this.game.options.debugging) {
+            ctx.strokeStyle = "blue";
+            ctx.strokeRect(this.x, this.y, this.width!, this.height!);
+            if(this.image) {
+                ctx.strokeStyle = "green";
+                //ctx.strokeRect(this.x, this.y, this.image.width, this.image.height);
+            }
+        }
         if(this.transparent && !this.dragging) return;
         if(this.image) {
             if(this.dragging) {
@@ -165,6 +173,10 @@ export class DnDButton extends GameObject {
 
     onMouseDown(e: MouseEvent) {
         //console.log("mouse down dnd button");
+        if(this.x === 10) {
+            console.log("ABC")
+            console.log(e)
+        }
         if(this.image && !this.transparent) {
             if (e.x > this.x && e.x < this.x + this.image.width &&
                 e.y > this.y && e.y < this.y + this.image.height) {
@@ -172,8 +184,9 @@ export class DnDButton extends GameObject {
                     this.onClick();
             }
         } else {
-            if (e.x > this.x && e.y < this.x + this.width! &&
+            if (e.x > this.x && e.x < this.x + this.width! &&
                 e.y > this.y && e.y < this.y + this.height!) {
+                    console.log("HERE")
                     this.dragging = true;
                     this.onClick();
             }

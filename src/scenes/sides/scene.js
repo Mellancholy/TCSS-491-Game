@@ -3,6 +3,7 @@ import GameObject from '../../gameObject.js';
 import { ASSET_MANAGER } from "../../main.js";
 import { Button, DnDButton } from "../../button.js";
 import GameState from 'src/gameState.js';
+import Ingredient from "src/scenes/counter/food.js";
 
 
 export class SidesAssemblyScene extends Scene {

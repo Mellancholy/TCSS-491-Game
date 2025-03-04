@@ -98,7 +98,7 @@ ASSET_MANAGER.queueDownload("./assets/trays/tray_empty.png");
 ASSET_MANAGER.queueDownload("./assets/sides/microwaveYuh.png");
 ASSET_MANAGER.queueDownload("./assets/sides/Tofu.png");
 ASSET_MANAGER.queueDownload("./assets/sides/MisoBin.png");
-ASSET_MANAGER.queueDownload("./assets/sides/blank.png");
+ASSET_MANAGER.queueDownload("./assets/sides/greenonions.png");
 ASSET_MANAGER.queueDownload("./assets/sides/Ginger.png");
 ASSET_MANAGER.queueDownload("./assets/sides/edamame.png");
 ASSET_MANAGER.queueDownload("./assets/sides/Tray.png");

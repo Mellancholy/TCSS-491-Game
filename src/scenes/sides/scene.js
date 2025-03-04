@@ -55,7 +55,7 @@ export class SidesAssemblyScene extends Scene {
       },
       {
         name: "green onions",
-        img: "./assets/sides/blank.png"
+        img: "./assets/sides/greenonions.png"
       },
       {
         name: "chicken",
@@ -129,7 +129,7 @@ class Microwave extends GameObject {
         { name: "miso paste", img: "./assets/sides/MisoBin.png" },
         { name: "edamame", img: "./assets/sides/edamame.png" },
         { name: "tofu", img: "./assets/sides/Tofu.png" },
-        { name: "green onions", img: "./assets/sides/green_onions.png" },
+        { name: "green onions", img: "./assets/sides/greenonions.png" },
         { name: "chicken", img: "./assets/sides/chicken.png" }
     ];
 

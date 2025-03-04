@@ -39,7 +39,7 @@ export class Button extends GameObject {
     
         dnd.draw = function (ctx) {
             
-            ctx.fillStyle = "lightgray";
+            ctx.fillStyle = "pink";
             ctx.fillRect(this.x, this.y, this.width, this.height);
     
             
@@ -130,7 +130,7 @@ export class DnDButton extends GameObject {
 
     static rectButton(game: GameEngine, x: number, y: number, width: number, height: number, color: string, onClick: () => void) {
         let dnd = new DnDButton(game, x, y, onClick);
-        Object.assign(dnd, { width, height, bgColor: color });
+        Object.assign(dnd, { width, height, bgColor: color});
         return dnd;
     }
 
@@ -150,10 +150,10 @@ export class DnDButton extends GameObject {
             
         } else {
             if(this.dragging) {
-                ctx.fillStyle = this.bgColor;
+                ctx.fillStyle = this.bgColor || "gray";
                 ctx.fillRect(this.game.mouse!.x - this.width! / 2, this.game.mouse!.y - this.height! / 2, this.width!, this.height!);
             } else {
-                ctx.fillStyle = this.bgColor;
+                ctx.fillStyle = this.bgColor || "gray";
                 ctx.fillRect(this.x, this.y, this.width!, this.height!);
                 ctx.lineWidth = 2;
                 ctx.strokeStyle = "black";

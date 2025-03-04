@@ -95,7 +95,7 @@ ASSET_MANAGER.queueDownload("./assets/trays/tray_tuna.png");
 ASSET_MANAGER.queueDownload("./assets/trays/tray_uni.png");
 ASSET_MANAGER.queueDownload("./assets/trays/tray_empty.png");
 
-ASSET_MANAGER.queueDownload("./assets/sides/microwave.png");
+ASSET_MANAGER.queueDownload("./assets/sides/microwaveYuh.png");
 ASSET_MANAGER.queueDownload("./assets/sides/Tofu.png");
 ASSET_MANAGER.queueDownload("./assets/sides/MisoBin.png");
 ASSET_MANAGER.queueDownload("./assets/sides/blank.png");
@@ -108,6 +108,7 @@ ASSET_MANAGER.queueDownload("./assets/sides/Gyoza.png");
 ASSET_MANAGER.queueDownload("./assets/sides/MisoSoup.png");
 ASSET_MANAGER.queueDownload("./assets/sides/Karaage.png");
 ASSET_MANAGER.queueDownload("./assets/sides/chicken.png");
+ASSET_MANAGER.queueDownload("./assets/sides/cookedEdamame.png");
 
 
 ASSET_MANAGER.downloadAll(() => {

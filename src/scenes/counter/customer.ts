@@ -107,7 +107,6 @@ export default class Customer extends GameObject {
             ctx.fillText(side.name, 600, 100 + yOffset);
             yOffset += 30; // Increment placement upwards as index increases
         })
-        this.okButton!.hidden = false;
     }
 
     async walkTo(x: number, y: number) {
@@ -167,7 +166,10 @@ export default class Customer extends GameObject {
         }
         if(!this.game.currentScene.addPersistantGameObject("okButton")) {
             this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
-                this.okButton!.hidden = true;
+                if(!this.okButton) return;
+                console.log("OK button pressed");
+                console.log(this.okButton);
+                this.okButton.hidden = true;
                 GameState.getInstance().addOrder(this, this.order!);
             }, "OK")
             this.okButton.persistent = true;
@@ -210,6 +212,7 @@ export default class Customer extends GameObject {
         if (this.state === "waiting") {
             if (e.x > this.x && e.x < this.x + this.width && e.y > this.y && e.y < this.y + this.height) {
                 this.displayOrder();
+                this.okButton!.hidden = false;
                 this.state = "order";
             }
         }

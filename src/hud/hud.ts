@@ -84,7 +84,7 @@ class OrderDisplay extends GameObject {
         this.x = 0
         this.y = 0;
         this.width = 1024;
-        this.height = 60;
+        this.height = 50;
         this.zIndex = 100;
         this.state = "collapsed";
     }
@@ -96,7 +96,7 @@ class OrderDisplay extends GameObject {
     update() {
         switch (this.game.getHUD().state) {
             case "main":
-                if(this.game.mouse && this.pointInRect(this.game.mouse.x, this.game.mouse.y)) {
+                if (this.game.mouse && this.pointInRect(this.game.mouse.x, this.game.mouse.y)) {
                     this.state = "expanded";
                 } else {
                     this.state = "collapsed";
@@ -130,7 +130,7 @@ class OrderDisplay extends GameObject {
                     ctx.fillStyle = "black";
                     ctx.strokeRect(orderX, orderY, 200, 20);
                 }
-                if(this.state !== "expanded") return;
+                if (this.state !== "expanded") return;
                 for (let i = 0; i < orders.length; i++) {
                     const order = orders[i].order;
                     const orderX = this.x + 10 + 210 * i;
@@ -143,7 +143,7 @@ class OrderDisplay extends GameObject {
                     ctx.font = "20px Arial";
                     ctx.textAlign = "center";
                     let yOffset = orderY + 10
-                    let centerX = orderX + ((200 * (i+1)) / 2)
+                    let centerX = orderX + ((200 * (i + 1)) / 2)
                     order.ingredients.forEach((ingredient: Ingredient) => {
                         if (ingredient.name === "rice" || ingredient.name === "nori") {
                             ctx.fillText(ingredient.name, centerX, orderY + yOffset);

@@ -1,8 +1,7 @@
-
-import Scene from 'src/scene.js';
 import  Background  from "src/background.js";
 import Customer from './customer.js';
 import GameEngine from 'src/gameEngine.js';
+import Scene from 'src/scene.js';
 
 export class CounterScene extends Scene {
     game: GameEngine;

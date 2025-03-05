@@ -1,3 +1,8 @@
+import GameEngine from "./gameEngine.js";
+import Scene from "./scene.js";
+
+// Scene Imports
+import { TitleScene } from "./scenes/title/scene.js";
 import { WashThatRiceScene } from "./scenes/washThatRice/scene.js";
 import { DontBurnRiceScene } from "./scenes/dontBurnRice/scene.js";
 import { FillThePotScene } from "./scenes/fillThePot/scene.js";
@@ -5,8 +10,6 @@ import SwatTheFliesScene from "./scenes/swatTheFlies/scene.js";
 import { CounterScene } from "./scenes/counter/scene.js";
 import { RiceStationScene } from "./scenes/riceStation/scene.js";
 import { RiceAssemblyScene } from "./scenes/assembly/scene.js";
-import GameEngine from "./gameEngine.js";
-import Scene from "./scene.js";
 import { SidesAssemblyScene } from "./scenes/sides/scene.js";
 
 export default class SceneManager {
@@ -19,6 +22,8 @@ export default class SceneManager {
         this.scenes = {};
         this.currentScene = null;
 
+        this.registerScene("title", new TitleScene(this.game, 0, 0));
+
         this.registerScene("order", new CounterScene(this.game, 0, 0));
         this.registerScene("rice", new RiceStationScene(this.game));
         this.registerScene("roll", new RiceAssemblyScene(this.game));
@@ -28,7 +33,7 @@ export default class SceneManager {
         this.registerScene("fill", new FillThePotScene(this.game, 0, 0));
         this.registerScene("wash", new WashThatRiceScene(this.game, 0, 0));
 
-        this.loadScene("rice");
+        this.loadScene("title");
         //this.onDeload = null;
     };
 

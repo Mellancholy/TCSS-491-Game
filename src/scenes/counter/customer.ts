@@ -33,7 +33,7 @@ export default class Customer extends GameObject {
         this.state = "init"
         this.order = null;
         this.addButton();
-        ASSET_MANAGER.playAsset('./assets/sounds/doorchime.mp3')
+        ASSET_MANAGER.playAsset('./assets/sounds/doorchime.mp3');
         console.log("Customer created");
     };
 

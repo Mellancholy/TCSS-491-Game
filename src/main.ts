@@ -6,7 +6,7 @@ import HUD from "./hud/hud.js";
 
 
 export const ASSET_MANAGER = new AssetManager();
-let sceneManage: SceneManager;
+export let sceneManage: SceneManager;
 
 // sprites
 
@@ -17,6 +17,7 @@ ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Background.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Order_Foreground.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Station_Background.png");
 ASSET_MANAGER.queueDownload("./assets/backgrounds/Minigame_Background.png");
+ASSET_MANAGER.queueDownload("./assets/backgrounds/Title_Background.png");
 
 // rice station
 ASSET_MANAGER.queueDownload("./assets/objects/RiceCooker.png");
@@ -31,6 +32,7 @@ ASSET_MANAGER.queueDownload("./assets/button/Rice_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Roll_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Side_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Order_Button.JPG");
+ASSET_MANAGER.queueDownload("./assets/button/Start_Button.png");
 
 //sushi assembly
 ASSET_MANAGER.queueDownload("./assets/assembly/case.jpg");
@@ -107,6 +109,7 @@ ASSET_MANAGER.queueDownload("./assets/sides/chicken.png");
 // SOUNDS
 ASSET_MANAGER.queueDownload('./assets/sounds/jingle.mp3');
 ASSET_MANAGER.queueDownload('./assets/sounds/doorchime.mp3');
+ASSET_MANAGER.queueDownload('./assets/sounds/background_music.mp3');
 
 
 ASSET_MANAGER.downloadAll(() => {
@@ -130,6 +133,10 @@ ASSET_MANAGER.downloadAll(() => {
     gameEngine.sceneManager = sceneManage;
 
 	gameEngine.addEntity(new HUD(gameEngine));
+
+    // this won't play because of autoplay
+    // ASSET_MANAGER.playAsset('./assets/sounds/background_music.mp3');
+    
 
 	gameEngine.start();
 

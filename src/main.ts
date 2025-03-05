@@ -128,11 +128,13 @@ ASSET_MANAGER.downloadAll(() => {
 
 	gameEngine.init(ctx);
 
+    let hud = new HUD(gameEngine);
+    gameEngine.addEntity(hud);
+    gameEngine.hud = hud;
+
     sceneManage = new SceneManager(gameEngine);
 	gameEngine.addEntity(sceneManage);
     gameEngine.sceneManager = sceneManage;
-
-	gameEngine.addEntity(new HUD(gameEngine));
 
     // this won't play because of autoplay
     // ASSET_MANAGER.playAsset('./assets/sounds/background_music.mp3');

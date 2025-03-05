@@ -3,6 +3,7 @@ import Faucet from "./scenes/fillThePot/faucet.js";
 import SceneManager from "./sceneManager.js";
 import Scene from "./scene.js";
 import GameObject from "./gameObject.js";
+import HUD from "./hud/hud.js";
 
 
 // This game shell was happily modified from Googler Seth Ladd's "Bad Aliens" game and his Google IO talk in 2011
@@ -24,6 +25,7 @@ export default class GameEngine {
     options: { debugging: boolean };
     sceneManager: SceneManager | null;
     currentScene: Scene | null;
+    hud: HUD | null;
     sharedData: {[key: string]: any};
     timer: Timer | undefined;
     running: boolean | undefined;
@@ -60,6 +62,7 @@ export default class GameEngine {
 
         this.sceneManager = null;
         this.currentScene = null;
+        this.hud = null;
         this.sharedData = {};
     };
 
@@ -238,6 +241,13 @@ export default class GameEngine {
             throw new Error("SceneManager is not initialized");
         }
         return this.sceneManager;
+    }
+
+    getHUD(): HUD {
+        if(!this.hud) {
+            throw new Error("HUD is not initialized");
+        }
+        return this.hud;
     }
 
     getSharedData() {

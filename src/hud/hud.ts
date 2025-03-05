@@ -54,4 +54,8 @@ export default class HUD {
     draw(ctx: CanvasRenderingContext2D) {
         
     }
+
+    setState(state: string) {
+        this.state = state;
+    }
 }

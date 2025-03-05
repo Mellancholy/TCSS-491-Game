@@ -25,6 +25,7 @@ export class TitleScene extends Scene {
             sceneManage.loadScene("order");
         })
         this.addGameObject(this.startButton);
+        this.game.getHUD().setState("hidden");
     }
 
 }

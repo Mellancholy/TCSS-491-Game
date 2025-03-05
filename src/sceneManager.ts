@@ -57,6 +57,7 @@ export default class SceneManager {
         this.currentScene = scene;
         this.game.currentScene = this.scenes[scene];
         
+        this.game.getHUD().setState("main");
         this.scenes[scene].initalizeScene();
     };
 

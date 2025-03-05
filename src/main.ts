@@ -114,7 +114,7 @@ ASSET_MANAGER.queueDownload('./assets/sounds/background_music.mp3');
 
 ASSET_MANAGER.downloadAll(() => {
     const gameEngine = new GameEngine({
-        debugging: true,
+        debugging: false,
     });
 
 	const canvas = document.getElementById("gameWorld") as HTMLCanvasElement;

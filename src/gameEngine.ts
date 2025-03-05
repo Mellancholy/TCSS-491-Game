@@ -31,6 +31,7 @@ export default class GameEngine {
     running: boolean | undefined;
     rightclick: { x: number; y: number; } | undefined;
     clockTick: number | undefined;
+    canvas: HTMLCanvasElement = document.getElementById("gameWorld") as HTMLCanvasElement;
 
 
     constructor(options: { debugging: boolean } | null) {
@@ -199,6 +200,8 @@ export default class GameEngine {
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx!.clearRect(0, 0, this.ctx!.canvas.width, this.ctx!.canvas.height);
+
+        this.canvas.style.cursor = "auto";
 
         // Draw the entities in order
         for (let i = 0; i < this.entities.length; i++) {

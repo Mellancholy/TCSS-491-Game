@@ -45,46 +45,46 @@ export class SidesAssemblyScene extends Scene {
       this.addGameObject(new DraggableObject(this.game, item, item.x, item.y, 80, 80));
     })
     
-    const ingredients = [
-      {
-        name: "miso paste",
-        img: "./assets/sides/MisoBin.png"
-      },
-      {
-        name: "tofu",
-        img: "./assets/sides/Tofu.png"
-      },
-      {
-        name: "green onions",
-        img: "./assets/sides/greenonions.png"
-      },
-      {
-        name: "chicken",
-        img: "./assets/sides/blank.png"
-      },
-      {
-        name: "edamame",
-        img: "./assets/sides/blank.png"
-      }
-    ]
-    const sides = [
-      {
-        name: "karaage",
-        img: "./assets/sides/Karaage.png"
-      },
-      {
-        name: "miso soup",
-        img: "./assets/sides/MisoSoup.png"
-      },
-      {
-        name: "gyoza",
-        img: "./assets/sides/Gyoza.png"
-      },
-      {
-        name: "edamame",
-        img: "./assets/sides/blank.png"
-      }
-    ]
+    // const ingredients = [
+    //   {
+    //     name: "miso paste",
+    //     img: "./assets/sides/MisoBin.png"
+    //   },
+    //   {
+    //     name: "tofu",
+    //     img: "./assets/sides/Tofu.png"
+    //   },
+    //   {
+    //     name: "green onions",
+    //     img: "./assets/sides/greenonions.png"
+    //   },
+    //   {
+    //     name: "chicken",
+    //     img: "./assets/sides/blank.png"
+    //   },
+    //   {
+    //     name: "edamame",
+    //     img: "./assets/sides/blank.png"
+    //   }
+    // ]
+    // const sides = [
+    //   {
+    //     name: "karaage",
+    //     img: "./assets/sides/Karaage.png"
+    //   },
+    //   {
+    //     name: "miso soup",
+    //     img: "./assets/sides/MisoSoup.png"
+    //   },
+    //   {
+    //     name: "gyoza",
+    //     img: "./assets/sides/Gyoza.png"
+    //   },
+    //   {
+    //     name: "edamame",
+    //     img: "./assets/sides/blank.png"
+    //   }
+    // ]
   }
 }
 
@@ -195,7 +195,15 @@ class Microwave extends GameObject {
 
                 console.log(`${recipe.name} created`);
 
-                this.cookedSide = { name: recipe.name, img: recipe.img };
+                this.cookedSide = new DraggableObject(
+                    this.game,
+                    { name: recipe.name, img: recipe.img },
+                    317,
+                    100,
+                    100,
+                    100
+                );
+                this.game.currentScene.addGameObject(this.cookedSide);
                 this.ingredients = []; // clears microwave after cooking
 
                 return;

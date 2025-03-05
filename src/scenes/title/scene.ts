@@ -21,7 +21,7 @@ export class TitleScene extends Scene {
     initalizeScene() { 
         this.addGameObject(new Background(this.game, "./assets/backgrounds/Title_Background.png"));  
         this.startButton = Button.imageButton(this.game, 426, 400, "./assets/button/Start_Button.png", () => {
-            ASSET_MANAGER.playAsset('./assets/sounds/background_music.mp3');
+            ASSET_MANAGER.playBackgroundMusic('./assets/sounds/background_music.mp3');
             sceneManage.loadScene("order");
         })
         this.addGameObject(this.startButton);

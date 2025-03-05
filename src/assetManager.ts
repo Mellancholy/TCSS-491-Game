@@ -84,16 +84,39 @@ export default class AssetManager {
 
     playAsset(path: string) {
         let audio = this.cache[path] as HTMLAudioElement;
-        if (audio.currentTime != 0) {
-            let bak = audio.cloneNode() as HTMLAudioElement;
-            bak.currentTime = 0;
-            bak.volume = audio.volume;
-            bak.play();
-        } else {
-            audio.currentTime = 0;
-            audio.play();
+        if (!audio) {
+            console.error(`Audio asset not found: ${path}`);
+            return;
         }
+    
+        if (audio.loop) {
+            // If this is the background music, don't clone it, just ensure it's playing
+            if (audio.paused) {
+                audio.play().catch(err => console.warn("Autoplay blocked:", err));
+            }
+            return;
+        }
+
+        // Clone sound effect for multiple overlapping plays
+        let clone = audio.cloneNode() as HTMLAudioElement;
+        clone.currentTime = 0;
+        clone.volume = audio.volume;
+        clone.play();
     };
+
+    playBackgroundMusic(path: string) {
+        let bgm = this.cache[path] as HTMLAudioElement;
+        if (!bgm) {
+            console.error(`Background music not found: ${path}`);
+            return;
+        }
+        bgm.loop = true; // Ensure looping
+        if (bgm.paused) {
+            bgm.currentTime = 0; // Start from the beginning if it was paused
+            bgm.play().catch(err => console.warn("Autoplay blocked:", err));
+        }
+    }
+    
 
     muteAudio(mute: boolean) {
         for (var key in this.cache) {

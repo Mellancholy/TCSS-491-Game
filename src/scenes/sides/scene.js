@@ -10,6 +10,7 @@ export class SidesAssemblyScene extends Scene {
   constructor(game, x, y) {
     super(game);
     Object.assign(this, { game, x, y });
+    this.foodMessage = null;
   };
 
   initalizeScene() {
@@ -150,7 +151,8 @@ class Microwave extends GameObject {
                 buttonSize, buttonSize,
                 ingredient.img,
                 () => {
-                    console.log(`✅ Clicked ${ingredient.name}`);
+                    console.log(`Clicked ${ingredient.name}`);
+                    this.foodMessage = `${ingredient.name} added!`;
                     this.addIngredient(new Ingredient(ingredient.name));
                 }
             );
@@ -194,6 +196,8 @@ class Microwave extends GameObject {
                 ingredientNames.length === recipe.ingredients.length) {
 
                 console.log(`${recipe.name} created`);
+                this.foodMessage = `${recipe.name} created!`;
+                console.log(this.foodMessage);
 
                 this.cookedSide = new DraggableObject(
                     this.game,
@@ -203,6 +207,7 @@ class Microwave extends GameObject {
                     100,
                     100
                 );
+  
                 this.game.currentScene.addGameObject(this.cookedSide);
                 this.ingredients = []; // clears microwave after cooking
 
@@ -211,6 +216,8 @@ class Microwave extends GameObject {
         }
 
         console.log("not matching recipe");
+        this.foodMessage = `No matching recipe!`;
+        console.log(this.foodMessage);
         this.ingredients = [];
     }
 
@@ -232,6 +239,12 @@ class Microwave extends GameObject {
                 console.warn(` no image for ${this.cookedSide.name}`);
             }
         }
+        if (this.foodMessage) {  // Only draw if there’s a message
+          ctx.fillStyle = "white";
+          ctx.font = "20px Arial";
+          ctx.textAlign = "center";
+          ctx.fillText(this.foodMessage, 675, 47);
+       }       
     }
 }
 

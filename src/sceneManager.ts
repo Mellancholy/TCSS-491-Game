@@ -16,11 +16,13 @@ export default class SceneManager {
     game: GameEngine;
     scenes: { [key: string]: Scene };
     currentScene: string | null;
+    zIndex: number;
 
     constructor(game: GameEngine){
         this.game = game;
         this.scenes = {};
         this.currentScene = null;
+        this.zIndex = -1;
 
         this.registerScene("title", new TitleScene(this.game, 0, 0));
 

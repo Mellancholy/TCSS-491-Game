@@ -1,15 +1,21 @@
+import GameObject from "src/gameObject.js";
 import { Button } from "../button.js";
 import GameEngine from "../gameEngine.js";
+import GameState from "src/gameState.js";
+import Ingredient, { CONDIMENTS, WRAP } from "src/scenes/counter/food.js";
+import { ASSET_MANAGER } from "src/main.js";
 
-export default class HUD {
+export default class HUD extends GameObject {
     game: GameEngine;
     state: string;
     orderButton: Button;
     riceButton: Button;
     rollButton: Button;
     sidesButton: Button;
+    orderDisplay: OrderDisplay;
 
     constructor(game: GameEngine) {
+        super(game)
         this.game = game;
         this.state = "main";
 
@@ -22,17 +28,21 @@ export default class HUD {
         game.addEntity(this.riceButton);
         game.addEntity(this.rollButton);
         game.addEntity(this.sidesButton);
+
+        this.orderDisplay = new OrderDisplay(game);
+        game.addEntity(this.orderDisplay);
+
     }
 
     loadSceneCallback(scene: string) {
-        if(!this.game.sceneManager) {
+        if (!this.game.sceneManager) {
             throw new Error("SceneManager is not initialized");
         }
         this.game.sceneManager.loadScene(scene);
     }
 
     update() {
-        switch(this.state) {
+        switch (this.state) {
             case "main":
                 this.orderButton.hidden = false;
                 this.riceButton.hidden = false;
@@ -52,10 +62,86 @@ export default class HUD {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        
+
     }
 
     setState(state: string) {
         this.state = state;
+    }
+}
+
+class OrderDisplay extends GameObject {
+    game: GameEngine;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+
+    constructor(game: GameEngine) {
+        super(game, "orderDisplay", true);
+        this.game = game;
+        this.x = 0
+        this.y = 0;
+        this.width = 1024;
+        this.height = 60;
+        this.zIndex = 100;
+    }
+
+    update() {
+        switch (this.game.getHUD().state) {
+            case "main":
+                break;
+            case "hidden":
+                break;
+            default:
+                break;
+        }
+    }
+
+    draw(ctx: CanvasRenderingContext2D) {
+        switch (this.game.getHUD().state) {
+            case "main":
+                if (this.game.options.debugging) {
+                    ctx.fillStyle = "black";
+                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                }
+                ctx.globalAlpha = 0.5; // Set transparency (0.0 = fully transparent, 1.0 = fully opaque)
+                ctx.fillStyle = "gray"; // Fill color
+                ctx.fillRect(this.x, this.y, this.width, this.height); // Draw rectangle
+                ctx.globalAlpha = 1.0; // Reset transparency
+                const orders = GameState.getInstance().getState("orders");
+                for (let i = 0; i < orders.length; i++) {
+                    const order = orders[i].order;
+                    const orderX = this.x + 10 + 210 * i;
+                    const orderY = this.y
+                    const length = (WRAP.length + 3 + CONDIMENTS.length + 1) * 40
+                    ctx.fillStyle = "white";
+                    ctx.fillRect(orderX, orderY, 200, length);
+                    ctx.fillStyle = "black";
+                    ctx.strokeRect(orderX, orderY, 200, length);
+                    ctx.font = "20px Arial";
+                    ctx.textAlign = "center";
+                    let yOffset = orderY + 10
+                    order.ingredients.forEach((ingredient: Ingredient) => {
+                        if (ingredient.name === "rice" || ingredient.name === "nori") {
+                            ctx.fillText(ingredient.name, orderX + ((200 * (i+1)) / 2), orderY + yOffset);
+                        } else {
+                            const sprite = ASSET_MANAGER.getAsset(ingredient.img) as HTMLImageElement;
+                            ctx.drawImage(sprite, orderX + ((200 * (i+1)) / 2) - sprite.width / 2, orderY + yOffset); // Adjust for sprite height
+                            yOffset += sprite.height;
+                        }
+                        yOffset += 30; // Increment placement upwards as index increases
+                    });
+                    order.sides.forEach((side) => {
+                        ctx.fillText(side.name, 600, 100 + yOffset);
+                        yOffset += 30; // Increment placement upwards as index increases
+                    })
+                }
+                break;
+            case "hidden":
+                break;
+            default:
+                break;
+        }
     }
 }

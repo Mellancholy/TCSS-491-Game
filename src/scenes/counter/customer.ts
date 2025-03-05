@@ -44,15 +44,17 @@ export default class Customer extends GameObject {
                 let npc = this;
                 async function startWalk() {
                     await npc.walkTo(100, 100);
-                    npc.state = "waiting";
+                    npc.state = "waitingToOrder";
                 }
                 startWalk();
                 break;
             case "walking":
                 break;
-            case "waiting":
+            case "waitingToOrder":
                 break;
             case "order":
+                break;
+            case "waitingToEat":
                 break;
             default:
                 break;
@@ -70,11 +72,13 @@ export default class Customer extends GameObject {
                 break;
             case "walking":
                 break;
-            case "waiting":
+            case "waitingToOrder":
                 ctx.drawImage(this.exclamationSprite, this.x + (this.spritesheet.width / 2) - (this.exclamationSprite.width / 2) - 10, this.y - 30, 100, 100);
                 break;
             case "order":
                 this.drawOrder(ctx);
+                break;
+            case "waitingToEat":
                 break;
             default:
                 break;
@@ -171,6 +175,7 @@ export default class Customer extends GameObject {
                 console.log(this.okButton);
                 this.okButton.hidden = true;
                 GameState.getInstance().addOrder(this, this.order!);
+                this.state = "waitingToEat";
             }, "OK")
             this.okButton.persistent = true;
             this.okButton.id = "okButton";
@@ -209,7 +214,7 @@ export default class Customer extends GameObject {
     }
 
     onMouseDown(e: MouseEvent): void {
-        if (this.state === "waiting") {
+        if (this.state === "waitingToOrder") {
             if (e.x > this.x && e.x < this.x + this.width && e.y > this.y && e.y < this.y + this.height) {
                 this.displayOrder();
                 this.okButton!.hidden = false;

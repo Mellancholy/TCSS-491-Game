@@ -6,6 +6,7 @@ export default class GameObject {
     persistent: boolean = false;
     removeFromWorld: boolean = false;
     hidden: boolean | undefined = false;
+    zIndex: number = 0;
     [key: string]: any;
 
     constructor(game: GameEngine, id: string = "", persistent: boolean = false) {

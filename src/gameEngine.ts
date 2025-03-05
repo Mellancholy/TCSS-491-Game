@@ -209,6 +209,10 @@ export default class GameEngine {
     update() {
         // console.log(this.entities);
         let entitiesCount = this.entities.length;
+
+        // Sort entities based on their zIndex property
+        this.entities.sort((a, b) => a.zIndex - b.zIndex);
+
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
 

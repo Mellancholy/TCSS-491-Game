@@ -145,6 +145,7 @@ class BambooMat extends GameObject {
     x: number;
     y: number;
     spritesheet: HTMLImageElement;
+    sliding: boolean;;
 
     constructor(game: GameEngine, x: number, y: number) {
         super(game);
@@ -152,6 +153,7 @@ class BambooMat extends GameObject {
         this.x = x;
         this.y = y
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png") as HTMLImageElement;
+        this.sliding = false;
     };
 
     update() {
@@ -171,6 +173,20 @@ class BambooMat extends GameObject {
             ctx.drawImage(img, this.x, this.y);
             // ctx.drawImage(img, centerX - (img.width / 2) + element.xOffset, centerY - (img.height / 2) + element.yOffset, img.width, img.height);
         });
+
+        if (this.sliding) return;
+        if (orderWorkingOn.ingredients.length == 2) {
+            setTimeout(() => {
+                setInterval(() => {
+                    this.x += 10
+                    if(this.x > 1024) {
+                        this.removeFromWorld = true
+                    }
+                }, 10)
+            }, 1000)
+            this.sliding = true
+            return;    
+        }
     };
 
     onDnDDrop(e: CustomEvent) {

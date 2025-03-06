@@ -160,11 +160,6 @@ class FoodBottom extends GameObject {
         if(!currentOrder) return;
         if (currentOrder?.ingredients.length > 0) {
             if(this.cut) {
-                ctx.fillStyle = "green";
-                // const cutWidth = (this.width - 50) / 6
-                // for(let i = 0; i < 6; i++) {
-                //     ctx.fillRect(this.x - 5 + ((cutWidth + 5) * i), this.y + 100, cutWidth, ROLLED_HEIGHT); 
-                // }
                 const img = ASSET_MANAGER.getAsset("./assets/objects/Roll_Cut.png") as HTMLImageElement;
                 ctx.drawImage(img, this.rollx, 100);
                 if(this.sliding) return;

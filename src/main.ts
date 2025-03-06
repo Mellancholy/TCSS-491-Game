@@ -37,6 +37,8 @@ ASSET_MANAGER.queueDownload("./assets/button/Start_Button.png");
 //sushi assembly
 ASSET_MANAGER.queueDownload("./assets/assembly/case.jpg");
 ASSET_MANAGER.queueDownload("./assets/assembly/tray.jpg");
+ASSET_MANAGER.queueDownload("./assets/objects/Roll.png");
+ASSET_MANAGER.queueDownload("./assets/objects/Roll_Cut.png");
 
 //Wash that rice
 ASSET_MANAGER.queueDownload('./assets/hand.png');

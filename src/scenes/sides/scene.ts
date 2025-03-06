@@ -54,47 +54,7 @@ export class SidesAssemblyScene extends Scene {
     condiments.forEach(item => {
       this.addGameObject(new DraggableObject(this.game, item, item.x, item.y, 80, 80));
     })
-    
-    // const ingredients = [
-    //   {
-    //     name: "miso paste",
-    //     img: "./assets/sides/MisoBin.png"
-    //   },
-    //   {
-    //     name: "tofu",
-    //     img: "./assets/sides/Tofu.png"
-    //   },
-    //   {
-    //     name: "green onions",
-    //     img: "./assets/sides/greenonions.png"
-    //   },
-    //   {
-    //     name: "chicken",
-    //     img: "./assets/sides/blank.png"
-    //   },
-    //   {
-    //     name: "edamame",
-    //     img: "./assets/sides/blank.png"
-    //   }
-    // ]
-    // const sides = [
-    //   {
-    //     name: "karaage",
-    //     img: "./assets/sides/Karaage.png"
-    //   },
-    //   {
-    //     name: "miso soup",
-    //     img: "./assets/sides/MisoSoup.png"
-    //   },
-    //   {
-    //     name: "gyoza",
-    //     img: "./assets/sides/Gyoza.png"
-    //   },
-    //   {
-    //     name: "edamame",
-    //     img: "./assets/sides/blank.png"
-    //   }
-    // ]
+  
   }
 }
 
@@ -323,7 +283,14 @@ class FoodTray extends GameObject {
     );
 
     ctx.restore();
-
+    let currentOrder = GameState.getInstance().getState('orderWorkingOn');
+    if (currentOrder && currentOrder?.ingredients.length > 0) {
+      ctx.fillStyle = "green";
+                const cutWidth = (this.width - 50) / 6
+                for(let i = 0; i < 6; i++) {
+                    ctx.fillRect(this.x - 5 + ((cutWidth + 5) * i), this.y + 100, cutWidth, 75); 
+                }
+    }
 
   };
 

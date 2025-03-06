@@ -1,9 +1,9 @@
 import Background from 'src/background.js';
 import Scene from 'src/scene.js';
-import GameObject from 'src/gameObject.js';
 import { ASSET_MANAGER } from "src/main.js";
 import { Button, DnDButton } from "src/button.js";
-import Ingredient, { FILLINGS } from "src/scenes/counter/food.js";
+import { FILLINGS } from "src/scenes/counter/food.js";
+import GameObject from 'src/gameObject.js';
 import GameEngine from 'src/gameEngine';
 import GameState from 'src/gameState';
 
@@ -129,6 +129,7 @@ class FoodBottom extends GameObject {
         this.chops = 0;
         this.cut = false;
         this.sliding = false;
+        this.rollx = 0;
     };
 
     update() {
@@ -160,15 +161,17 @@ class FoodBottom extends GameObject {
         if (currentOrder?.ingredients.length > 0) {
             if(this.cut) {
                 ctx.fillStyle = "green";
-                const cutWidth = (this.width - 50) / 6
-                for(let i = 0; i < 6; i++) {
-                    ctx.fillRect(this.x - 5 + ((cutWidth + 5) * i), this.y + 100, cutWidth, ROLLED_HEIGHT); 
-                }
+                // const cutWidth = (this.width - 50) / 6
+                // for(let i = 0; i < 6; i++) {
+                //     ctx.fillRect(this.x - 5 + ((cutWidth + 5) * i), this.y + 100, cutWidth, ROLLED_HEIGHT); 
+                // }
+                const img = ASSET_MANAGER.getAsset("./assets/objects/Roll_Cut.png") as HTMLImageElement;
+                ctx.drawImage(img, this.rollx, 100);
                 if(this.sliding) return;
                 setTimeout(() => {
                     setInterval(() => {
-                        this.x += 10
-                        if(this.x > 1024) {
+                        this.rollx += 10
+                        if(this.rollx > 1024) {
                             this.removeFromWorld = true
                         }
                     }, 10)
@@ -177,8 +180,8 @@ class FoodBottom extends GameObject {
                 return;    
             }
             if(this.rolled) {
-                ctx.fillStyle = "green";
-                ctx.fillRect(this.x, this.y + 100, this.width - 50, ROLLED_HEIGHT);
+                const img = ASSET_MANAGER.getAsset("./assets/objects/Roll.png") as HTMLImageElement;
+                ctx.drawImage(img, 0, 100);
                 if(this.game.down) {
                     ctx.beginPath()
                     this.game.previousMousePositions.forEach((pos: { x: number; y: number; }, index: number) => {

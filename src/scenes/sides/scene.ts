@@ -4,12 +4,21 @@ import { ASSET_MANAGER } from "../../main.js";
 import { Button, DnDButton } from "../../button.js";
 import GameState from 'src/gameState.js';
 import Ingredient from "src/scenes/counter/food.js";
+import GameEngine from 'src/gameEngine.js';
 
 
 export class SidesAssemblyScene extends Scene {
-  constructor(game, x, y) {
+  game: GameEngine;
+  x: number;
+  y: number;
+  foodMessage: string | null;
+  microwave: undefined | Microwave;
+
+  constructor(game: GameEngine, x: number, y: number) {
     super(game);
-    Object.assign(this, { game, x, y });
+    this.game = game;
+    this.x = x;
+    this.y = y;
     this.foodMessage = null;
   };
 
@@ -90,23 +99,45 @@ export class SidesAssemblyScene extends Scene {
 }
 
 class Background extends GameObject {
-  constructor(game) {
+  game: GameEngine;
+  sprite: HTMLImageElement;
+
+  constructor(game: GameEngine) {
       super(game);
-      Object.assign(this, { game });
+      this.game = game;
+      this.sprite = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png") as HTMLImageElement;
   }
 
   update() {}
 
-  draw(ctx) {
-      ctx.drawImage(ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png"), 0, 0, 1024, 683);
+  draw(ctx: CanvasRenderingContext2D) {
+      ctx.drawImage(this.sprite, 0, 0, 1024, 683);
   }
 }
 
 class Microwave extends GameObject {
-    constructor(game, x, y, width, height) {
-        super(game);
-        Object.assign(this, { game, x, y, width, height, ingredientButtons: [], ingredients: [], cookedSide: null });
+    game: GameEngine;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    recipes: {
+        name: string;
+        ingredients: string[];
+        img: string;
+    }[]
+    cookButton: Button | null;
+    ingredientButtons: Button[] | undefined;
+    ingredients: Ingredient[] = [];
+    microwaveSprite: HTMLImageElement;
 
+    constructor(game: GameEngine, x: number, y: number, width: number, height: number) {
+        super(game);
+        this.game = game;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
         this.recipes = [
             { name: "Miso Soup", ingredients: ["miso paste", "tofu", "green onions"], img: "./assets/sides/MisoSoup.png" },
             { name: "Edamame", ingredients: ["edamame"], img: "./assets/sides/cookedEdamame.png" },
@@ -115,6 +146,8 @@ class Microwave extends GameObject {
         ];
 
         this.cookButton = null;
+
+        this.microwaveSprite = ASSET_MANAGER.getAsset("./assets/sides/microwaveYuh.png") as HTMLImageElement;
     }
 
     addButtons() {
@@ -158,7 +191,7 @@ class Microwave extends GameObject {
             );
 
             this.ingredientButtons.push(inButton);
-            this.game.currentScene.addGameObject(inButton);
+            this.game.currentScene!.addGameObject(inButton);
         }
 
         const cookButtonX = 687;
@@ -174,10 +207,10 @@ class Microwave extends GameObject {
         );
 
         this.cookButton.disabled = true;
-        this.game.currentScene.addGameObject(this.cookButton);
+        this.game.currentScene!.addGameObject(this.cookButton);
     }
 
-    addIngredient(ingredient) {
+    addIngredient(ingredient: Ingredient) {
         if (!ingredient || !ingredient.name) {
             console.error("invalid ingredient added!");
             return;
@@ -189,7 +222,7 @@ class Microwave extends GameObject {
     cookSideDish() {
         console.log("cooking!");
 
-        const ingredientNames = this.ingredients.map(ing => ing.name);
+        const ingredientNames = this.ingredients.map((ing: Ingredient) => ing.name);
 
         for (let recipe of this.recipes) {
             if (recipe.ingredients.every(req => ingredientNames.includes(req)) &&
@@ -208,7 +241,7 @@ class Microwave extends GameObject {
                     100
                 );
   
-                this.game.currentScene.addGameObject(this.cookedSide);
+                this.game.currentScene!.addGameObject(this.cookedSide);
                 this.ingredients = []; // clears microwave after cooking
 
                 return;
@@ -227,12 +260,11 @@ class Microwave extends GameObject {
         }
     }
 
-    draw(ctx) {
-        const image = ASSET_MANAGER.getAsset("./assets/sides/microwaveYuh.png");
-        ctx.drawImage(image, this.x, this.y, this.width, this.height);
+    draw(ctx: CanvasRenderingContext2D) {
+        ctx.drawImage(this.microwaveSprite, this.x, this.y, this.width, this.height);
 
         if (this.cookedSide && this.cookedSide.img) {
-            const cookedImage = ASSET_MANAGER.getAsset(this.cookedSide.img);
+            const cookedImage = ASSET_MANAGER.getAsset(this.cookedSide.img) as HTMLImageElement;
             if (cookedImage) {
                 ctx.drawImage(cookedImage, 317, 100, 100, 100);
             } else {
@@ -249,18 +281,30 @@ class Microwave extends GameObject {
 }
 
 class FoodTray extends GameObject {
-  constructor(game, x, y, width, height) {
+  game: GameEngine;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  condiment: { name: string, img: string }[];
+
+  constructor(game: GameEngine, x: number, y: number, width: number, height: number) {
     super(game);
-    Object.assign(this, { game, x, y, width, height, condiment: [] });
+    this.game = game;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.condiment = [];
   };
 
   update() {};
 
-  draw(ctx) {
-    ctx.drawImage(ASSET_MANAGER.getAsset("./assets/sides/Tray.png"), this.x, this.y, this.width, this.height);
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.drawImage(ASSET_MANAGER.getAsset("./assets/sides/Tray.png") as HTMLImageElement, this.x, this.y, this.width, this.height);
 
     this.condiment.forEach(element => {
-      const img = ASSET_MANAGER.getAsset(element.img)
+      const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
       ctx.drawImage(img, this.x + 45 , this.y + 15);
     });
 
@@ -283,7 +327,7 @@ class FoodTray extends GameObject {
 
   };
 
-  onDnDDrop(e) {
+  onDnDDrop(e: CustomEvent) {
     console.log("dropped");
     console.log(e);
     console.log(e.detail)
@@ -302,9 +346,22 @@ class FoodTray extends GameObject {
 }
 
 class DraggableObject extends GameObject {
-  constructor(game, food, x, y, width, height) {
+  game: GameEngine;
+  food: { name: string, img: string };
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  dnd!: DnDButton;
+  
+  constructor(game: GameEngine, food: { name: string; img: string; x?: number; y?: number; }, x: number, y: number, width: number, height: number) {
     super(game);
-    Object.assign(this, { game, food, x, y, width, height });
+    this.game = game;
+    this.food = food;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
     this.addButton();
   };
 
@@ -320,7 +377,7 @@ class DraggableObject extends GameObject {
 
   update() {};
 
-  draw(ctx) {
-    ctx.drawImage(ASSET_MANAGER.getAsset(this.food.img), this.x, this.y, this.width, this.height);
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.drawImage(ASSET_MANAGER.getAsset(this.food.img) as HTMLImageElement, this.x, this.y, this.width, this.height);
   };
 }

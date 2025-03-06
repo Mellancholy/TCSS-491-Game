@@ -2,7 +2,7 @@ import GameObject from "src/gameObject.js";
 import { Button } from "../button.js";
 import GameEngine from "../gameEngine.js";
 import GameState from "src/gameState.js";
-import Ingredient, { CONDIMENTS, WRAP } from "src/scenes/counter/food.js";
+import Ingredient, { CONDIMENTS, Order, WRAP } from "src/scenes/counter/food.js";
 import { ASSET_MANAGER } from "src/main.js";
 
 export default class HUD extends GameObject {
@@ -12,6 +12,7 @@ export default class HUD extends GameObject {
     riceButton: Button;
     rollButton: Button;
     sidesButton: Button;
+    trashButton: Button;
     orderDisplay: OrderDisplay;
 
     constructor(game: GameEngine) {
@@ -23,11 +24,13 @@ export default class HUD extends GameObject {
         this.riceButton = Button.imageButton(game, 318, 694, "./assets/button/Rice_Button.JPG", () => this.loadSceneCallback("rice"));
         this.rollButton = Button.imageButton(game, 534, 694, "./assets/button/Roll_Button.JPG", () => this.loadSceneCallback("roll"));
         this.sidesButton = Button.imageButton(game, 750, 694, "./assets/button/Side_Button.JPG", () => this.loadSceneCallback("sides"));
+        this.trashButton = Button.imageButtonWH(game, 940, 694, 64, 64, "./assets/button/trash.png", this.trashFood);
 
         game.addEntity(this.orderButton);
         game.addEntity(this.riceButton);
         game.addEntity(this.rollButton);
         game.addEntity(this.sidesButton);
+        game.addEntity(this.trashButton);
 
         this.orderDisplay = new OrderDisplay(game);
         game.addEntity(this.orderDisplay);
@@ -48,12 +51,14 @@ export default class HUD extends GameObject {
                 this.riceButton.hidden = false;
                 this.rollButton.hidden = false;
                 this.sidesButton.hidden = false;
+                this.trashButton.hidden = false;
                 break;
             case "hidden":
                 this.orderButton.hidden = true;
                 this.riceButton.hidden = true;
                 this.rollButton.hidden = true;
                 this.sidesButton.hidden = true;
+                this.trashButton.hidden = true;
                 break;
             default:
                 console.warn(`Unknown state: ${this.state}`);
@@ -67,6 +72,12 @@ export default class HUD extends GameObject {
 
     setState(state: string) {
         this.state = state;
+    }
+
+    trashFood() {
+        console.log("trash food");
+        let newOrder = new Order([], [], null);
+        GameState.getInstance().setState('orderWorkingOn', newOrder);
     }
 }
 

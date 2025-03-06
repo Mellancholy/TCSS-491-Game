@@ -19,11 +19,18 @@ export class Button extends GameObject {
         this.y = y;
         this.onClick = onClick;
         this.hidden = false;
+        this.zIndex = 90;
     }
 
     static imageButton(game: GameEngine, x: number, y: number, image: string, onClick: () => void) {
         let button = new Button(game, x, y, onClick);
         Object.assign(button, { image: ASSET_MANAGER.getAsset(image) });
+        return button;
+    }
+
+    static imageButtonWH(game: GameEngine, x: number, y: number, width: number, height: number, image: string, onClick: () => void) {
+        let button = new Button(game, x, y, onClick);
+        Object.assign(button, { width, height, image: ASSET_MANAGER.getAsset(image) });
         return button;
     }
 
@@ -78,7 +85,13 @@ export class Button extends GameObject {
     draw(ctx: CanvasRenderingContext2D) {
         if (this.hidden) return;
 
-        if (this.image) {
+        if (this.image && this.width && this.height) {
+            if (this.game.mouse && this.game.mouse.x > this.x && this.game.mouse.x < this.x + this.width &&
+                this.game.mouse.y > this.y && this.game.mouse.y < this.y + this.height) {
+                this.game.canvas.style.cursor = "pointer";
+            }
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        } else if (this.image) {
             if (this.game.mouse && this.game.mouse.x > this.x && this.game.mouse.x < this.x + this.image.width &&
                 this.game.mouse.y > this.y && this.game.mouse.y < this.y + this.image.height) {
                 this.game.canvas.style.cursor = "pointer";

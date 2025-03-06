@@ -106,6 +106,8 @@ ASSET_MANAGER.queueDownload("./assets/sides/MisoSoup.png");
 ASSET_MANAGER.queueDownload("./assets/sides/Karaage.png");
 ASSET_MANAGER.queueDownload("./assets/sides/chicken.png");
 
+ASSET_MANAGER.queueDownload("./assets/button/trash.png");
+
 // SOUNDS
 ASSET_MANAGER.queueDownload('./assets/sounds/jingle.mp3');
 ASSET_MANAGER.queueDownload('./assets/sounds/doorchime.mp3');

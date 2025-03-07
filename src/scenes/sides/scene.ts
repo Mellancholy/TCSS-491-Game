@@ -25,7 +25,7 @@ export class SidesAssemblyScene extends Scene {
 
   initalizeScene() {
     this.addGameObject(new Background(this.game));
-    this.addGameObject(new FoodTray(this.game, 200, 300, 600, 370));
+    this.addGameObject(new FoodTray(this.game, 225, 325, 175, 100));
 
     this.microwave = new Microwave(this.game, 200, 0, 600, 300);
     this.addGameObject(this.microwave);
@@ -263,13 +263,20 @@ class FoodTray extends GameObject {
     this.y = y;
     this.width = width;
     this.height = height;
+
+    this.sideDishX = x;
+    this.sideDishY = y;
+    this.sideDishWidth = width;
+    this.sideDishHeight = height;
+
     this.condiment = [];
   };
 
   update() {};
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.drawImage(ASSET_MANAGER.getAsset("./assets/sides/Tray.png") as HTMLImageElement, this.x, this.y, this.width, this.height);
+    const sprite = ASSET_MANAGER.getAsset("./assets/sides/Tray.png") as HTMLImageElement;
+    ctx.drawImage(sprite, -125, -50, sprite.width + 150, sprite.height + 150);
 
     this.condiment.forEach(element => {
       const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
@@ -284,29 +291,24 @@ class FoodTray extends GameObject {
 
 
     ctx.strokeRect(
-        this.x,
-        this.y,
-        this.width / 4,
-        this.height / 4
+        this.sideDishX,
+        this.sideDishY,
+        this.sideDishWidth,
+        this.sideDishHeight
     );
 
     ctx.restore();
     let currentOrder = GameState.getInstance().getState('orderWorkingOn');
     if (currentOrder && currentOrder?.ingredients.length > 0) {
-      ctx.fillStyle = "green";
-                const cutWidth = (this.width - 50) / 6
-                for(let i = 0; i < 6; i++) {
-                    ctx.fillRect(this.x - 5 + ((cutWidth + 5) * i), this.y + 100, cutWidth, 75); 
-                }
+      const sprite = ASSET_MANAGER.getAsset("./assets/objects/Roll_Cut.png") as HTMLImageElement;
+      ctx.drawImage(sprite, 0, 100);
     }
 
   };
 
   onDnDDrop(e: CustomEvent) {
-    console.log("dropped");
-    console.log(e);
-    console.log(e.detail)
-    if(e.detail.x > this.x && e.detail.x < this.x + (this.width / 4) && e.detail.y > this.y && e.detail.y < this.y + this.height/4) {
+
+    if(e.detail.x > this.sideDishX && e.detail.x < this.sideDishX + this.sideDishWidth && e.detail.y > this.sideDishY && e.detail.y < this.sideDishY + this.sideDishHeight) {
       console.log("dropped in food tray");
       this.condiment.push(e.detail.button.food);
       console.log(e.detail.button.food);

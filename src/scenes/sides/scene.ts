@@ -1,6 +1,6 @@
 import Scene from '../../scene.js';
 import GameObject from '../../gameObject.js';
-import { ASSET_MANAGER } from "../../main.js";
+import { ASSET_MANAGER, sceneManage } from "../../main.js";
 import { Button, DnDButton } from "../../button.js";
 import GameState from 'src/gameState.js';
 import Ingredient from "src/scenes/counter/food.js";
@@ -13,6 +13,7 @@ export class SidesAssemblyScene extends Scene {
   y: number;
   foodMessage: string | null;
   microwave: undefined | Microwave;
+  completeButton: Button | undefined;
 
   constructor(game: GameEngine, x: number, y: number) {
     super(game);
@@ -54,6 +55,13 @@ export class SidesAssemblyScene extends Scene {
     condiments.forEach(item => {
       this.addGameObject(new DraggableObject(this.game, item, item.x, item.y, 80, 80));
     })
+
+    this.completeButton = Button.rectButton(this.game, 800, 500, 200, 50, () => {
+      let orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
+      orderWorkingOn.completed = true;
+      sceneManage.loadScene("order");
+    }, "Completed");
+    this.addGameObject(this.completeButton);
   
   }
 }

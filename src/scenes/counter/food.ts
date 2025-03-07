@@ -2,11 +2,13 @@ export class Order {
     ingredients: Ingredient[];
     sides: Side[];
     condiment: Condiment | null;
+    completed: boolean;
     
     constructor(ingredients: Ingredient[], sides: Side[], condiment: Condiment | null) {
         this.ingredients = ingredients;
         this.sides = sides;
         this.condiment = condiment;
+        this.completed = false;
     }
 }
 

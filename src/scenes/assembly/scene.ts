@@ -11,6 +11,7 @@ export class RiceAssemblyScene extends Scene {
     game: GameEngine;
     foodBottom: FoodBottom | undefined;
     rollButton: Button | undefined;
+
     
     constructor(game: GameEngine) {
         super(game);

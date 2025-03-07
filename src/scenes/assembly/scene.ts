@@ -36,10 +36,14 @@ export class RiceAssemblyScene extends Scene {
             curFood++;
         }
 
-        this.rollButton = Button.rectButton(this.game, 600, 320, 100, 50, () => {
+        this.rollButton = Button.imageButton(this.game, 750, 475, "./assets/button/Roll_Button2.png", () => {
             console.log("Clicked roll button");
             this.roll();
-        }, "Roll") 
+        });
+        // this.rollButton = Button.rectButton(this.game, 0, 0, 300, 300, () => {
+        //     console.log("Clicked roll button");
+        //     this.roll();
+        // }, "ROLL");
         this.rollButton.hidden = true;
         this.addGameObject(this.rollButton);
         
@@ -207,9 +211,9 @@ class FoodBottom extends GameObject {
             currentOrder.ingredients.filter(element => element.name != 'rice' && element.name != 'nori').forEach(element => {
                 const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
                 const xOffset = 50;
-                const spacing = (this.width - xOffset - 50) / 6;
-                for(let i = 0; i < 6; i++) {
-                    ctx.drawImage(img, this.x + (i * spacing) + xOffset, this.y + 100, img.width * 2, img.height * 2);
+                const spacing = (this.width - xOffset - 130) / 4;
+                for(let i = 0; i < 4; i++) {
+                    ctx.drawImage(img, this.x + (i * spacing) + xOffset, this.y + 75, img.width, img.height);
                 } 
             });
         }

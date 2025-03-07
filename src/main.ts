@@ -30,6 +30,7 @@ ASSET_MANAGER.queueDownload("./assets/objects/Nori_Source.png");
 // buttons
 ASSET_MANAGER.queueDownload("./assets/button/Rice_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Roll_Button.JPG");
+ASSET_MANAGER.queueDownload("./assets/button/Roll_Button2.png");
 ASSET_MANAGER.queueDownload("./assets/button/Side_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Order_Button.JPG");
 ASSET_MANAGER.queueDownload("./assets/button/Start_Button.png");

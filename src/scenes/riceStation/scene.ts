@@ -84,6 +84,14 @@ class RiceCooker extends GameObject {
             ctx.strokeStyle = "red";
             //ctx.strokeRect(this.x, this.y, this.width, this.height);
         }
+        ctx.fillStyle = "red";
+        ctx.font = "36px Arial";
+        ctx.textAlign = "center";
+        let amountString = this.amount.toString();
+        if(this.amount == 0) {
+            amountString = "Needs Refill!";
+        }
+        ctx.fillText(amountString, this.x + (this.spritesheet.width / 2), this.y + 200);
     };
 
     beginMinigame() {
@@ -99,7 +107,12 @@ class RiceCooker extends GameObject {
             this.game.getSceneManager().loadScene("wash");
             console.log("minigame 3")
         }
-    }   
+    }
+
+    deload(): void {
+        super.deload();
+        this.game.addSharedData("riceCooker", {amount: this.amount});
+    }
 }
 
 class Nori extends GameObject {

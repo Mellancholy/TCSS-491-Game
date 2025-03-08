@@ -22,7 +22,7 @@ export default class ProgressBar extends GameObject{
     update() {
         if(this.progress >= 1) {
             this.game.win = true
-            const currentData = this.game.addSharedData("riceCooker");
+            const currentData = this.game.getSharedDataByKey("riceCooker");
             const newAmount = currentData ? currentData.amount + 5 : 5;
             this.game.addSharedData("riceCooker", {amount: newAmount});
             setTimeout(() => {

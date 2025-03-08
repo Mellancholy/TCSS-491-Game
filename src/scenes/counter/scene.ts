@@ -4,6 +4,7 @@ import GameEngine from 'src/gameEngine.js';
 import Scene from 'src/scene.js';
 import { ASSET_MANAGER } from "src/main.js";
 import GameObject from "src/gameObject.js";
+import GameState from "src/gameState.js";
 
 export class CounterScene extends Scene {
     game: GameEngine;
@@ -24,8 +25,11 @@ export class CounterScene extends Scene {
             this.addGameObject(new Customer(this.game, 500, 25));
         }
         this.addGameObject(new Background(this.game, "./assets/backgrounds/Order_Foreground.png")); 
-        const customer = this.game.getPersistentGameObject("customer")
-        if (customer && customer.order.completed) {
+        const customer = this.game.getPersistentGameObject("customer") as Customer;
+        const orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
+        console.log(orderWorkingOn)
+        if (orderWorkingOn && orderWorkingOn.completed) {
+            console.log("Adding rating handler")
             this.addGameObject(new RatingHandler(this.game, 500, 25, customer));
         }
     
@@ -37,7 +41,7 @@ class RatingHandler extends GameObject {
     x: number;
     y: number;
     rating: number;
-    customer: Customer | undefined;
+    customer: Customer;
 
     constructor(game: GameEngine, x: number, y: number, customer: Customer) {
         super(game, 'rating');
@@ -49,12 +53,14 @@ class RatingHandler extends GameObject {
     }
 
     update(): void {
-        if (this.customer && this.customer.order.completed) {
-            
-        }
+        //Call this when the customer has rated to reset the order
+        //this.state.orderWorkingOn = new Order([], [], null);
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
-        
+        ctx.font = "72px Arial";
+        ctx.fillStyle = "red";
+        ctx.textAlign = "center";
+        ctx.fillText("...", this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y + 60);
     }
 }

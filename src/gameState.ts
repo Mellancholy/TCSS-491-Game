@@ -78,6 +78,6 @@ export default class GameState {
         }
         game.removeSharedDataByKey("bambooMat");
         game.removeSharedDataByKey("foodBottom");
-        this.state.orderWorkingOn = new Order([], [], null);
+        //this.state.orderWorkingOn = new Order([], [], null);
     }
 }

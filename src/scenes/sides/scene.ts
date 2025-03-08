@@ -60,8 +60,8 @@ export class SidesAssemblyScene extends Scene {
     })
 
     this.completeButton = Button.rectButton(this.game, 800, 500, 200, 50, () => {
-      let orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
-      orderWorkingOn.completed = true;
+      const orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
+      orderWorkingOn!.completed = true;
       GameState.getInstance().resetStationCompletion(this.game);
       sceneManage.loadScene("order");
     }, "Completed");

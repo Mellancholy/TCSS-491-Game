@@ -4,6 +4,7 @@ import GameEngine from "../gameEngine.js";
 import GameState from "src/gameState.js";
 import Ingredient, { CONDIMENTS, Order, WRAP } from "src/scenes/counter/food.js";
 import { ASSET_MANAGER } from "src/main.js";
+import drawTicket from "./ticket.js";
 
 export default class HUD extends GameObject {
     game: GameEngine;
@@ -144,31 +145,7 @@ class OrderDisplay extends GameObject {
                 if (this.state !== "expanded") return;
                 for (let i = 0; i < orders.length; i++) {
                     const order = orders[i].order;
-                    const orderX = this.x + 10 + 210 * i;
-                    const orderY = this.y + 10;
-                    const length = (WRAP.length + 3 + CONDIMENTS.length + 1) * 40
-                    ctx.fillStyle = "white";
-                    ctx.fillRect(orderX, orderY, 200, length);
-                    ctx.fillStyle = "black";
-                    ctx.strokeRect(orderX, orderY, 200, length);
-                    ctx.font = "20px Arial";
-                    ctx.textAlign = "center";
-                    let yOffset = orderY + 10
-                    let centerX = orderX + ((200 * (i + 1)) / 2)
-                    order.ingredients.forEach((ingredient: Ingredient) => {
-                        if (ingredient.name === "rice" || ingredient.name === "nori") {
-                            ctx.fillText(ingredient.name, centerX, orderY + yOffset);
-                        } else {
-                            const sprite = ASSET_MANAGER.getAsset(ingredient.img) as HTMLImageElement;
-                            ctx.drawImage(sprite, centerX - sprite.width / 2, orderY + yOffset); // Adjust for sprite height
-                            yOffset += sprite.height;
-                        }
-                        yOffset += 30; // Increment placement upwards as index increases
-                    });
-                    order.sides.forEach((side) => {
-                        ctx.fillText(side.name, centerX, 100 + yOffset);
-                        yOffset += 30; // Increment placement upwards as index increases
-                    })
+                    drawTicket(ctx, order, this.x + 10 + (210 * i), this.y + 10);
                 }
                 break;
             case "hidden":

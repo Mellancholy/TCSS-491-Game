@@ -6,6 +6,7 @@ import GameEngine from "src/gameEngine.js";
 import Scene from "src/scene.js";
 import { randomIntRange } from "src/util.js";
 import GameState from "src/gameState.js";
+import drawTicket from "src/hud/ticket.js";
 
 export default class Customer extends GameObject {
     game: GameEngine;
@@ -89,28 +90,7 @@ export default class Customer extends GameObject {
         if (!this.order) return;
         const orderX = 500
         const orderY = 100
-        const length = (WRAP.length + 3 + CONDIMENTS.length + 1) * 40
-        ctx.fillStyle = "white";
-        ctx.fillRect(orderX, orderY, 200, length);
-        ctx.fillStyle = "black";
-        ctx.strokeRect(orderX, orderY, 200, length);
-        ctx.font = "20px Arial";
-        ctx.textAlign = "center";
-        let yOffset = orderY
-        this.order.ingredients.forEach((ingredient) => {
-            if (ingredient.name === "rice" || ingredient.name === "nori") {
-                ctx.fillText(ingredient.name, 600, orderY + yOffset);
-            } else {
-                const sprite = ASSET_MANAGER.getAsset(ingredient.img) as HTMLImageElement;
-                ctx.drawImage(sprite, 600 - sprite.width / 2, orderY + yOffset); // Adjust for sprite height
-                yOffset += sprite.height;
-            }
-            yOffset += 30; // Increment placement upwards as index increases
-        });
-        this.order.sides.forEach((side) => {
-            ctx.fillText(side.name, 600, 100 + yOffset);
-            yOffset += 30; // Increment placement upwards as index increases
-        })
+        drawTicket(ctx, this.order, orderX, orderY);
     }
 
     async walkTo(x: number, y: number) {

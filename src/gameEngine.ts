@@ -272,7 +272,7 @@ export default class GameEngine {
         return this.sharedData[key];
     }
     addSharedData(key: string, value: object) {
-        this.sharedData[key] = {...value};
+        this.sharedData[key] = {...this.sharedData[key], ...value};
     }
 
     removeSharedDataByKey(key: string) {

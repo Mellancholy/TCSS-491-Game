@@ -1,5 +1,5 @@
 import { ASSET_MANAGER } from "src/main.js";
-import  Background  from "src/background.js";
+import Background from "src/background.js";
 import Scene from "src/scene.js";
 import GameObject from "src/gameObject.js";
 import { DnDButton } from "src/button.js";
@@ -7,26 +7,26 @@ import Ingredient, { NORI, Order, RICE, RICE_CARRY } from "src/scenes/counter/fo
 import GameEngine from "src/gameEngine";
 import GameState from "src/gameState";
 
-export class RiceStationScene extends Scene { 
+export class RiceStationScene extends Scene {
     game: GameEngine;
-    
+
     constructor(game: GameEngine) {
-            super(game);
-            this.game = game;
-        };
+        super(game);
+        this.game = game;
+    };
 
     initalizeScene() {
-            super.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
+        super.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
 
-            super.addGameObject(new BambooMat(this.game, 450, 375));
+        super.addGameObject(new BambooMat(this.game, 450, 375));
 
-            const riceCooker = new RiceCooker(this.game, 10, 10, 430, 430)
-            super.addGameObject(riceCooker);
+        const riceCooker = new RiceCooker(this.game, 10, 10, 430, 430)
+        super.addGameObject(riceCooker);
 
-            const nori = new Nori(this.game, 500, 80, 450, 300)
-            super.addGameObject(nori);
+        const nori = new Nori(this.game, 500, 80, 450, 300)
+        super.addGameObject(nori);
 
-        }
+    }
 }
 
 class RiceCooker extends GameObject {
@@ -39,7 +39,7 @@ class RiceCooker extends GameObject {
     cookerClicked: boolean;
     spritesheet: HTMLImageElement;
     dnd!: DnDButton;
-    
+
     constructor(game: GameEngine, x: number, y: number, width: number, height: number) {
         super(game, 'riceCooker');
         this.game = game;
@@ -63,12 +63,12 @@ class RiceCooker extends GameObject {
         this.dnd.height = this.height;
         this.dnd.food = RICE;
         this.dnd.id = 'ricesourcebuttons';
-        if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
+        if (this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
 
     update() {
         if (this.cookerClicked) {
-            
+
             if (this.amount == 0) {
                 this.beginMinigame();
                 this.amount = 5;
@@ -80,7 +80,7 @@ class RiceCooker extends GameObject {
 
     draw(ctx: CanvasRenderingContext2D) {
         ctx.drawImage(this.spritesheet, this.x, this.y);
-        if(this.game.options.debugging) {
+        if (this.game.options.debugging) {
             ctx.strokeStyle = "red";
             //ctx.strokeRect(this.x, this.y, this.width, this.height);
         }
@@ -88,7 +88,7 @@ class RiceCooker extends GameObject {
         ctx.font = "36px Arial";
         ctx.textAlign = "center";
         let amountString = this.amount.toString();
-        if(this.amount == 0) {
+        if (this.amount == 0) {
             amountString = "Needs Refill!";
         }
         ctx.fillText(amountString, this.x + (this.spritesheet.width / 2), this.y + 200);
@@ -111,7 +111,7 @@ class RiceCooker extends GameObject {
 
     deload(): void {
         super.deload();
-        this.game.addSharedData("riceCooker", {amount: this.amount});
+        this.game.addSharedData("riceCooker", { amount: this.amount });
     }
 }
 
@@ -136,11 +136,11 @@ class Nori extends GameObject {
     };
 
     addButton() {
-        this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, NORI.img, () => {});
+        this.dnd = DnDButton.transparentImageButton(this.game, this.x, this.y, this.width, this.height, NORI.img, () => { });
         this.dnd.width = this.width;
         this.dnd.height = this.height;
         this.dnd.food = NORI;
-        if(this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
+        if (this.game.currentScene) this.game.currentScene.addGameObject(this.dnd);
     }
 
     update() {
@@ -158,29 +158,38 @@ class BambooMat extends GameObject {
     x: number;
     y: number;
     spritesheet: HTMLImageElement;
-    sliding: boolean;;
+    sliding: boolean;
+    disabled: boolean;
 
     constructor(game: GameEngine, x: number, y: number) {
-        super(game);
+        super(game, "bambooMat");
         this.game = game;
         this.x = x;
         this.y = y
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png") as HTMLImageElement;
-        this.sliding = false;
+        const data = this.game.getSharedDataByKeyAndDefault("bambooMat",
+            {
+                sliding: false, disabled: false
+            }
+        )
+        this.sliding = data.sliding;
+        this.disabled = data.disabled;
     };
 
     update() {
-        
+
     };
 
     draw(ctx: CanvasRenderingContext2D) {
+        if(this.disabled) return;
+
         ctx.drawImage(this.spritesheet, this.x, this.y);
         const centerX = this.x + (this.spritesheet.width / 2)
         const centerY = this.y + (this.spritesheet.height / 2)
 
         // Draw the ingredients on top of the bamboo mat
         const orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
-        if(!orderWorkingOn) return;
+        if (!orderWorkingOn) return;
         orderWorkingOn.ingredients.forEach(element => {
             const img = ASSET_MANAGER.getAsset(element.img) as HTMLImageElement;
             ctx.drawImage(img, this.x, this.y);
@@ -192,25 +201,29 @@ class BambooMat extends GameObject {
             setTimeout(() => {
                 setInterval(() => {
                     this.x += 10
-                    if(this.x > 1024) {
+                    if (this.x > 1024) {
                         this.removeFromWorld = true
+                        this.disabled = true
+                        this.game.addSharedData("bambooMat", { disabled: true });
                     }
                 }, 10)
             }, 1000)
             this.sliding = true
-            return;    
+            this.game.addSharedData("bambooMat", { sliding: true });
+            return;
         }
     };
 
     onDnDDrop(e: CustomEvent) {
+        if(this.disabled || this.sliding) return;
         // console.log(e);
         // console.log(e.detail)
         // console.log(e.detail.y);
-        if(e.detail.x >= this.x && e.detail.x <= this.x + this.spritesheet.width &&
+        if (e.detail.x >= this.x && e.detail.x <= this.x + this.spritesheet.width &&
             e.detail.y >= this.y && e.detail.y <= this.y + this.spritesheet.height) {
             console.log("dropped in food bottom");
             let orderWorkingOn = GameState.getInstance().getState('orderWorkingOn')
-            if(!orderWorkingOn) {
+            if (!orderWorkingOn) {
                 let newOrder = new Order([], [], null);
                 orderWorkingOn = GameState.getInstance().setState('orderWorkingOn', newOrder);
             }

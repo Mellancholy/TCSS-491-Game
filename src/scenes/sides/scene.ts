@@ -25,7 +25,10 @@ export class SidesAssemblyScene extends Scene {
 
   initalizeScene() {
     this.addGameObject(new Background(this.game));
-    this.addGameObject(new FoodTray(this.game, 225, 325, 175, 100));
+    const stationsComplete = GameState.getInstance().getState('stationsComplete');
+    if(stationsComplete.roll) {
+      this.addGameObject(new FoodTray(this.game, 225, 325, 175, 100));
+    }    
 
     this.microwave = new Microwave(this.game, 200, 0, 600, 300);
     this.addGameObject(this.microwave);
@@ -59,6 +62,7 @@ export class SidesAssemblyScene extends Scene {
     this.completeButton = Button.rectButton(this.game, 800, 500, 200, 50, () => {
       let orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
       orderWorkingOn.completed = true;
+      GameState.getInstance().resetStationCompletion(this.game);
       sceneManage.loadScene("order");
     }, "Completed");
     this.addGameObject(this.completeButton);

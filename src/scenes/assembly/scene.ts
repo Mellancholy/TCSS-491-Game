@@ -22,8 +22,11 @@ export class RiceAssemblyScene extends Scene {
 
         this.addGameObject(new Background(this.game, "./assets/backgrounds/Station_Background.png"));
         this.addGameObject(new Background(this.game, "./assets/assembly/case.jpg", 0, 150, 1024, 197));
-        this.foodBottom = new FoodBottom(this.game, 227, 375, 570, 300);
-        this.addGameObject(this.foodBottom);
+        const stationsComplete = GameState.getInstance().getState('stationsComplete');
+        if(stationsComplete.rice && !stationsComplete.roll) {
+            this.foodBottom = new FoodBottom(this.game, 227, 375, 570, 300);
+            this.addGameObject(this.foodBottom);
+        }
         const binWidth = 80;
         const binHeight = 80;
         const foods = FILLINGS;
@@ -53,6 +56,7 @@ export class RiceAssemblyScene extends Scene {
         console.log("rolling");
         this.rollButton!.removeFromWorld = true;
         this.foodBottom!.rolled = true;
+        this.game.addSharedData('foodBottom', {rolled: true});
     }
 }
 
@@ -124,7 +128,7 @@ class FoodBottom extends GameObject {
     sliding: boolean;
 
     constructor(game: GameEngine, x: number, y: number, width: number, height: number) {
-        super(game, 'foodbottom');
+        super(game, 'foodBottom');
         this.game = game;
         this.x = x;
         this.y = y;
@@ -135,12 +139,14 @@ class FoodBottom extends GameObject {
         this.cut = false;
         this.sliding = false;
         this.rollx = 0;
+        super.loadSharedData()
     };
 
     update() {
         if(!this.rolled) return;
         if(this.chops >= 15) {
             this.cut = true
+            GameState.getInstance().getState('stationsComplete').roll = true;
             console.log("Cut sushi");
         }
         if(this.game.down) {
@@ -199,7 +205,6 @@ class FoodBottom extends GameObject {
             const bambooMatImg = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png") as HTMLImageElement;
             ctx.drawImage(bambooMatImg, this.x, this.y);
 
-            console.log(currentOrder)
             //Draw rice and nori
             currentOrder.ingredients.filter(element => element.name === 'rice' || element.name === 'nori').forEach(element => {
                 if (element.name == 'rice' || element.name == 'nori') {

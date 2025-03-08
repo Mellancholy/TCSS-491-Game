@@ -1,3 +1,4 @@
+import GameEngine from "./gameEngine";
 import GameObject from "./gameObject";
 import Customer from "./scenes/counter/customer";
 import { Order } from "./scenes/counter/food";
@@ -12,7 +13,12 @@ type GameStateType = {
     timeSinceDayStart: number;
     orders: OrderState[]
     orderWorkingOn: Order | null
-    currentDraggedItem: GameObject | null
+    currentDraggedItem: GameObject | null,
+    stationsComplete: {
+        rice: boolean,
+        roll: boolean,
+        sides: boolean,
+    }
 };
 
 const DEFAULT_GAME_STATE: GameStateType = {
@@ -21,7 +27,12 @@ const DEFAULT_GAME_STATE: GameStateType = {
     timeSinceDayStart: 0,
     orders: [],
     orderWorkingOn: null,
-    currentDraggedItem: null
+    currentDraggedItem: null,
+    stationsComplete: {
+        rice: false,
+        roll: false,
+        sides: false,
+    }
 };
 
 export default class GameState {
@@ -59,5 +70,14 @@ export default class GameState {
 
     public completeOrder(order: Order): void {
         this.state.orders = this.state.orders.filter(o => o.order !== order);
+    }
+
+    public resetStationCompletion(game: GameEngine): void {
+        for (const station in this.state.stationsComplete as { [key in keyof typeof this.state.stationsComplete]: boolean }) {
+            this.state.stationsComplete[station as keyof typeof this.state.stationsComplete] = false;
+        }
+        game.removeSharedDataByKey("bambooMat");
+        game.removeSharedDataByKey("foodBottom");
+        this.state.orderWorkingOn = new Order([], [], null);
     }
 }

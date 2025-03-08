@@ -167,17 +167,13 @@ class BambooMat extends GameObject {
         this.x = x;
         this.y = y
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/objects/BambooMat.png") as HTMLImageElement;
-        const data = this.game.getSharedDataByKeyAndDefault("bambooMat",
-            {
-                sliding: false, disabled: false
-            }
-        )
-        this.sliding = data.sliding;
-        this.disabled = data.disabled;
+        this.sliding = false;
+        this.disabled = false;
+        super.loadSharedData();
     };
 
     update() {
-
+        console.log(this)
     };
 
     draw(ctx: CanvasRenderingContext2D) {
@@ -199,17 +195,19 @@ class BambooMat extends GameObject {
         if (this.sliding) return;
         if (orderWorkingOn.ingredients.length == 2) {
             setTimeout(() => {
-                setInterval(() => {
+                let interval = setInterval(() => {
                     this.x += 10
                     if (this.x > 1024) {
                         this.removeFromWorld = true
                         this.disabled = true
                         this.game.addSharedData("bambooMat", { disabled: true });
+                        clearInterval(interval)
                     }
                 }, 10)
             }, 1000)
             this.sliding = true
             this.game.addSharedData("bambooMat", { sliding: true });
+            GameState.getInstance().getState('stationsComplete').rice = true;
             return;
         }
     };

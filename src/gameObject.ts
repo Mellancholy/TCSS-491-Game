@@ -34,7 +34,7 @@ export default class GameObject {
         for (const key in data) {
             this[key] = data[key];
         }
-        this.game.removeSharedDataByKey(this.id);
+        //this.game.removeSharedDataByKey(this.id);
     }
 
     update() {

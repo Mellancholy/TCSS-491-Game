@@ -59,8 +59,29 @@ class RatingHandler extends GameObject {
 
     draw(ctx: CanvasRenderingContext2D): void {
         ctx.font = "72px Arial";
-        ctx.fillStyle = "red";
+        if (this.orderMatches()) {
+            ctx.fillStyle = "green";
+        } else {
+            ctx.fillStyle = "red";
+        }
         ctx.textAlign = "center";
         ctx.fillText("...", this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y + 60);
+    }
+
+    orderMatches() {
+        let orderMade = GameState.getInstance().getState('orderWorkingOn')?.ingredients;
+        let ordered = this.customer.order?.ingredients;
+        if (orderMade?.length != ordered?.length) {
+            return false;
+        } else {
+            if (orderMade && ordered) {
+                for (let i = 0; i < orderMade.length; i++) {
+                    if (orderMade[i].name != ordered[i].name) {
+                        return false
+                    }
+                }
+                return true;
+            }
+        }
     }
 }

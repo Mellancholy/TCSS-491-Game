@@ -46,7 +46,7 @@ export class Button extends GameObject {
 
         dnd.draw = function (ctx) {
             
-            ctx.fillStyle = "pink";
+            ctx.fillStyle = "lightgrey";
             ctx.fillRect(this.x, this.y, this.width, this.height);
 
 

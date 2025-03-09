@@ -111,10 +111,10 @@ class Microwave extends GameObject {
         this.width = width;
         this.height = height;
         this.recipes = [
-            { name: "Miso Soup", ingredients: ["miso paste", "tofu", "green onions"], img: "./assets/sides/MisoSoup.png" },
-            { name: "Edamame", ingredients: ["edamame"], img: "./assets/sides/cookedEdamame.png" },
-            { name: "Gyoza", ingredients: ["green onions", "chicken"], img: "./assets/sides/Gyoza.png" },
-            { name: "Karaage", ingredients: ["chicken"], img: "./assets/sides/Karaage.png" }
+            { name: "Miso Soup", ingredients: ["Miso Paste", "Tofu", "Green Onions"], img: "./assets/sides/MisoSoup.png" },
+            { name: "Edamame", ingredients: ["Edamame"], img: "./assets/sides/cookedEdamame.png" },
+            { name: "Gyoza", ingredients: ["Green Onions", "Chicken"], img: "./assets/sides/Gyoza.png" },
+            { name: "Karaage", ingredients: ["Chicken"], img: "./assets/sides/Karaage.png" }
         ];
 
         this.cookButton = null;
@@ -133,11 +133,11 @@ class Microwave extends GameObject {
         this.ingredientButtons = [];
 
         const ingredientList = [
-            { name: "miso paste", img: "./assets/sides/MisoBin.png" },
-            { name: "edamame", img: "./assets/sides/edamame.png" },
-            { name: "tofu", img: "./assets/sides/Tofu.png" },
-            { name: "green onions", img: "./assets/sides/greenonions.png" },
-            { name: "chicken", img: "./assets/sides/chicken.png" }
+            { name: "Miso Paste", img: "./assets/sides/MisoBin.png" },
+            { name: "Edamame", img: "./assets/sides/edamame.png" },
+            { name: "Tofu", img: "./assets/sides/Tofu.png" },
+            { name: "Green Onions", img: "./assets/sides/greenonions.png" },
+            { name: "Chicken", img: "./assets/sides/chicken.png" }
         ];
 
         for (let i = 0; i < ingredientList.length; i++) {

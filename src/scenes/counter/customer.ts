@@ -174,8 +174,8 @@ export default class Customer extends GameObject {
         }
 
         const numWrap = randomIntRange(2, WRAP.length);
-        const numIngredients = randomIntRange(1, 3);
-        const numSides = randomIntRange(0, 1);
+        const numIngredients = randomIntRange(1, 4);
+        const numSides = randomIntRange(0, 2);
 
         const selectedWraps = getRandomElements(WRAP, numWrap);
         const selectedIngredients = getRandomElements(FILLINGS, numIngredients);

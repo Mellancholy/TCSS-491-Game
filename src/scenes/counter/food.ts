@@ -1,10 +1,13 @@
 export class Order {
+    id: number;
+    static idCounter = 1;
     ingredients: Ingredient[];
     sides: Side[];
     condiment: Condiment | null;
     completed: boolean;
     
     constructor(ingredients: Ingredient[], sides: Side[], condiment: Condiment | null) {
+        this.id = Order.idCounter++;
         this.ingredients = ingredients;
         this.sides = sides;
         this.condiment = condiment;
@@ -64,24 +67,24 @@ export const FILLINGS = [
 
 // rolls
 export const CALIFORNIA_ROLL = [
-    RICE,
     NORI,
+    RICE,
     CRAB,
     AVOCADO
 ]
 
 export const SPICY_TUNA_ROLL = [
-    RICE,
     NORI,
+    RICE,
     TUNA,
 ]
 
 export const ALASKAN_ROLL = [
-    SALMON,
-    RICE,
     NORI,
+    RICE,
     AVOCADO,
     CRAB,
+    SALMON,
 ]
 
 // sides

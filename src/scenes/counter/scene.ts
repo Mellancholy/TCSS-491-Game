@@ -5,6 +5,7 @@ import Scene from 'src/scene.js';
 import { ASSET_MANAGER } from "src/main.js";
 import GameObject from "src/gameObject.js";
 import GameState from "src/gameState.js";
+import Ingredient, { Side } from "./food.js";
 
 export class CounterScene extends Scene {
     game: GameEngine;
@@ -42,6 +43,7 @@ class RatingHandler extends GameObject {
     y: number;
     rating: number;
     customer: Customer;
+    state: string;
 
     constructor(game: GameEngine, x: number, y: number, customer: Customer) {
         super(game, 'rating');
@@ -50,6 +52,10 @@ class RatingHandler extends GameObject {
         this.y = y;
         this.rating = 0;
         this.customer = customer;
+        this.state = "judging";
+        setTimeout(() => {
+            this.state = "rating";
+        }, 2000);
     }
 
     update(): void {
@@ -59,29 +65,59 @@ class RatingHandler extends GameObject {
 
     draw(ctx: CanvasRenderingContext2D): void {
         ctx.font = "72px Arial";
-        if (this.orderMatches()) {
-            ctx.fillStyle = "green";
-        } else {
-            ctx.fillStyle = "red";
-        }
+        ctx.fillStyle = "black";
         ctx.textAlign = "center";
-        ctx.fillText("...", this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y + 60);
+        
+        switch(this.state) {
+            case "judging":
+                ctx.fillText("...", this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y + 60);
+                break;
+            case "rating":
+                this.rating = this.calculateRating();
+                if(this.rating >= 90) {
+                    ctx.fillStyle = "green";
+                } else if(this.rating >= 70) {
+                    ctx.fillStyle = "yellow";
+                } else {
+                    ctx.fillStyle = "red";
+                }
+                ctx.fillText("%" + this.rating, this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y + 60);
+            default:
+                break;
+        }
     }
 
-    orderMatches() {
-        let orderMade = GameState.getInstance().getState('orderWorkingOn')?.ingredients;
-        let ordered = this.customer.order?.ingredients;
-        if (orderMade?.length != ordered?.length) {
-            return false;
-        } else {
-            if (orderMade && ordered) {
-                for (let i = 0; i < orderMade.length; i++) {
-                    if (orderMade[i].name != ordered[i].name) {
-                        return false
-                    }
-                }
-                return true;
+    calculateRating() {
+        let orderMade = GameState.getInstance().getState('orderWorkingOn')!
+        let ordered = this.customer.order!;
+        const ENTREE_P = 0.8;
+        const SIDE_P = 0.2;
+        let correctIngredients = 0;
+        let totalIngredients = ordered.ingredients.length;
+
+        ordered.ingredients.forEach((ingredient: Ingredient, index: number) => {
+            if (orderMade.ingredients[index] === ingredient) {
+                correctIngredients++;
             }
-        }
+        });
+
+        let percentIngredientsCorrect = (correctIngredients / totalIngredients) || 1;
+        console.log("Ingredient Score: " + percentIngredientsCorrect);
+
+        let correctSides = 0;
+        let totalSides = ordered.sides.length;
+
+        ordered.sides.forEach((side: Side, index: number) => {
+            if (orderMade.sides[index] === side) {
+                correctSides++;
+            }
+        });
+
+        let percentSidesCorrect = (correctSides / totalSides) || 1;
+        console.log("Side Score: " + percentSidesCorrect);
+
+        let percentCorrect = (percentIngredientsCorrect * ENTREE_P) + (percentSidesCorrect * SIDE_P);
+        console.log("Total Score: " + percentCorrect);
+        return percentCorrect * 100;
     }
 }

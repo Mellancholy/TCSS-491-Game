@@ -25,7 +25,7 @@ export default class Ingredient {
     }
 }
 
-class Side {
+export class Side {
     name: string;
     type: Ingredient[];
     

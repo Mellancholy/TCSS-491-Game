@@ -15,6 +15,7 @@ export default class HUD extends GameObject {
     sidesButton: Button;
     trashButton: Button;
     orderDisplay: OrderDisplay;
+    coin_ui: HTMLImageElement;
 
     constructor(game: GameEngine) {
         super(game)
@@ -36,6 +37,9 @@ export default class HUD extends GameObject {
         this.orderDisplay = new OrderDisplay(game);
         game.addEntity(this.orderDisplay);
 
+        this.coin_ui = ASSET_MANAGER.getAsset("./assets/objects/coin_ui.png") as HTMLImageElement;
+
+        this.zIndex = 100
     }
 
     loadSceneCallback(scene: string) {
@@ -68,7 +72,12 @@ export default class HUD extends GameObject {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-
+        if(this.state === "hidden") return;
+        ctx.drawImage(this.coin_ui, 1024-60, -6, 64, 64);
+        ctx.fillStyle = "yellow";
+        ctx.font = "24px Arial";
+        ctx.textAlign = "right"
+        ctx.fillText(GameState.getInstance().getState("money").toFixed(2), 1024-60, 36);
     }
 
     setState(state: string) {

@@ -5,7 +5,8 @@ import Scene from 'src/scene.js';
 import { ASSET_MANAGER } from "src/main.js";
 import GameObject from "src/gameObject.js";
 import GameState from "src/gameState.js";
-import Ingredient, { Side } from "./food.js";
+import Ingredient, { Order, Side } from "./food.js";
+import { randomIntRange } from "src/util.js";
 
 export class CounterScene extends Scene {
     game: GameEngine;
@@ -25,7 +26,9 @@ export class CounterScene extends Scene {
             console.log("Did not find customer");
             this.addGameObject(new Customer(this.game, 500, 25));
         }
-        this.addGameObject(new Background(this.game, "./assets/backgrounds/Order_Foreground.png")); 
+        const foreground = new Background(this.game, "./assets/backgrounds/Order_Foreground.png")
+        foreground.zIndex = 101;
+        this.addGameObject(foreground); 
         const customer = this.game.getPersistentGameObject("customer") as Customer;
         const orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
         console.log(orderWorkingOn)
@@ -34,6 +37,15 @@ export class CounterScene extends Scene {
             this.addGameObject(new RatingHandler(this.game, 500, 25, customer));
         }
     
+    }
+
+    newCustomer() {
+        console.log("New Customer");
+        const customer = new Customer(this.game, 700, 25)
+        customer.addButton();
+        this.addGameObject(customer);
+        GameState.getInstance().setState('orderWorkingOn', new Order([], [], null));
+        GameState.getInstance().setState('orders', []);
     }
 }
 
@@ -55,7 +67,20 @@ class RatingHandler extends GameObject {
         this.state = "judging";
         setTimeout(() => {
             this.state = "rating";
+            this.rating = this.calculateRating();
+            console.log("Rating: " + this.rating);
         }, 2000);
+        setTimeout(() => {
+            this.state = "done";
+            let money = GameState.getInstance().getState('money');
+            const moneyToAdd = (randomIntRange(6, 11) * this.rating);
+            GameState.getInstance().setState('money', money + moneyToAdd);
+            console.log("Money to add: " + moneyToAdd, this.rating);
+            this.game.addEntity(new MoneyAdd(this.game, this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y));
+            this.customer.state = "leaving";
+            let scene = this.game.currentScene as CounterScene;
+            scene.newCustomer();
+        }, 3000);
     }
 
     update(): void {
@@ -73,7 +98,7 @@ class RatingHandler extends GameObject {
                 ctx.fillText("...", this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y + 60);
                 break;
             case "rating":
-                this.rating = this.calculateRating();
+                
                 if(this.rating >= 90) {
                     ctx.fillStyle = "green";
                 } else if(this.rating >= 70) {
@@ -81,7 +106,7 @@ class RatingHandler extends GameObject {
                 } else {
                     ctx.fillStyle = "red";
                 }
-                ctx.fillText("%" + this.rating, this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y + 60);
+                ctx.fillText("%" + (this.rating * 100).toFixed(0), this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y + 60);
             default:
                 break;
         }
@@ -118,6 +143,37 @@ class RatingHandler extends GameObject {
 
         let percentCorrect = (percentIngredientsCorrect * ENTREE_P) + (percentSidesCorrect * SIDE_P);
         console.log("Total Score: " + percentCorrect);
-        return percentCorrect * 100;
+        return percentCorrect;
     }
+}
+
+class MoneyAdd extends GameObject {
+    game: GameEngine;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    sprite: HTMLImageElement;
+
+    constructor(game: GameEngine, x: number, y: number) {
+        super(game, "moneyAdd", true);
+        this.game = game;
+        this.x = x
+        this.y = y;
+        this.width = 50;
+        this.height = 50;
+        this.sprite = ASSET_MANAGER.getAsset("./assets/objects/coin_add.png") as HTMLImageElement;
+        this.zIndex = 100;
+        setTimeout(() => {
+            this.removeFromWorld = true;
+        }, 3000);
+    }
+
+    update(): void {
+        this.y -= 2;
+    }
+    draw(ctx: CanvasRenderingContext2D): void {
+        ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
+    }
+
 }

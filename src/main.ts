@@ -117,6 +117,9 @@ ASSET_MANAGER.queueDownload('./assets/sounds/jingle.mp3');
 ASSET_MANAGER.queueDownload('./assets/sounds/doorchime.mp3');
 ASSET_MANAGER.queueDownload('./assets/sounds/background_music.mp3');
 
+ASSET_MANAGER.queueDownload('./assets/objects/coin_add.png');
+ASSET_MANAGER.queueDownload('./assets/objects/coin_ui.png');
+
 
 ASSET_MANAGER.downloadAll(() => {
     const gameEngine = new GameEngine({

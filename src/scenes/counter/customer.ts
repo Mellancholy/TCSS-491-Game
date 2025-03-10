@@ -39,10 +39,11 @@ export default class Customer extends GameObject {
     };
 
     update() {
+        let npc = this;
         switch (this.state) {
             case "init":
                 this.state = "walking";
-                let npc = this;
+                
                 async function startWalk() {
                     await npc.walkTo(100, 100);
                     npc.state = "waitingToOrder";
@@ -56,6 +57,14 @@ export default class Customer extends GameObject {
             case "order":
                 break;
             case "waitingToEat":
+                break;
+            case "leaving":
+                this.state = "walking";
+                async function startWalk2() {
+                    await npc.walkTo(-400, 100);
+                    npc.removeFromWorld = true;
+                }
+                startWalk2();
                 break;
             default:
                 break;

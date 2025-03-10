@@ -14,6 +14,7 @@ const FOOD_WIDTH = LINE_HEIGHT
 const FOOD_HEIGHT = FOOD_WIDTH
 
 export default function drawTicket(ctx: CanvasRenderingContext2D, order: Order, x: number, y: number) {
+    ctx.font = "20px Arial";
     ctx.fillStyle = "white";
     ctx.fillRect(x, y, WIDTH, HEIGHT);
     ctx.strokeStyle = "black";
@@ -29,7 +30,7 @@ export default function drawTicket(ctx: CanvasRenderingContext2D, order: Order, 
     ctx.strokeRect(x, y + (HEIGHT - SIDE_HEIGHT), WIDTH, SIDE_HEIGHT);
 
     ctx.strokeRect(x, y, WIDTH, HEIGHT);
-    ctx.font = "20px Arial";
+    
     ctx.textAlign = "center";
     let itemY = y + (LINE_HEIGHT * (LINES - 1))
     const centerX = x + (WIDTH / 2)

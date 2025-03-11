@@ -4,6 +4,7 @@ import { Button } from "src/button.js";
 import GameEngine from 'src/gameEngine.js';
 import Scene from 'src/scene.js';
 import { sceneManage } from "src/main.js";
+import GameState from "src/gameState";
 
 export class TitleScene extends Scene {
     game: GameEngine;
@@ -23,6 +24,10 @@ export class TitleScene extends Scene {
         this.startButton = Button.imageButton(this.game, 426, 400, "./assets/button/Start_Button.png", () => {
             ASSET_MANAGER.playBackgroundMusic('./assets/sounds/background_music.mp3');
             sceneManage.loadScene("order");
+            if(!this.game.timer) {
+                throw new Error("Timer is not initialized");
+            }
+            GameState.getInstance().setState("dayStartedAtTime", this.game.timer.gameTime);
         })
         this.addGameObject(this.startButton);
         this.game.getHUD().setState("hidden");

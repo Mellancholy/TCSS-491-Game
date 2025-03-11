@@ -71,13 +71,41 @@ export default class HUD extends GameObject {
         }
     }
 
-    draw(ctx: CanvasRenderingContext2D) {
-        if(this.state === "hidden") return;
+    drawMoney(ctx: CanvasRenderingContext2D) {
         ctx.drawImage(this.coin_ui, 1024-60, -6, 64, 64);
         ctx.fillStyle = "yellow";
         ctx.font = "24px Arial";
         ctx.textAlign = "right"
         ctx.fillText(GameState.getInstance().getState("money").toFixed(2), 1024-60, 36);
+
+    }
+
+    formatTime() {
+        if(!this.game.timer) return;
+        const dayLength = 60 * 3; // 3 minutes
+        const time = dayLength - (this.game.timer.gameTime - GameState.getInstance().getState("dayStartedAtTime"));
+        if(time <= 0) {
+            this.game.sceneManager?.loadScene("gameOver");
+            return "00:00";
+        }
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    drawTimer(ctx: CanvasRenderingContext2D) {
+        if(!this.game.timer) return;
+        ctx.fillStyle = "lightblue";
+        ctx.font = "24px Arial";
+        ctx.textAlign = "right"
+        let time = this.formatTime();
+        ctx.fillText("Timer: " + time, 1024-140, 36);
+    }
+
+    draw(ctx: CanvasRenderingContext2D) {
+        if(this.state === "hidden") return;
+        this.drawMoney(ctx);
+        this.drawTimer(ctx);
     }
 
     setState(state: string) {

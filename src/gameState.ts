@@ -10,7 +10,7 @@ type OrderState = {
 type GameStateType = {
     money: number
     gameTime: number;
-    timeSinceDayStart: number;
+    dayStartedAtTime: number;
     orders: OrderState[]
     orderWorkingOn: Order | null
     currentDraggedItem: GameObject | null,
@@ -24,7 +24,7 @@ type GameStateType = {
 const DEFAULT_GAME_STATE: GameStateType = {
     money: 0,
     gameTime: 0,
-    timeSinceDayStart: 0,
+    dayStartedAtTime: -1,
     orders: [],
     orderWorkingOn: null,
     currentDraggedItem: null,

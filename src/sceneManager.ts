@@ -11,6 +11,7 @@ import { CounterScene } from "./scenes/counter/scene.js";
 import { RiceStationScene } from "./scenes/riceStation/scene.js";
 import { RiceAssemblyScene } from "./scenes/assembly/scene.js";
 import { SidesAssemblyScene } from "./scenes/sides/scene.js";
+import { GameOverScene } from "./scenes/gameOver/scene.js";
 
 export default class SceneManager {
     game: GameEngine;
@@ -34,6 +35,8 @@ export default class SceneManager {
         this.registerScene("burn", new DontBurnRiceScene(this.game, 0, 0));
         this.registerScene("fill", new FillThePotScene(this.game, 0, 0));
         this.registerScene("wash", new WashThatRiceScene(this.game, 0, 0));
+
+        this.registerScene("gameOver", new GameOverScene(this.game));
 
         this.loadScene("title");
         //this.onDeload = null;

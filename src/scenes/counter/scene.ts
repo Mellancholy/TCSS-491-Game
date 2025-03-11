@@ -30,6 +30,7 @@ export class CounterScene extends Scene {
         foreground.zIndex = 101;
         this.addGameObject(foreground); 
         const customer = this.game.getPersistentGameObject("customer") as Customer;
+        customer.init();
         const orderWorkingOn = GameState.getInstance().getState('orderWorkingOn');
         console.log(orderWorkingOn)
         if (orderWorkingOn && orderWorkingOn.completed) {
@@ -46,6 +47,16 @@ export class CounterScene extends Scene {
         this.addGameObject(customer);
         GameState.getInstance().setState('orderWorkingOn', new Order([], [], null));
         GameState.getInstance().setState('orders', []);
+    }
+
+    deload() {
+        super.deload();
+        const customer = this.game.getPersistentGameObject("customer") as Customer;
+        if(customer.state === "order") {
+            console.log("missed ok button")
+            customer.onOkButton();
+        }
+        
     }
 }
 

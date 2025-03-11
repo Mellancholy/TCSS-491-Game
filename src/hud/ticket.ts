@@ -47,7 +47,6 @@ export default function drawTicket(ctx: CanvasRenderingContext2D, order: Order, 
         itemY -= LINE_HEIGHT
     });
     let sideText = order.sides.length === 0 ? "No sides" : "Sides: "
-    console.log(order)
     order.sides.forEach((side) => {
         sideText += side.name + ", "
     })

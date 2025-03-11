@@ -152,27 +152,35 @@ export default class Customer extends GameObject {
         this.order = this.randomOrder();
     }
 
+    init() {
+        if (this.game.currentScene && this.okButton) this.game.currentScene.addGameObject(this.okButton);
+        if (this.state === "order" && this.okButton) {
+            this.okButton.restore()
+            this.okButton.hidden = false;
+            console.log("make not hidden")
+        }
+        console.log(this.game.entities)
+        console.log(this.okButton)
+    }
+
+
+    onOkButton() {
+        if(!this.okButton) return;
+        console.log("OK button pressed");
+        console.log(this.okButton);
+        this.okButton.hidden = true;
+        GameState.getInstance().addOrder(this, this.order!);
+        this.state = "waitingToEat";
+    }
+
     addButton() {
         console.log("Adding button");
         if(!this.game.currentScene) {
             throw new Error("No current scene found");
         }
-        if(!this.game.currentScene.addPersistantGameObject("okButton")) {
-            this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => {
-                if(!this.okButton) return;
-                console.log("OK button pressed");
-                console.log(this.okButton);
-                this.okButton.hidden = true;
-                GameState.getInstance().addOrder(this, this.order!);
-                this.state = "waitingToEat";
-            }, "OK")
-            this.okButton.persistent = true;
-            this.okButton.id = "okButton";
-            this.okButton.hidden = true;
-            this.game.registerPersistentGameObject("okButton", this.okButton)
-            if (this.game.currentScene) this.game.currentScene.addGameObject(this.okButton);
-        }
-        
+        this.okButton = Button.rectButton(this.game, 750, 400, 100, 50, () => this.onOkButton(), "OK")
+        this.okButton.hidden = true;
+        if (this.game.currentScene) this.game.currentScene.addGameObject(this.okButton);
     }
 
     randomOrder() {

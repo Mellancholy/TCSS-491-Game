@@ -7,7 +7,11 @@ export class Order {
     completed: boolean;
     
     constructor(ingredients: Ingredient[], sides: Side[], condiment: Condiment | null) {
-        this.id = Order.idCounter++;
+        if(ingredients.length === 0 && sides.length === 0 && condiment === null) {
+            this.id = -1; // Blank order for player to make
+        } else {
+            this.id = Order.idCounter++;
+        }
         this.ingredients = ingredients;
         this.sides = sides;
         this.condiment = condiment;

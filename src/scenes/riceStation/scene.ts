@@ -173,7 +173,7 @@ class BambooMat extends GameObject {
     };
 
     update() {
-        console.log(this)
+        
     };
 
     draw(ctx: CanvasRenderingContext2D) {

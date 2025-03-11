@@ -15,11 +15,17 @@ const FOOD_HEIGHT = FOOD_WIDTH
 
 export default function drawTicket(ctx: CanvasRenderingContext2D, order: Order, x: number, y: number) {
     ctx.font = "20px Arial";
+    ctx.textAlign = "center";
     ctx.fillStyle = "white";
     ctx.fillRect(x, y, WIDTH, HEIGHT);
     ctx.strokeStyle = "black";
     ctx.fillStyle = "#ff7f7f";
-    ctx.fillText("#" + order.id, x + (WIDTH / 2), y + 25);
+    if(order.id === -1) {
+        ctx.fillText("You made", x + (WIDTH / 2), y + 25);
+    } else {
+        ctx.fillText("#" + order.id, x + (WIDTH / 2), y + 25);
+    }
+    
     ctx.fillStyle = "white";
     for(let i = 2; i < LINES; i++) {
         ctx.fillStyle = ctx.fillStyle === "#ffffff" ? "#ff7f7f" : "#ffffff";
@@ -31,7 +37,7 @@ export default function drawTicket(ctx: CanvasRenderingContext2D, order: Order, 
 
     ctx.strokeRect(x, y, WIDTH, HEIGHT);
     
-    ctx.textAlign = "center";
+    
     let itemY = y + (LINE_HEIGHT * (LINES - 1))
     const centerX = x + (WIDTH / 2)
     ctx.fillStyle = "black";

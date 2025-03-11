@@ -7,6 +7,7 @@ import GameObject from "src/gameObject.js";
 import GameState from "src/gameState.js";
 import Ingredient, { Order, Side } from "./food.js";
 import { randomIntRange } from "src/util.js";
+import drawTicket from "src/hud/ticket.js";
 
 export class CounterScene extends Scene {
     game: GameEngine;
@@ -107,6 +108,8 @@ class RatingHandler extends GameObject {
         switch(this.state) {
             case "judging":
                 ctx.fillText("...", this.customer.x + (this.customer.spritesheet.width / 2), this.customer.y + 60);
+                drawTicket(ctx, this.customer.order!, 500, 100);
+                drawTicket(ctx, GameState.getInstance().getState('orderWorkingOn')!, 750, 100);
                 break;
             case "rating":
                 

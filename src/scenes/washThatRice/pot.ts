@@ -52,10 +52,8 @@ export class PotTop extends GameObject {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        const WIDTH = 750
-        const HEIGHT = 750
-        const sprite = ASSET_MANAGER.getAsset('./assets/pot_top.png')
-        ctx.drawImage(sprite, this.x - (WIDTH / 2), this.y - (HEIGHT / 2), WIDTH, HEIGHT);
+        const sprite = ASSET_MANAGER.getAsset('./assets/pot_top_outside.png') as HTMLImageElement;
+        ctx.drawImage(sprite, this.x - ( sprite.width / 2), this.y - (sprite.height / 2));
     }
 }
 
@@ -76,9 +74,6 @@ export class PotTopOutside extends GameObject {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        const WIDTH = 750
-        const HEIGHT = 750
-        const sprite = ASSET_MANAGER.getAsset('./assets/pot_top_outside.png')
-        ctx.drawImage(sprite, this.x - (WIDTH / 2), this.y - (HEIGHT / 2), WIDTH, HEIGHT);
+        
     }
 }

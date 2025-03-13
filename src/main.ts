@@ -43,10 +43,12 @@ ASSET_MANAGER.queueDownload("./assets/objects/Roll_Cut.png");
 
 //Wash that rice
 ASSET_MANAGER.queueDownload('./assets/hand.png');
-ASSET_MANAGER.queueDownload('./assets/pot_top.png');
 ASSET_MANAGER.queueDownload('./assets/pot_top_outside.png');
 ASSET_MANAGER.queueDownload('./assets/rotate.png');
 ASSET_MANAGER.queueDownload('./assets/checkmark.png');
+ASSET_MANAGER.queueDownload('./assets/objects/inside_rice.png');
+ASSET_MANAGER.queueDownload('./assets/objects/middle_rice.png');
+ASSET_MANAGER.queueDownload('./assets/objects/outside_rice.png');
 
 // fill the pot
 ASSET_MANAGER.queueDownload('./assets/objects/Faucet_Off.png');

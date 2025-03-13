@@ -31,23 +31,23 @@ export class WashThatRiceScene extends Scene {
     initalizeScene() {
         super.addGameObject(new Background(this.game, 0, 0));
 
-        super.addGameObject(new PotTop(this.game, (WIDTH / 2), (HEIGHT / 2)));
+        super.addGameObject(new PotTop(this.game, (WIDTH / 2), (HEIGHT / 2) - 20));
 
         super.addGameObject(new ProgressBar(this.game, 0, HEIGHT - 20, 1024, 20));
+
+        super.addGameObject(new RiceGrain(this.game, 0, (WIDTH / 2), (HEIGHT / 2) - 20));
     
         
-        let amountOfGrains = 2;
-        for(let distance = 0; distance < POT_RADIUS; distance += 20) {
-            for(let angle = 0; angle < Math.PI * 2; angle += Math.PI * 2 / amountOfGrains) {
-                let rice = new RiceGrain(this.game, angle, distance, (WIDTH / 2), (HEIGHT / 2));
-                super.addGameObject(rice);
-            }
-            amountOfGrains += 10;
-        }
-        
-        super.addGameObject(new PotTopOutside(this.game, (WIDTH / 2), (HEIGHT / 2)));
+        // let amountOfGrains = 2;
+        // for(let distance = 0; distance < POT_RADIUS; distance += 20) {
+        //     for(let angle = 0; angle < Math.PI * 2; angle += Math.PI * 2 / amountOfGrains) {
+        //         let rice = new RiceGrain(this.game, angle, distance, (WIDTH / 2), (HEIGHT / 2));
+        //         super.addGameObject(rice);
+        //     }
+        //     amountOfGrains += 10;
+        // }
     
-        super.addGameObject(new RotateIcon(this.game, (WIDTH / 2), (HEIGHT / 2)));
+        super.addGameObject(new RotateIcon(this.game, (WIDTH / 2), (HEIGHT / 2) - 20));
         
         super.addGameObject(new Hand(this.game, 0, 0));
         
@@ -66,7 +66,7 @@ class Background extends GameObject {
         this.game = game;
         this.x = x;
         this.y = y;
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/backgrounds/Station_Background.png") as HTMLImageElement;
     };
 
     update() {

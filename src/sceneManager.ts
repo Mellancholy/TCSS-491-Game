@@ -38,7 +38,7 @@ export default class SceneManager {
 
         this.registerScene("gameOver", new GameOverScene(this.game));
 
-        this.loadScene("wash");
+        this.loadScene("title");
         //this.onDeload = null;
     };
 
